@@ -3,7 +3,7 @@ import { OrbitControls } from '@react-three/drei';
 import { motion } from 'framer-motion-3d';
 import * as THREE from 'three';
 import React, { useRef } from 'react';
-
+import '../App.css';
 interface OrbitalDotProps {
     color: string;
     radius: number;
@@ -66,7 +66,7 @@ const OrbitalAnimation: React.FC = () => {
     return (
         <Canvas
             camera={{ position: [10, 10, 20], fov: 60, up: [0, 1, 0] }}
-            className="w-full h-full bg-[#0E0E0E]"
+            className="w-full h-full app-background"
             
         >
             <ambientLight intensity={0.3} />

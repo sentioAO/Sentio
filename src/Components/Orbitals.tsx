@@ -15,15 +15,16 @@ const OrbitalDot: React.FC<OrbitalDotProps> = ({ color, radius, speed, orbitInde
     const meshRef = useRef<THREE.Mesh>(null);
     const lineRef = useRef<THREE.Line>(null);
     console.log('orbitIndex', orbitIndex);
-    
-    const totalAngle = 0.49 * Math.PI * 2; // 70% of a full ellipse
+
+    // Use a full circle instead of an elliptical arc
+    const totalAngle = Math.PI * 2; // Full circle
     const curve = new THREE.EllipseCurve(
         0, 0,
         radius, radius,
-        -Math.PI / 2,  
-        -Math.PI / 2 + totalAngle, 
-        true,          
-        0              
+        -Math.PI / 2,
+        -Math.PI / 2 + totalAngle,
+        true,
+        0
     );
 
     const points: THREE.Vector3[] = [];
@@ -65,7 +66,8 @@ const OrbitalAnimation: React.FC = () => {
     return (
         <Canvas
             camera={{ position: [10, 10, 20], fov: 60, up: [0, 1, 0] }}
-            className="w-full h-full bg-black"
+            className="w-full h-full bg-[#0E0E0E]"
+            
         >
             <ambientLight intensity={0.3} />
             <pointLight position={[10, 10, 10]} />
@@ -78,7 +80,16 @@ const OrbitalAnimation: React.FC = () => {
                 <OrbitalDot color="white" radius={7} speed={0.12} orbitIndex={1} />
             </group>
 
-            <OrbitControls />
+            <OrbitControls
+                enableZoom={false}   // Enable zoom
+                enableRotate={true} // Enable rotation
+                enablePan={false}    // Enable panning
+
+                maxPolarAngle={Math.PI / 2} // Limit vertical rotation
+                minDistance={5}    // Minimum zoom distance
+                maxDistance={100}  // Maximum zoom distance
+            />
+
         </Canvas>
     );
 };

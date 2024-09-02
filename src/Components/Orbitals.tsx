@@ -17,7 +17,7 @@ const OrbitalDot: React.FC<OrbitalDotProps> = ({ color, radius, speed, orbitInde
     console.log('orbitIndex', orbitIndex);
 
     // Use a full circle instead of an elliptical arc
-    const totalAngle = Math.PI * 2; // Full circle
+    const totalAngle = Math.PI*2 ; // Full circle
     const curve = new THREE.EllipseCurve(
         0, 0,
         radius, radius,
@@ -81,7 +81,7 @@ const OrbitalAnimation: React.FC = () => {
             </group>
 
             <OrbitControls
-                enableZoom={false}   // Enable zoom
+                enableZoom={true}   // Enable zoom
                 enableRotate={true} // Enable rotation
                 enablePan={false}    // Enable panning
 

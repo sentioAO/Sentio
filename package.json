@@ -10,11 +10,16 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@lottiefiles/react-lottie-player": "^3.5.4",
     "@react-three/drei": "^9.111.5",
     "@react-three/fiber": "^8.17.6",
     "@types/three": "^0.168.0",
+    "arweave-wallet-kit": "^1.0.4",
+    "core-js": "^3.38.1",
     "framer-motion": "^11.3.31",
     "framer-motion-3d": "^11.3.31",
+    "lottie-react": "^2.4.0",
+    "lottie-web": "^5.12.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.26.1",

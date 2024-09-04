@@ -2,14 +2,16 @@ import { useState } from 'react';
 import "../styles/Waitlist.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBell } from '@fortawesome/free-regular-svg-icons'; // Import regular bell icon
+import BackButton from '../Components/BackButton';
 
 const Waitlist = () => {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
+  const [hasUpdates, setHasUpdates] = useState(true); // To toggle the red notification badge
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setShowConfirmation(true);
   };
@@ -22,23 +24,27 @@ const Waitlist = () => {
 
   const toggleNotifications = () => {
     setShowNotifications(!showNotifications);
+    setHasUpdates(false); // Remove the red badge when notifications are seen
   };
 
   const updates = [
-    { date: "27/08/2024", message: "LaunchPad Kicks Off" },
-    { date: "24/07/2024", message: "Integration with BetterIDEa" },
-    { date: "08/07/2024", message: "Building Phase" },
-    { date: "06/07/2024", message: "Idea Forging" },
+    { date: "21/01/2023", message: "+240 we completed the button components and integrated them into the design." },
+    { date: "22/01/2023", message: "+100 new users joined the waitlist." },
+    { date: "23/01/2023", message: "We finalized the design system for the upcoming launch." },
   ];
 
   return (
     <div className="bg-[#0E0E0E] app-background h-screen w-full flex flex-col justify-center items-center relative">
-      <button onClick={toggleNotifications} className="absolute top-4 right-4 pr-5 text-white p-2 rounded-full">
-        <FontAwesomeIcon icon={faBell} />
+      <BackButton mode='dark' />
+      <button onClick={toggleNotifications} className="absolute top-4 right-4 text-white p-2 rounded-full ">
+        <FontAwesomeIcon icon={faBell} className="text-2xl" />
+        {hasUpdates && (
+          <span className="absolute top-0 right-0 inline-flex items-center justify-center w-3 h-3 text-xs font-bold leading-none text-white bg-red-600 rounded-full"></span>
+        )}
       </button>
-
+      
       {showNotifications && (
-        <div className="notifications bg-[#0E0E0E] text-white p-4 rounded-lg shadow-lg fixed top-16 right-4 w-80 h-auto z-50">
+        <div className="notifications bg-gray-900 text-white p-4 rounded-lg shadow-lg fixed top-16 right-4 w-80 h-auto z-50">
           <h2 className="text-lg font-semibold mb-2">Updates</h2>
           <div className="updates-list">
             {updates.map((update, index) => (
@@ -59,7 +65,7 @@ const Waitlist = () => {
           <h1 className="gradient-text text-5xl md:text-9xl font-light text-center tracking-widest mb-4">
             <span>SAM</span>
           </h1>
-          <h1 className="text-white text-4xl md:text-8xl font-light tracking-widest mb-4" style={{ fontFamily: "'Anton SC',sans-serif" }}>
+          <h1 className="text-white text-4xl md:text-8xl font-light tracking-widest mb-4">
             JOIN OUR WAITLIST
           </h1>
           <p className="text-white text-xl md:text-3xl font-extralight mb-8">

@@ -1,19 +1,48 @@
 import { useState } from 'react';
-import "../styles/Waitlist.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBell } from '@fortawesome/free-regular-svg-icons'; // Import regular bell icon
+import { faBell } from '@fortawesome/free-regular-svg-icons';
 import BackButton from '../Components/BackButton';
+import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';  // Import Toastify components
+import 'react-toastify/dist/ReactToastify.css';          // Import Toastify CSS
+import "../styles/Waitlist.css";
 
 const Waitlist = () => {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
-  const [hasUpdates, setHasUpdates] = useState(true); // To toggle the red notification badge
+  const [hasUpdates, setHasUpdates] = useState(true);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setShowConfirmation(true);
+    try {
+      const response = await axios.post('https://sam-server-xpy0.onrender.com/api/waitlist', { email, name });
+      console.log(response.data);
+      // Show success toast notification
+      toast.success('You have successfully joined the waitlist!', {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+
+      setShowConfirmation(true);
+    } catch {
+      // Show error toast notification
+      toast.error('An error occurred. Please try again.', {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
   };
 
   const handleClose = () => {
@@ -24,7 +53,7 @@ const Waitlist = () => {
 
   const toggleNotifications = () => {
     setShowNotifications(!showNotifications);
-    setHasUpdates(false); // Remove the red badge when notifications are seen
+    setHasUpdates(false);
   };
 
   const updates = [
@@ -36,13 +65,17 @@ const Waitlist = () => {
   return (
     <div className="bg-[#0E0E0E] app-background h-screen w-full flex flex-col justify-center items-center relative">
       <BackButton mode='dark' />
+
+      {/* Toast Container */}
+      <ToastContainer />
+
       <button onClick={toggleNotifications} className="absolute top-4 right-4 text-white p-2 rounded-full ">
         <FontAwesomeIcon icon={faBell} className="text-2xl" />
         {hasUpdates && (
           <span className="absolute top-0 right-0 inline-flex items-center justify-center w-3 h-3 text-xs font-bold leading-none text-white bg-red-600 rounded-full"></span>
         )}
       </button>
-      
+
       {showNotifications && (
         <div className="notifications bg-gray-900 text-white p-4 rounded-lg shadow-lg fixed top-16 right-4 w-80 h-auto z-50">
           <h2 className="text-lg font-semibold mb-2">Updates</h2>

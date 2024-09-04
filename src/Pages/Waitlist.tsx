@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import "../styles/Waitlist.css"
+
 const Waitlist = () => {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
@@ -20,7 +21,10 @@ const Waitlist = () => {
     <div className="bg-[#0E0E0E] app-background h-screen w-full flex flex-col justify-center items-center">
       {!showConfirmation ? (
         <div className="text-center">
-          <h1 className="text-white text-4xl md:text-8xl font-light tracking-widest mb-4" style={{ fontFamily: "'Anton SC',sans-serif" }}>
+          <h1 className="gradient-text text-4xl md:text-8xl font-light text-center tracking-widest mb-4">
+            <span>SAM</span>
+          </h1>
+          <h1 className="text-white text-4xl md:text-8xl font-light tracking-widest mb-4" style={{ fontFamily: "'Anton SC', sans-serif" }}>
             JOIN OUR WAITLIST
           </h1>
           <p className="text-white text-xl md:text-3xl font-extralight mb-8" style={{ fontFamily: "'Roboto'" }}>

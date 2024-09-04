@@ -70,3 +70,18 @@
   text-align: center;
   font-family: 'Anton SC', sans-serif;
 }
+
+.notifications {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.update-item {
+  background: #1a1a1a;
+  padding: 8px;
+  border-radius: 8px;
+}
+
+.update-item p {
+  margin: 0;
+}

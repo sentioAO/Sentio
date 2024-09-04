@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
-import "../styles/Waitlist.css"
+import { useState } from 'react';
+import "../styles/Waitlist.css";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBell } from '@fortawesome/free-regular-svg-icons'; // Import regular bell icon
 
 const Waitlist = () => {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [showConfirmation, setShowConfirmation] = useState(false);
+  const [showNotifications, setShowNotifications] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -17,17 +20,49 @@ const Waitlist = () => {
     setName("");
   };
 
+  const toggleNotifications = () => {
+    setShowNotifications(!showNotifications);
+  };
+
+  const updates = [
+    { date: "27/08/2024", message: "LaunchPad Kicks Off" },
+    { date: "24/07/2024", message: "Integration with BetterIDEa" },
+    { date: "08/07/2024", message: "Building Phase" },
+    { date: "06/07/2024", message: "Idea Forging" },
+  ];
+
   return (
-    <div className="bg-[#0E0E0E] app-background h-screen w-full flex flex-col justify-center items-center">
+    <div className="bg-[#0E0E0E] app-background h-screen w-full flex flex-col justify-center items-center relative">
+      <button onClick={toggleNotifications} className="absolute top-4 right-4 pr-5 text-white p-2 rounded-full">
+        <FontAwesomeIcon icon={faBell} />
+      </button>
+
+      {showNotifications && (
+        <div className="notifications bg-[#0E0E0E] text-white p-4 rounded-lg shadow-lg fixed top-16 right-4 w-80 h-auto z-50">
+          <h2 className="text-lg font-semibold mb-2">Updates</h2>
+          <div className="updates-list">
+            {updates.map((update, index) => (
+              <div key={index} className="update-item mb-4">
+                <p className="text-gray-400 text-sm">{update.date}</p>
+                <p className="text-white">{update.message}</p>
+              </div>
+            ))}
+          </div>
+          <button onClick={toggleNotifications} className="text-sm text-right text-gray-400 mt-4">
+            Close
+          </button>
+        </div>
+      )}
+
       {!showConfirmation ? (
         <div className="text-center">
           <h1 className="gradient-text text-5xl md:text-9xl font-light text-center tracking-widest mb-4">
             <span>SAM</span>
           </h1>
-          <h1 className="text-white text-4xl md:text-8xl font-light tracking-widest mb-4" style={{ fontFamily: "'Anton SC', sans-serif" }}>
+          <h1 className="text-white text-4xl md:text-8xl font-light tracking-widest mb-4" style={{ fontFamily: "'Anton SC',sans-serif" }}>
             JOIN OUR WAITLIST
           </h1>
-          <p className="text-white text-xl md:text-3xl font-extralight mb-8" style={{ fontFamily: "'Roboto'" }}>
+          <p className="text-white text-xl md:text-3xl font-extralight mb-8">
             Be the first to know when we launch!
           </p>
           <form onSubmit={handleSubmit} className="flex flex-col items-center">
@@ -55,10 +90,7 @@ const Waitlist = () => {
       ) : (
         <div className="bg-black bg-opacity-80 flex justify-center items-center fixed inset-0 z-50">
           <div className="bg-[#1a1a1a] p-8 rounded-lg text-center relative shadow-lg w-80 md:w-96">
-            <button
-              className="absolute top-2 right-2 text-white text-xl"
-              onClick={handleClose}
-            >
+            <button className="absolute top-2 right-2 text-white text-xl" onClick={handleClose}>
               &times;
             </button>
             <div className="flex justify-center items-center mb-6">

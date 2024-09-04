@@ -65,10 +65,10 @@ const Waitlist = () => {
           <h1 className="gradient-text text-5xl md:text-9xl font-light text-center tracking-widest mb-4">
             <span>SAM</span>
           </h1>
-          <h1 className="text-white text-4xl md:text-8xl font-light tracking-widest mb-4">
+          <h1 className="text-white text-4xl md:text-8xl font-light tracking-widest mb-4" style={{ fontFamily: "'Anton SC',sans-serif" }}>
             JOIN OUR WAITLIST
           </h1>
-          <p className="text-white text-xl md:text-3xl font-extralight mb-8">
+          <p className="text-white text-xl md:text-3xl font-extralight mb-8" style={{ fontFamily: "'Roboto'" }}>
             Be the first to know when we launch!
           </p>
           <form onSubmit={handleSubmit} className="flex flex-col items-center">

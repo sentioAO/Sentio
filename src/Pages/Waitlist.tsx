@@ -57,9 +57,12 @@ const Waitlist = () => {
   };
 
   const updates = [
-    { date: "21/01/2023", message: "+240 we completed the button components and integrated them into the design." },
-    { date: "22/01/2023", message: "+100 new users joined the waitlist." },
-    { date: "23/01/2023", message: "We finalized the design system for the upcoming launch." },
+    { date: "05/09/2024", message: "Opened Waitlist for Masses" },
+    { date: "28/08/2024", message: "LaunchPad Kicks Off" },
+    { date: "26/07/2024", message: "Integration with BetterIDEa" },
+    { date: "08/07/2024", message: "HackerHouse Presentation" },
+    { date: "06/07/2024", message: "Idea Forging" },
+    // { date: "23/01/2023", message: "We finalized the design system for the upcoming launch." },
   ];
 
   return (

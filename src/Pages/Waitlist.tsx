@@ -6,7 +6,7 @@ import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';  // Import Toastify components
 import 'react-toastify/dist/ReactToastify.css';          // Import Toastify CSS
 import "../styles/Waitlist.css";
-
+// import {BACKEND_URL} from "../../env"
 const Waitlist = () => {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
@@ -17,7 +17,7 @@ const Waitlist = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const response = await axios.post('https://sam-server-xpy0.onrender.com/api/waitlist', { email, name });
+      const response = await axios.post("https://sam-server.azurewebsites.net/api/waitlist", { email, name });
       console.log(response.data);
       // Show success toast notification
       toast.success('You have successfully joined the waitlist!', {

@@ -99,7 +99,7 @@ const Waitlist = () => {
       {!showConfirmation ? (
         <div className="text-center">
           <h1 className="gradient-text text-5xl md:text-9xl font-light text-center tracking-widest mb-4">
-            <span>SAM</span>
+            <span>SENTIO</span>
           </h1>
           <h1 className="text-white text-4xl md:text-8xl font-light tracking-widest mb-4" style={{ fontFamily: "'Anton SC',sans-serif" }}>
             JOIN OUR WAITLIST

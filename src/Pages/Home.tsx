@@ -3,6 +3,7 @@ import { FaLock, FaCheckCircle, FaEye } from 'react-icons/fa'; // Import icons f
 import { useNavigate } from 'react-router-dom'; // Import useNavigate from react-router-dom
 import CustomCard from '../Components/Cards'; // Import the CustomCard component
 import Wallet from '../Components/Wallet-Button'; // Import Wallet Button
+import { useActiveAddress } from 'arweave-wallet-kit'
 
 
 const Home: React.FC = () => {
@@ -11,7 +12,25 @@ const Home: React.FC = () => {
   const handleJoinWaitlist = () => {
     navigate('/wait'); // Navigate to /wait when the button is clicked
   };
-
+  
+  const active = useActiveAddress(); // Call the useActiveAddress hook outside of the callback function
+  
+  // useEffect(() => {
+  //   const walletStrategy = localStorage.getItem('wallet_kit_strategy_id');
+  //   if (walletStrategy) {
+  //     navigate('/');
+  //   } else {
+  //     console.log(active); // Use the active address here
+  //   }
+  // });
+  const handleOnchainClick=()=>{
+    const walletStrategy = localStorage.getItem('wallet_kit_strategy_id');
+    if (walletStrategy) {
+      navigate('/onchain');
+    } else {
+      console.log(active); // Use the active address
+    }
+  }
   return (
     <div className="bg-[#0E0E0E] app-background  h-screen w-full flex flex-col justify-center items-center">
       {/* Header Section */}
@@ -33,7 +52,7 @@ const Home: React.FC = () => {
         </p>
         <div className="flex flex-col md:flex-row gap-4 mt-3">
           <button className="px-6 py-3 bg-white rounded-xl font-bold">Offchain</button>
-          <button className="px-6 py-3 bg-white rounded-xl font-bold">Onchain</button>
+          <button onClick={handleOnchainClick} className="px-6 py-3 bg-white rounded-xl font-bold">Onchain</button>
         </div>
         <div className="mt-4">
           <button className="px-10 py-3 bg-white rounded-xl font-bold text-lg" onClick={handleJoinWaitlist}>

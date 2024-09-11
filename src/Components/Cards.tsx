@@ -12,7 +12,7 @@ const CustomCard: React.FC<CustomCardProps> = ({ icon: Icon, title, description,
   return (
     <div className="relative bg-[#1A1A1A] w-80 h-96 rounded-3xl shadow-lg flex flex-col justify-start items-center p-6 text-center">
       {/* Top Light */}
-      <div className="absolute top-[0PX] left-1/2 transform -translate-x-1/2 w-[80%] h-4 bg-white rounded-full"></div>
+      <div className="absolute top-[2px] left-1/2 transform -translate-x-1/2 w-[50%] h-2 bg-white rounded-full"></div>
 
       {/* Glow Effect beneath the light */}
       <div

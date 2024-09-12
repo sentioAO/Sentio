@@ -1,14 +1,16 @@
 .app-background {
-  background: radial-gradient(circle at 10% 10%, #262626, transparent 20%),
-    /* First circle - smaller and positioned at the top left */
-    radial-gradient(circle at 90% 10%, #262626, transparent 20%),
-    /* Second circle - smaller and positioned at the top right */
-   
-    /* Fourth circle - smaller and positioned at the bottom right */
-    radial-gradient(circle at 50% 50%, #010101, #010101 100%);
-    /* Base background */
-  height: 100vh;
-  /* Ensure the gradient covers the full height */
+  background: radial-gradient(circle at 10% 10%, #262626, transparent 30%),
+    radial-gradient(circle at 90% 10%, #262626, transparent 30%),
+    radial-gradient(circle at 50% 50%, #010101, #010101 80%);
+  /* Adjusted gradients for smoother transitions */
+  min-height: 100vh;
+  /* Ensures the background covers at least the viewport height */
   width: 100vw;
-  /* Ensure the gradient covers the full width */
+  /* Ensures the background covers the full width */
+  background-attachment: fixed;
+  /* Keeps the background fixed during scroll, if applicable */
+  background-size: cover;
+  /* Ensures the gradient covers the whole element */
+  background-position: center;
+  /* Centers the background */
 }

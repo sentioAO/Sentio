@@ -1,36 +1,68 @@
 import { useActiveAddress } from "arweave-wallet-kit";
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Navbar from "../Components/Navbar";
+import ProcessCard from "../Components/ProcessCard";
+
+interface Tag {
+  name: string;
+  value: string;
+}
+
+interface Node {
+  id: string;
+  tags: Tag[];
+}
+
+interface Process {
+  node: Node;
+}
+
+interface ApiResponse {
+  edges: { node: Process }[];
+}
 
 const Onchain = () => {
-    const address = useActiveAddress();
-    const fetchProcesses = async () => {
-        const processes = await axios.post("https://sam-server.azurewebsites.net/getProcesses", { address });
-        console.log(processes.data);
+  const address = useActiveAddress();
+  const [processes, setProcesses] = useState<Process[]>([]);
+
+  const fetchProcesses = async () => {
+    try {
+      const response = await axios.post<ApiResponse>("https://sam-server.azurewebsites.net/getProcesses", { address });
+      const processArray = response.data.edges.map(edge => edge.node);
+      setProcesses(processArray);
+    } catch (error) {
+      console.error("Error fetching processes:", error);
     }
-    useEffect(() => {
-        fetchProcesses();
-    }, []);
+  };
 
-    return (
-        <>
-            <div className="app-background">
-                <Navbar />
-                <div>
-                    <h1 className="text-white tracking-widest mt-5 mx-2 my-3 py-3" style={{ fontFamily: "'Roboto'", textAlign: 'left' }}>HELLO {address}</h1>
-                </div>
+  useEffect(() => {
+    if (address) {
+      fetchProcesses();
+    }
+  }, [address]);
 
-                <div  style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '20px' }}>
-                    <input 
-                        type="text" 
-                        placeholder="Search..." 
-                        style={{ width: '50%', padding: '10px', fontSize: '16px', borderRadius: '5px', border: '1px solid #ccc' }} 
-                    />
-                </div>
-            </div>
-        </>
-    );
-}
+  return (
+    <div className="app-background min-h-screen flex flex-col">
+      <Navbar />
+
+      <div className="flex justify-center items-center">
+        <h1 className="text-white font-bold text-center text-3xl tracking-widest py-3" style={{ fontFamily: "'Roboto'" }}>
+          CHECK YOUR PROCESSES 
+        </h1>
+      </div>
+
+      <div className="flex flex-col items-center mt-5 space-y-4">
+        {processes.length > 0 ? (
+          processes.map((process, index) => (
+            <ProcessCard key={index} process={process} />
+          ))
+        ) : (
+          <p className="text-white">No processes available.</p>
+        )}
+      </div>
+    </div>
+  );
+};
 
 export default Onchain;

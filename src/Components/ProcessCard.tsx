@@ -1,41 +1,63 @@
-import React from 'react';
+import React, { useState } from "react";
+import { FaCopy, FaChevronDown, FaChevronUp } from "react-icons/fa";
 
 interface Tag {
   name: string;
   value: string;
 }
 
-interface Node {
+interface Process {
   id: string;
   tags: Tag[];
 }
 
-interface ProcessCardProps {
-  process: { node: Node };
-}
+const ProcessCard: React.FC<{ process: Process }> = ({ process }) => {
+  const [isOpen, setIsOpen] = useState(false);
 
-const ProcessCard: React.FC<ProcessCardProps> = ({ process }) => {
-  if (!process || !process.node) {
-    return (
-      <div className="bg-gray-800 text-red-500 p-4 rounded-lg">
-        Invalid Process Data
-      </div>
-    );
+  if (!process || !process.id) {
+    return <div>Error: Process data is not available</div>;
   }
 
-  const { id, tags } = process.node;
+  const processId = process.id;
+  const tags = process.tags;
+
+  const handleCopyId = () => {
+    navigator.clipboard.writeText(processId);
+    alert("ID copied to clipboard!");
+  };
 
   return (
-    <div className="bg-gray-800 text-white p-4 rounded-lg shadow-md w-80">
-      <h2 className="text-lg font-bold mb-2">Process ID: {id}</h2>
-      <ul className="text-sm">
-        {tags.map((tag, index) => (
-          <li key={index} className="flex justify-between">
-            <span className="font-semibold">{tag.name}:</span>
-            <span>{tag.value}</span>
-          </li>
-        ))}
-      </ul>
+    <div className="bg-[#1E1E1E] rounded-lg p-4 my-4 w-3/4">
+      <div className="flex justify-between items-center">
+        <div className="flex items-center space-x-2">
+          <h3 className="text-white text-base font-semibold">ID:</h3>
+          <p className="text-gray-300 text-sm truncate">{processId}</p>
+        </div>
+        <div className="flex items-center space-x-2">
+          <button
+            onClick={handleCopyId}
+            className="text-gray-400 hover:text-white"
+          >
+            <FaCopy />
+          </button>
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="text-gray-400 hover:text-white"
+          >
+            {isOpen ? <FaChevronUp /> : <FaChevronDown />}
+          </button>
+        </div>
+      </div>
+
+      {isOpen && (
+        <div className="mt-2 bg-[#2B2B2B] p-2 rounded">
+          {tags.map((tag, index) => (
+            <div key={index} className="text-gray-400 text-sm">
+              <strong>{tag.name}:</strong> <span className="text-white">{tag.value}</span>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { FaCopy, FaChevronDown, FaChevronUp } from "react-icons/fa";
+import React from 'react';
 
 interface Tag {
   name: string;
@@ -11,52 +10,32 @@ interface Node {
   tags: Tag[];
 }
 
-interface Process {
-  node: Node;
+interface ProcessCardProps {
+  process: { node: Node };
 }
 
-const ProcessCard: React.FC<{ process: Process }> = ({ process }) => {
+const ProcessCard: React.FC<ProcessCardProps> = ({ process }) => {
   if (!process || !process.node) {
-    return <div>Error: Process data is not available</div>;
+    return (
+      <div className="bg-gray-800 text-red-500 p-4 rounded-lg">
+        Invalid Process Data
+      </div>
+    );
   }
 
-  const [isOpen, setIsOpen] = useState(false);
-
-  const processId = process.node.id;
-  const tags = process.node.tags;
-
-  const handleCopyId = () => {
-    navigator.clipboard.writeText(processId);
-    alert("ID copied to clipboard!");
-  };
+  const { id, tags } = process.node;
 
   return (
-    <div className="bg-[#1E1E1E] text-white rounded-lg p-4 my-4 w-full max-w-lg">
-      <div className="flex justify-between items-center">
-        <h3 className="text-white text-lg font-semibold">ID:</h3>
-        <div className="flex items-center space-x-2">
-          <p className="text-gray-300 text-sm truncate max-w-xs">{processId}</p>
-          <button onClick={handleCopyId} className="text-gray-400 hover:text-white">
-            <FaCopy />
-          </button>
-        </div>
-      </div>
-
-      <div className="mt-2">
-        <button onClick={() => setIsOpen(!isOpen)} className="text-gray-400 hover:text-white flex items-center space-x-1">
-          <span>{isOpen ? 'Hide Tags' : 'Show Tags'}</span>
-          {isOpen ? <FaChevronUp /> : <FaChevronDown />}
-        </button>
-        {isOpen && (
-          <div className="mt-2">
-            {tags.map((tag, index) => (
-              <div key={index} className="text-gray-400 text-sm">
-                <strong>{tag.name}:</strong> <span className="text-white">{tag.value}</span>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
+    <div className="bg-gray-800 text-white p-4 rounded-lg shadow-md w-80">
+      <h2 className="text-lg font-bold mb-2">Process ID: {id}</h2>
+      <ul className="text-sm">
+        {tags.map((tag, index) => (
+          <li key={index} className="flex justify-between">
+            <span className="font-semibold">{tag.name}:</span>
+            <span>{tag.value}</span>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };

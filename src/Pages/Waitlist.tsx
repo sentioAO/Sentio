@@ -6,6 +6,7 @@ import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';  // Import Toastify components
 import 'react-toastify/dist/ReactToastify.css';          // Import Toastify CSS
 import "../styles/Waitlist.css";
+// import Navbar from '../Components/Navbar';
 // import {BACKEND_URL} from "../../env"
 const Waitlist = () => {
   const [email, setEmail] = useState("");
@@ -66,6 +67,8 @@ const Waitlist = () => {
   ];
 
   return (
+    <>
+      {/* <Navbar/> */}
     <div className="bg-[#0E0E0E] app-background h-screen w-full flex flex-col justify-center items-center relative">
       <BackButton mode='dark' />
 
@@ -157,6 +160,7 @@ const Waitlist = () => {
         </div>
       )}
     </div>
+    </>
   );
 };
 

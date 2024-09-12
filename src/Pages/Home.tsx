@@ -2,8 +2,9 @@ import React from 'react';
 import { FaLock, FaCheckCircle, FaEye } from 'react-icons/fa'; // Import icons for your cards
 import { useNavigate } from 'react-router-dom'; // Import useNavigate from react-router-dom
 import CustomCard from '../Components/Cards'; // Import the CustomCard component
-import Wallet from '../Components/Wallet-Button'; // Import Wallet Button
+// import Wallet from '../Components/Wallet-Button'; // Import Wallet Button
 import { useActiveAddress } from 'arweave-wallet-kit'
+import Navbar from '../Components/Navbar';
 
 
 const Home: React.FC = () => {
@@ -12,9 +13,9 @@ const Home: React.FC = () => {
   const handleJoinWaitlist = () => {
     navigate('/wait'); // Navigate to /wait when the button is clicked
   };
-  
+
   const active = useActiveAddress(); // Call the useActiveAddress hook outside of the callback function
-  
+
   // useEffect(() => {
   //   const walletStrategy = localStorage.getItem('wallet_kit_strategy_id');
   //   if (walletStrategy) {
@@ -23,7 +24,7 @@ const Home: React.FC = () => {
   //     console.log(active); // Use the active address here
   //   }
   // });
-  const handleOnchainClick=()=>{
+  const handleOnchainClick = () => {
     const walletStrategy = localStorage.getItem('wallet_kit_strategy_id');
     if (walletStrategy) {
       navigate('/onchain');
@@ -34,6 +35,7 @@ const Home: React.FC = () => {
   return (
     <div className="bg-[#0E0E0E] app-background  h-screen w-full flex flex-col justify-center items-center">
       {/* Header Section */}
+      <Navbar />
       <div className="flex flex-col justify-center  items-center text-center mb-16 mt-16">
         <h1
           className="text-white gradient-text text-4xl md:text-8xl font-light tracking-widest"
@@ -61,7 +63,7 @@ const Home: React.FC = () => {
         </div>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 justify-center items-center">
-        
+
         <CustomCard
           glowColor='green'
           icon={FaLock}
@@ -84,10 +86,6 @@ const Home: React.FC = () => {
         />
       </div>
 
-      {/* Wallet Button in the top right corner */}
-      <div className="absolute top-4 right-4 ">
-        <Wallet />
-      </div>
 
     </div>
   );

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Navbar from "../Components/Navbar";
 import ProcessCard from "../Components/ProcessCard";
 import "../index.css"
+import { useNavigate } from "react-router-dom";
 interface Tag {
     name: string;
     value: string;
@@ -22,8 +23,12 @@ const Onchain = () => {
     const address = useActiveAddress();
     const [processes, setProcesses] = useState<{ id: string; tags: Tag[] }[]>([]);
     const [loading, setLoading] = useState(true); // Add loading state
-
+    const navigate=useNavigate()
     useEffect(() => {
+        const walletConnected=localStorage.getItem("wallet_kit_strategy_id")
+        if(!walletConnected){
+            navigate("/")
+        }
         const fetchProcesses = async () => {
             setLoading(true); // Set loading to true when starting to fetch
             try {

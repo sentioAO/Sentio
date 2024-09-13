@@ -3,7 +3,7 @@ import Wallet from "./Wallet-Button";
 const Navbar = () => {
     return (
         <>
-            <div className="w-full  pl-3 pr-3 flex justify-between items-center ">
+            <div className="w-full pl-3 pr-3 flex justify-between items-center ">
                 <h1
                     className="text-white gradient-text text-2xl md:text-4xl font-light tracking-widest"
                     style={{ fontFamily: "'Anton SC', sans-serif" }}

@@ -9,13 +9,13 @@ const CodeEditor: React.FC<{ value: string, onChange: (value: string) => void, o
     console.log(language);
 
     return (
-        <div className="editor-container bg-[#1E1E1E] rounded-xl shadow-md max-w-4xl w-full">
+        <div className="editor-container bg-[#1E1E1E] rounded-xl shadow-md max-w-4xl px-4 w-full">
             {/* Top section with Lua Code Editor and Analyze button */}
             <div className="bg-[#1E1E1E] text-white rounded-xl flex justify-between items-center">
                 <h2 className="text-xl p-4 font-bold">SENTIO ANALYSIS</h2>
                 <button 
                     onClick={onAnalyze} 
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 m-4 rounded"
+                    className="bg-transparent border border-[#a09e9e] rounded-xl p-1 px-5 text-white font-semibold rounded-lg hover:bg-black"
                 >
                     Analyze
                 </button>

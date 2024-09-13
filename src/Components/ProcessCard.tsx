@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { FaCopy, FaChevronDown, FaChevronUp } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 interface Tag {
   name: string;
@@ -13,6 +14,7 @@ interface Process {
 
 const ProcessCard: React.FC<{ process: Process }> = ({ process }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate(); // Use navigate hook for routing
 
   if (!process || !process.id) {
     return <div>Error: Process data is not available</div>;
@@ -24,6 +26,10 @@ const ProcessCard: React.FC<{ process: Process }> = ({ process }) => {
   const handleCopyId = () => {
     navigator.clipboard.writeText(processId);
     alert("ID copied to clipboard!");
+  };
+
+  const handleAnalyze = () => {
+    navigate(`/dashboard/${processId}`); // Navigate to the process page
   };
 
   return (
@@ -58,6 +64,16 @@ const ProcessCard: React.FC<{ process: Process }> = ({ process }) => {
           ))}
         </div>
       )}
+
+      {/* Analyze Button */}
+      <div className="mt-4">
+        <button
+          onClick={handleAnalyze}
+          className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+        >
+          Analyze
+        </button>
+      </div>
     </div>
   );
 };

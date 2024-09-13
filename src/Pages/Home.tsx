@@ -1,11 +1,10 @@
 import React from 'react';
 import { FaLock, FaCheckCircle, FaEye } from 'react-icons/fa'; // Import icons for your cards
 import { useNavigate } from 'react-router-dom'; // Import useNavigate from react-router-dom
+import { motion } from 'framer-motion'; // Import Framer Motion for animations
 import CustomCard from '../Components/Cards'; // Import the CustomCard component
-
 import Navbar from '../Components/Navbar';
 import SwitchNet from '../Components/SwitchNet';
-
 
 const Home: React.FC = () => {
   const navigate = useNavigate(); // Initialize the useNavigate hook
@@ -14,64 +13,96 @@ const Home: React.FC = () => {
     navigate('/wait'); // Navigate to /wait when the button is clicked
   };
 
-  // const active = useActiveAddress(); // Call the useActiveAddress hook outside of the callback function
+  // Animation variants for text and button
+  const textVariant = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+  };
 
+  const buttonVariant = {
+    hidden: { opacity: 0, scale: 0.8 },
+    visible: { opacity: 1, scale: 1, transition: { duration: 0.5, delay: 0.2 } },
+  };
+
+  const cardVariant = {
+    hidden: { opacity: 0, scale: 0.9 },
+    visible: { opacity: 1, scale: 1, transition: { duration: 0.5 } },
+  };
 
   return (
     <>
-      <div className='app-background flex flex-col justify-center items-center'>
-
+      <div className="app-background flex flex-col justify-center items-center">
         <Navbar />
-        <div className="flex flex-col justify-center items-center text-center mb-16 mt-24">
+
+        <motion.div
+          className="flex flex-col justify-center items-center text-center mb-16 mt-24"
+          initial="hidden"
+          animate="visible"
+          variants={textVariant}
+        >
           <p
             className="text-white text-2xl md:text-3xl font-extralight mt-2 md:mt-4"
             style={{ fontFamily: "'Roboto'" }}
           >
             You Write, We{' '}
-            <span className="inline-block px-2 py-1 border font-extrabold border-gray-500 rounded-lg">
+            <motion.span
+              className="inline-block px-2 py-1 border font-extrabold border-gray-500 rounded-lg"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 1, delay: 0.3 }}
+            >
               Monitor
-            </span>
+            </motion.span>
           </p>
 
-          {/* <div className="flex flex-col md:flex-row gap-4 mt-6">
-            <button className="px-6 py-3 bg-white rounded-xl font-bold">Offchain</button>
-            <button onClick={handleOnchainClick} className="px-6 py-3 bg-white rounded-xl font-bold">Onchain</button>
-          </div> */}
-
-          <div className="mt-8">
-            <button className="px-10 py-3 bg-white rounded-xl font-bold text-lg" onClick={handleJoinWaitlist}>
+          <motion.div
+            className="mt-8"
+            initial="hidden"
+            animate="visible"
+            variants={buttonVariant}
+          >
+            <button
+              className="px-10 py-3 bg-white rounded-xl font-bold text-lg"
+              onClick={handleJoinWaitlist}
+            >
               Join Waitlist
             </button>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
         {/* Cards Section */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 justify-center mb-4 items-center px-6">
+        <motion.div
+          className="grid grid-cols-1 md:grid-cols-3 gap-8 justify-center mb-4 items-center px-6"
+          initial="hidden"
+          animate="visible"
+          variants={cardVariant}
+        >
           <CustomCard
-            glowColor='green'
+            glowColor="green"
             icon={FaLock}
             title="SECURITY"
             description="Dolor Sit Amet, Consectetur Adipiscing Elit, Sed Do Eiusmod Tempor Incididunt Ut Labore Et Dolore Magna Aliqua."
           />
           <CustomCard
-            glowColor='yellow'
+            glowColor="yellow"
             icon={FaCheckCircle}
             title="AUDITING"
             description="Ut Enim Ad Minim Veniam, Quis Nostrud Exercitation Ullamco Laboris Nisi Ut Aliquip Ex Ea Commodo Consequat."
           />
           <CustomCard
-            glowColor='red'
+            glowColor="red"
             icon={FaEye}
             title="MONITORING"
             description="Dolor Sit Amet, Consectetur Adipiscing Elit, Sed Do Eiusmod Tempor Incididunt Ut Labore Et Dolore Magna Aliqua."
           />
-        </div>
-        <div className='mt-7 '>
+        </motion.div>
 
-          <SwitchNet />
-        </div>
+        <hr className="w-[50%] border-t border-gray-500 mt-10 my-10" />
+
+        <SwitchNet />
       </div>
     </>
-  )
+  );
 };
+
 export default Home;

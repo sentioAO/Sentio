@@ -50,6 +50,8 @@ const Offchain = () => {
     setReport(null); // Reset report to null to go back to CodeEditor
   };
 
+  console.log("Current report state:", report);
+
   return (
     <div className="app-background h-screen flex flex-col items-center">
       <Navbar />
@@ -62,20 +64,17 @@ const Offchain = () => {
             <div className="text-center mt-2 text-gray-700">{progressText}</div>
           </div>
         ) : !report ? (
-          // Show Code Editor if no report
           <CodeEditor 
             value={code} 
             onChange={handleCodeChange} 
             onAnalyze={handleAnalyze} 
           />
         ) : (
-          // Show Report Card if the report is available
           <ReportCard report={report} onGoBack={handleGoBack} />
         )}
       </div>
     </div>
   );
-  
 };
 
 export default Offchain;

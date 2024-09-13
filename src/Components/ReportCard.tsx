@@ -15,9 +15,10 @@ export interface ReportItem {
 
 interface ReportCardProps {
   report: ReportItem[];
+  onGoBack: () => void; // Add this prop
 }
 
-const ReportCard: React.FC<ReportCardProps> = ({ report }) => {
+const ReportCard: React.FC<ReportCardProps> = ({ report, onGoBack }) => {
   // Count vulnerabilities by severity
   const highSeverity = report.filter(item => item.severity.toLowerCase() === 'high').length;
   const mediumSeverity = report.filter(item => item.severity.toLowerCase() === 'medium').length;
@@ -78,8 +79,8 @@ const ReportCard: React.FC<ReportCardProps> = ({ report }) => {
       {
         label: '# of Vulnerabilities',
         data: [highSeverity, mediumSeverity, lowSeverity],
-        backgroundColor: ['#FF0000', '#ffcc00', '#36a2eb'],
-        hoverBackgroundColor: ['#FF0000', '#ffcc00', '#36a2eb'],
+        backgroundColor: ['#FF0000', '#ffcc00', 'green'],
+        hoverBackgroundColor: ['#FF0000', '#ffcc00', '#green'],
         cutout: '70%',
         borderWidth: 0,
       },
@@ -90,8 +91,8 @@ const ReportCard: React.FC<ReportCardProps> = ({ report }) => {
     <div className="max-w-4xl mx-auto p-4 bg-[#1E1E1E] text-white rounded-lg shadow-lg" style={{ fontFamily: "'Roboto'" }}>
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-2xl font-bold">Summary + Security Assessment</h2>
-        <button className="bg-[#3b3f5c] text-sm px-4 py-2 rounded-lg">
-          Acknowledge
+        <button className="bg-[#3b3f5c] text-sm px-4 py-2 rounded-lg" onClick={onGoBack}>
+          Go Back
         </button>
       </div>
       <p className="mb-4 text-gray-300" style={{ fontFamily: "'Roboto'" }}>

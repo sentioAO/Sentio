@@ -80,7 +80,7 @@ const ReportCard: React.FC<ReportCardProps> = ({ report, onGoBack }) => {
         label: '# of Vulnerabilities',
         data: [highSeverity, mediumSeverity, lowSeverity],
         backgroundColor: ['#FF0000', '#ffcc00', 'green'],
-        hoverBackgroundColor: ['#FF0000', '#ffcc00', '#green'],
+        hoverBackgroundColor: ['#FF0000', '#ffcc00', '#36a2eb'],
         cutout: '70%',
         borderWidth: 0,
       },

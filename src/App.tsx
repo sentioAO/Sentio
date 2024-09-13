@@ -16,7 +16,7 @@ function App() {
           <Route path="/wait" element={<Waitlist/>} />
           <Route path="/onchain" element={<Onchain/>} />
           <Route path="/offchain" element={<Offchain/>} />
-          <Route path="/dashboard/:process" element={<Dashboard/>}/>
+          <Route path="/dashboard/:processId" element={<Dashboard/>}/>
         </Routes>
       </BrowserRouter>
     </ArweaveWalletKit>

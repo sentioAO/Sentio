@@ -4,12 +4,14 @@ import CodeEditor from "../Components/TextEditor";
 import ReportCard, { ReportItem } from "../Components/ReportCard";
 import axios from 'axios';
 import qs from 'qs';
+import { motion } from 'framer-motion'; // Import framer-motion
 
 const Offchain = () => {
   const [code, setCode] = useState('');
   const [report, setReport] = useState<null | ReportItem[]>(null);
   const [showProgress, setShowProgress] = useState(false);
   const [progressText, setProgressText] = useState('');
+  const [progress, setProgress] = useState(0); // Add a progress state to control the progress bar
 
   const handleCodeChange = (newValue: string) => {
     setCode(newValue);
@@ -17,15 +19,19 @@ const Offchain = () => {
 
   const handleAnalyze = async () => {
     setShowProgress(true);
+    setProgress(25);
     setProgressText('Creating AST for code');
     await new Promise(resolve => setTimeout(resolve, 750));
 
+    setProgress(50);
     setProgressText('Analyzing');
     await new Promise(resolve => setTimeout(resolve, 750));
 
+    setProgress(75);
     setProgressText('Finding vulnerabilities');
     await new Promise(resolve => setTimeout(resolve, 750));
 
+    setProgress(100);
     setProgressText('Checking leaks');
     await new Promise(resolve => setTimeout(resolve, 750));
 
@@ -43,6 +49,7 @@ const Offchain = () => {
       console.error('Error analyzing code:', error);
     } finally {
       setShowProgress(false);
+      setProgress(0); // Reset progress after analysis is done
     }
   };
 
@@ -58,10 +65,15 @@ const Offchain = () => {
       <div className="flex flex-col justify-center items-center mt-10 space-y-4 w-full max-w-4xl">
         {showProgress && !report ? (
           <div className="relative w-full">
-            <div className="absolute top-0 left-0 w-full h-2 bg-gray-200">
-              <div className="h-full bg-green-600 transition-all duration-500" style={{ width: '100%' }} />
+            <div className="absolute top-0 left-0 w-full h-2 bg-gray-800 rounded-lg overflow-hidden">
+              <motion.div
+                className="h-full bg-gradient-to-r from-green-400 to-green-600"
+                initial={{ width: '0%' }}
+                animate={{ width: `${progress}%` }} // Animate width based on the progress state
+                transition={{ duration: 0.75, ease: "easeInOut" }} // Smooth transition
+              />
             </div>
-            <div className="text-center mt-2 text-gray-700">{progressText}</div>
+            <div className="text-center mt-4 text-gray-300 font-mono">{progressText}</div> {/* Monospace font */}
           </div>
         ) : !report ? (
           <CodeEditor 
@@ -70,7 +82,13 @@ const Offchain = () => {
             onAnalyze={handleAnalyze} 
           />
         ) : (
-          <ReportCard report={report} onGoBack={handleGoBack} />
+          <motion.div
+            initial={{ opacity: 0, y: 20 }} // Start invisible and slightly below the screen
+            animate={{ opacity: 1, y: 0 }} // Fade in and slide up
+            transition={{ duration: 0.5, ease: "easeInOut" }} // Duration and easing
+          >
+            <ReportCard report={report} onGoBack={handleGoBack} />
+          </motion.div>
         )}
       </div>
     </div>

@@ -11,7 +11,7 @@ const Navbar = () => {
                     style={{ fontFamily: "'Anton SC', sans-serif" }}
                     onClick={()=>{navigate('/')}}
                 >
-                    <span>SENTIO</span>
+                    <button>SENTIO</button>
                 </h1>
                 <Wallet />
             </div>

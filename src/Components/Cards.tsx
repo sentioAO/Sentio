@@ -6,9 +6,10 @@ interface CustomCardProps {
   title: string;
   description: string;
   glowColor: string; // glow color prop
+  functionality: string; // functionality prop
 }
 
-const CustomCard: React.FC<CustomCardProps> = ({ icon: Icon, title, description, glowColor }) => {
+const CustomCard: React.FC<CustomCardProps> = ({ icon: Icon, title, description, glowColor,functionality }) => {
   return (
     <div className="relative bg-[#1A1A1A] w-80 h-96 rounded-3xl shadow-lg flex flex-col justify-start items-center p-6 text-center">
       {/* Top Light */}
@@ -31,7 +32,7 @@ const CustomCard: React.FC<CustomCardProps> = ({ icon: Icon, title, description,
       <h2 className="text-white text-3xl font-bold tracking-wide mb-4">{title}</h2>
 
       {/* Sample Text */}
-      <p className="text-white font-bold mb-2">Sample Text</p>
+      <p className="text-white font-bold mb-2">{functionality}</p>
 
       {/* Description */}
       <p className="text-gray-400 leading-relaxed">

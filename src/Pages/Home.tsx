@@ -78,22 +78,25 @@ const Home: React.FC = () => {
           variants={cardVariant}
         >
           <CustomCard
+          functionality='Notifying of Security Breach'
             glowColor="green"
             icon={FaLock}
             title="SECURITY"
-            description="Dolor Sit Amet, Consectetur Adipiscing Elit, Sed Do Eiusmod Tempor Incididunt Ut Labore Et Dolore Magna Aliqua."
+            description="Any Security Breach Will Be Notified To The User Immediately To Take Necessary Actions."
           />
           <CustomCard
+            functionality='Auditing Process Code'
             glowColor="yellow"
             icon={FaCheckCircle}
             title="AUDITING"
-            description="Ut Enim Ad Minim Veniam, Quis Nostrud Exercitation Ullamco Laboris Nisi Ut Aliquip Ex Ea Commodo Consequat."
+            description="Auditing Process Code To Ensure The Security Of The Process And The Data."
           />
           <CustomCard
+            functionality='Monitoring and Analyzing Process'
             glowColor="red"
             icon={FaEye}
             title="MONITORING"
-            description="Dolor Sit Amet, Consectetur Adipiscing Elit, Sed Do Eiusmod Tempor Incididunt Ut Labore Et Dolore Magna Aliqua."
+            description="Monitoring And Analyzing The Process To Ensure The Security And Integrity Of The Data."
           />
         </motion.div>
 

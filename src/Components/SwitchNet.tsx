@@ -102,7 +102,7 @@ const SwitchNet: React.FC = () => {
                             {activeTab === 'offchain' && (
                                 <div>
                                     <h2 className="text-lg font-bold text-white">Offchain</h2>
-                                    <p className="text-sm text-gray-400 mt-2">
+                                    <p className="text-sm text-gray-400 mt-7">
                                     Identify the vulnerabilities in your LUA code prior to deployment on AO
                                     </p>
                                 </div>
@@ -110,7 +110,7 @@ const SwitchNet: React.FC = () => {
                             {activeTab === 'onchain' && (
                                 <div>
                                     <h2 className="text-lg font-bold text-white">Onchain</h2>
-                                    <p className="text-sm text-gray-400 mt-2">
+                                    <p className="text-sm text-gray-400 mt-4">
                                     To monitor and track messages coming to our Arweave Wallet and give records to respective users who have connected their Arweave Wallet.
                                     </p>
                                 </div>

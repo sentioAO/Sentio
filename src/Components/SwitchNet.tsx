@@ -103,7 +103,7 @@ const SwitchNet: React.FC = () => {
                                 <div>
                                     <h2 className="text-lg font-bold text-white">Offchain</h2>
                                     <p className="text-sm text-gray-400 mt-2">
-                                        Write your Offchain-related content here. This could be anything from brief descriptions to detailed information about your project.
+                                    Identify the vulnerabilities in your LUA code prior to deployment on AO
                                     </p>
                                 </div>
                             )}
@@ -111,7 +111,7 @@ const SwitchNet: React.FC = () => {
                                 <div>
                                     <h2 className="text-lg font-bold text-white">Onchain</h2>
                                     <p className="text-sm text-gray-400 mt-2">
-                                        Write your Onchain-related content here. Explain how it works or any details you want the user to know.
+                                    To monitor and track messages coming to our Arweave Wallet and give records to respective users who have connected their Arweave Wallet.
                                     </p>
                                 </div>
                             )}

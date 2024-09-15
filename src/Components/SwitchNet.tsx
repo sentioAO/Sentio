@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion'; // Import motion and AnimatePresence from Framer Motion
 import offchainImg from '../assets/offchain.png'; // Offchain image
-import onchainImg from '../assets/onchain2.png';   // Onchain image
+import onchainImg from '../assets/onchain.png';   // Onchain image
 
 const SwitchNet: React.FC = () => {
     const [activeTab, setActiveTab] = useState<'offchain' | 'onchain'>('offchain');

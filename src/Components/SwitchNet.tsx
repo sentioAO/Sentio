@@ -116,12 +116,6 @@ const SwitchNet: React.FC = () => {
                                 </div>
                             )}
 
-                            {/* Additional Content Box */}
-                            <div className="mt-4">
-                                <p className="text-sm text-gray-400">
-                                    Additional information or details that can complement the selected tab's content.
-                                </p>
-                            </div>
 
                             {/* Dynamic Go Button */}
                             <div className="mt-6 flex justify-center">

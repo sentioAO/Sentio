@@ -31,7 +31,7 @@ const Home: React.FC = () => {
 
   return (
     <>
-      <div className="app-background flex flex-col justify-center items-center">
+      <div className="app-background min-h-screen flex flex-col justify-center items-center overflow-hidden">
         <Navbar />
 
         <motion.div
@@ -78,21 +78,21 @@ const Home: React.FC = () => {
           variants={cardVariant}
         >
           <CustomCard
-          functionality='Notifying of Security Breach'
+            functionality="Notifying of Security Breach"
             glowColor="green"
             icon={FaLock}
             title="SECURITY"
             description="Any Security Breach Will Be Notified To The User Immediately To Take Necessary Actions."
           />
           <CustomCard
-            functionality='Auditing Process Code'
+            functionality="Auditing Process Code"
             glowColor="yellow"
             icon={FaCheckCircle}
             title="AUDITING"
             description="Auditing Process Code To Ensure The Security Of The Process And The Data."
           />
           <CustomCard
-            functionality='Monitoring and Analyzing Process'
+            functionality="Monitoring and Analyzing Process"
             glowColor="red"
             icon={FaEye}
             title="MONITORING"
@@ -104,6 +104,7 @@ const Home: React.FC = () => {
 
         <SwitchNet />
       </div>
+    
     </>
   );
 };

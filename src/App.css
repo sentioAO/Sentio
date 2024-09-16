@@ -21,10 +21,12 @@
   border: 2px solid #2c2c2c; /* Adjust the border color as needed */
   border-radius: 12px; /* Add rounded corners */
 }
+/* Add border-radius to the editor container */
 
 .CodeMirror-scroll {
   background: linear-gradient(145deg, #2F2F2F, #1F1F1F);
     /* border-; */
+    border-radius: 12px;
 }
 .CodeMirror-gutter{
   background-color: #2F2F2F;

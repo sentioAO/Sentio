@@ -15,18 +15,34 @@ const Home: React.FC = () => {
 
   // Animation variants for text and button
   const textVariant = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.8, ease: [0.43, 0.13, 0.23, 0.96] }, // Smoother easing curve
+    },
   };
 
   const buttonVariant = {
-    hidden: { opacity: 0, scale: 0.8 },
-    visible: { opacity: 1, scale: 1, transition: { duration: 0.5, delay: 0.2 } },
+    hidden: { opacity: 0, scale: 0.9 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: { duration: 0.6, ease: [0.43, 0.13, 0.23, 0.96], delay: 0.2 },
+    },
   };
 
   const cardVariant = {
     hidden: { opacity: 0, scale: 0.9 },
-    visible: { opacity: 1, scale: 1, transition: { duration: 0.5 } },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: {
+        duration: 0.7,
+        ease: 'easeInOut',
+        staggerChildren: 0.2, // Add delay between cards
+      },
+    },
   };
 
   return (
@@ -49,7 +65,7 @@ const Home: React.FC = () => {
               className="inline-block px-2 py-1 border font-extrabold border-gray-500 rounded-lg"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ duration: 1, delay: 0.3 }}
+              transition={{ duration: 1, ease: [0.43, 0.13, 0.23, 0.96], delay: 0.3 }}
             >
               Monitor
             </motion.span>
@@ -104,7 +120,6 @@ const Home: React.FC = () => {
 
         <SwitchNet />
       </div>
-    
     </>
   );
 };

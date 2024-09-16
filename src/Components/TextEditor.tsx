@@ -44,7 +44,7 @@ const CodeEditor: React.FC<{ value: string, onChange: (value: string) => void, o
                 style={{
                     backgroundColor: '#1e1e1e',
                     border: '1px solid #2c2c2c',
-                    borderRadius: '0 0 15px 15px',
+                    borderRadius: '15px 15px 15px 15px',
                     color: '#f0f0f0',
                 }}
             >

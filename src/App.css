@@ -17,3 +17,15 @@
 .debug-border {
   border: 2px solid red !important;
 }
+.CodeMirror.cm-s-dracula {
+  border: 2px solid #2c2c2c; /* Adjust the border color as needed */
+  border-radius: 12px; /* Add rounded corners */
+}
+
+.CodeMirror-scroll {
+  background: linear-gradient(145deg, #2F2F2F, #1F1F1F);
+    /* border-; */
+}
+.CodeMirror-gutter{
+  background-color: #2F2F2F;
+}

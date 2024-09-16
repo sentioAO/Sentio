@@ -9,34 +9,61 @@ const CodeEditor: React.FC<{ value: string, onChange: (value: string) => void, o
     console.log(language);
 
     return (
-        <div className="editor-container bg-[#1E1E1E] rounded-xl shadow-md max-w-4xl px-4 w-full">
+        <div 
+            className="editor-container rounded-xl shadow-md max-w-4xl w-full"
+            style={{
+                background: 'linear-gradient(145deg, #1F1F1F, #141414)',
+                padding: '20px',
+                borderRadius: '15px',
+                boxShadow: '0 4px 8px rgba(0, 0, 0, 0.5)',
+                color: '#d8d8d8'
+            }}
+        >
             {/* Top section with Lua Code Editor and Analyze button */}
-            <div className="bg-[#1E1E1E] text-white rounded-xl flex justify-between items-center">
-                <h2 className="text-xl p-4 font-bold">SENTIO ANALYSIS</h2>
+            <div 
+                className="flex justify-between items-center"
+                style={{
+                    background: '#1E1E1E',
+                    color: '#f0f0f0',
+                    borderRadius: '15px 15px 0 0',
+                    padding: '10px 20px',
+                }}
+            >
+                <h2 className="text-xl font-bold">SENTIO ANALYSIS</h2>
                 <button 
                     onClick={onAnalyze} 
-                    className="bg-transparent border border-[#a09e9e] rounded-xl p-1 px-5 text-white font-semibold rounded-lg hover:bg-black"
+                    className="border border-[#a09e9e] rounded-xl p-1 px-5 text-white font-semibold hover:bg-black"
                 >
                     Analyze
                 </button>
             </div>
             
-            {/* Code editor with gray border */}
-            <ControlledEditor
-                value={value}
-                onBeforeChange={(editor, data, newValue) => {
-                    onChange(newValue);
-                    console.log(editor, data, newValue);
+            {/* Code editor with custom background and color */}
+            <div
+                className="editor no-scroll"
+                style={{
+                    backgroundColor: '#1e1e1e',
+                    border: '1px solid #2c2c2c',
+                    borderRadius: '0 0 15px 15px',
+                    color: '#f0f0f0',
                 }}
-                options={{
-                    mode: 'lua',
-                    theme: 'dracula',
-                    lineNumbers: true,
-                    tabSize: 2,
-                    scrollbarStyle: null, // Ensure scrollbar styles are set to null to avoid default scrollbars
-                }}
-                className="editor bg-transparent border border-[#1E1E1E] rounded-b-lg no-scroll"
-            />
+            >
+                <ControlledEditor
+                    value={value}
+                    onBeforeChange={(editor, data, newValue) => {
+                        onChange(newValue);
+                        console.log(editor, data, newValue);
+                    }}
+                    options={{
+                        mode: 'lua',
+                        theme: 'dracula',
+                        lineNumbers: true,
+                        tabSize: 2,
+                        scrollbarStyle: null, // Ensure scrollbar styles are set to null to avoid default scrollbars
+                    }}
+                    className="editor"
+                />
+            </div>
         </div>
     );
 };

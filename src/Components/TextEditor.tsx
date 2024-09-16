@@ -6,13 +6,14 @@ import 'codemirror/theme/dracula.css';  // Optional: import a theme
 
 const CodeEditor: React.FC<{ value: string, onChange: (value: string) => void, onAnalyze: () => void }> = ({ value, onChange, onAnalyze }) => {
     const [language] = useState('lua'); // Only Lua language available
-    console.log(language);
-
+    if(language !== 'lua') {
+        throw new Error('Invalid language');
+    }
     return (
         <div 
             className="editor-container rounded-xl shadow-md max-w-4xl w-full"
             style={{
-                background: 'linear-gradient(145deg, #1F1F1F, #141414)',
+                background: 'linear-gradient(145deg, #1F1F1F, #141414)', // Outer gradient background
                 padding: '20px',
                 borderRadius: '15px',
                 boxShadow: '0 4px 8px rgba(0, 0, 0, 0.5)',
@@ -23,7 +24,7 @@ const CodeEditor: React.FC<{ value: string, onChange: (value: string) => void, o
             <div 
                 className="flex justify-between items-center"
                 style={{
-                    background: '#1E1E1E',
+                    background: '#1F1F1F', // Match the top section to outer container's background
                     color: '#f0f0f0',
                     borderRadius: '15px 15px 0 0',
                     padding: '10px 20px',
@@ -38,21 +39,21 @@ const CodeEditor: React.FC<{ value: string, onChange: (value: string) => void, o
                 </button>
             </div>
             
-            {/* Code editor with custom background and color */}
+            {/* Code editor with synchronized background and color */}
             <div
                 className="editor no-scroll"
                 style={{
-                    backgroundColor: '#1e1e1e',
+                    background: 'linear-gradient(145deg, #1F1F1F, #141414)', // Match the background to outer div
                     border: '1px solid #2c2c2c',
-                    borderRadius: '15px 15px 15px 15px',
+                    borderRadius: '15px',
                     color: '#f0f0f0',
                 }}
             >
                 <ControlledEditor
                     value={value}
-                    onBeforeChange={(editor, data, newValue) => {
+                    onBeforeChange={(_, newValue) => {
+
                         onChange(newValue);
-                        console.log(editor, data, newValue);
                     }}
                     options={{
                         mode: 'lua',

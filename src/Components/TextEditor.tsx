@@ -6,11 +6,13 @@ import 'codemirror/theme/dracula.css';  // Optional: import a theme
 
 const CodeEditor: React.FC<{ value: string, onChange: (value: string) => void, onAnalyze: () => void }> = ({ value, onChange, onAnalyze }) => {
     const [language] = useState('lua'); // Only Lua language available
-    if(language !== 'lua') {
+
+    if (language !== 'lua') {
         throw new Error('Invalid language');
     }
+
     return (
-        <div 
+        <div
             className="editor-container rounded-xl shadow-md max-w-4xl w-full"
             style={{
                 background: 'linear-gradient(145deg, #1F1F1F, #141414)', // Outer gradient background
@@ -21,7 +23,7 @@ const CodeEditor: React.FC<{ value: string, onChange: (value: string) => void, o
             }}
         >
             {/* Top section with Lua Code Editor and Analyze button */}
-            <div 
+            <div
                 className="flex justify-between items-center"
                 style={{
                     background: '#1F1F1F', // Match the top section to outer container's background
@@ -31,14 +33,14 @@ const CodeEditor: React.FC<{ value: string, onChange: (value: string) => void, o
                 }}
             >
                 <h2 className="text-xl font-bold">SENTIO ANALYSIS</h2>
-                <button 
-                    onClick={onAnalyze} 
+                <button
+                    onClick={onAnalyze}
                     className="border border-[#a09e9e] rounded-xl p-1 px-5 text-white font-semibold hover:bg-black"
                 >
                     Analyze
                 </button>
             </div>
-            
+
             {/* Code editor with synchronized background and color */}
             <div
                 className="editor no-scroll"
@@ -50,10 +52,12 @@ const CodeEditor: React.FC<{ value: string, onChange: (value: string) => void, o
                 }}
             >
                 <ControlledEditor
-                    value={value}
-                    onBeforeChange={(_, newValue) => {
-
-                        onChange(newValue);
+                    value={typeof value === 'string' ? value : ''} // Ensure value is a string
+                    onBeforeChange={(editor, data, newValue) => {                
+                        console.log(editor,data)        // Validate that newValue is a string before calling onChange
+                        if (typeof newValue === 'string') {
+                            onChange(newValue);
+                        }
                     }}
                     options={{
                         mode: 'lua',

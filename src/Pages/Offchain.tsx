@@ -60,7 +60,7 @@ const Offchain = () => {
   console.log("Current report state:", report);
 
   return (
-    <div className="app-background h-screen flex flex-col items-center">
+    <div className="app-background min-h-screen flex flex-col items-center">
       <Navbar />
       <div className="flex flex-col justify-center items-center mt-10 space-y-4 w-full max-w-4xl">
         {showProgress && !report ? (

@@ -9,6 +9,7 @@ import Offchain from './Pages/Offchain';
 import  Dashboard  from './Pages/Dashboard';
 // import WatcherProcess from './Pages/OnchainDemo';
 import SentinelProcess from './Pages/OnchainDemo';
+import ReportDetailsPage from './Pages/Details';
 function App() {
   return (
     <ArweaveWalletKit>
@@ -19,6 +20,7 @@ function App() {
           {/* <Route path="/onchain" element={<Onchain/>} /> */}
           <Route path="/offchain" element={<Offchain/>} />
           <Route path="/onchain" element={<SentinelProcess/>} />
+          <Route path="/report-details" element={<ReportDetailsPage/>}/>
           <Route path="/dashboard/:processId" element={<Dashboard/>}/>
         </Routes>
       </BrowserRouter>

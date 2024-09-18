@@ -2,15 +2,29 @@ import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import ReportDetails from '../Components/ReportDetails';
 
+// Define the ReportItem type
+export interface ReportItem {
+  description: string;
+  line: number;
+  name: string;
+  pattern: string;
+  severity: string;
+}
+
 const ReportDetailsPage: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
   
-  const report = location.state?.report || [];
+  // Define the type for location state
+  interface LocationState {
+    report: ReportItem[];
+  }
+
+  const { report } = location.state as LocationState; // Cast location.state to LocationState
   
-  const highSeverityItems = report.filter(item => item.severity.toLowerCase() === 'high');
-  const mediumSeverityItems = report.filter(item => item.severity.toLowerCase() === 'medium');
-  const lowSeverityItems = report.filter(item => item.severity.toLowerCase() === 'low');
+  const highSeverityItems: ReportItem[] = report.filter(item => item.severity.toLowerCase() === 'high');
+  const mediumSeverityItems: ReportItem[] = report.filter(item => item.severity.toLowerCase() === 'medium');
+  const lowSeverityItems: ReportItem[] = report.filter(item => item.severity.toLowerCase() === 'low');
 
   return (
     <div className="min-h-screen bg-[#1E1E1E] text-white p-4 rounded-lg shadow-lg">

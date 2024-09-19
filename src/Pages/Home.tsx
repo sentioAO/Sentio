@@ -120,7 +120,8 @@ const Home: React.FC = () => {
         <hr className="w-[50%] border-t border-gray-500 mt-10 my-10" />
 
         <SwitchNet />
-        <Footer/>
+        <hr className="w-[50%] border-t border-gray-500 mt-10 my-10" />
+        <Footer />
       </div>
     </>
   );

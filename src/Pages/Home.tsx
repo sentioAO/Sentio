@@ -5,6 +5,7 @@ import { motion } from 'framer-motion'; // Import Framer Motion for animations
 import CustomCard from '../Components/Cards'; // Import the CustomCard component
 import Navbar from '../Components/Navbar';
 import SwitchNet from '../Components/SwitchNet';
+import Footer from '../Components/Footer';
 
 const Home: React.FC = () => {
   const navigate = useNavigate(); // Initialize the useNavigate hook
@@ -119,6 +120,7 @@ const Home: React.FC = () => {
         <hr className="w-[50%] border-t border-gray-500 mt-10 my-10" />
 
         <SwitchNet />
+        <Footer/>
       </div>
     </>
   );

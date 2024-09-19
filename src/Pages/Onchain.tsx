@@ -5,6 +5,7 @@ import Navbar from "../Components/Navbar";
 import ProcessCard from "../Components/ProcessCard";
 import "../index.css"
 import { useNavigate } from "react-router-dom";
+import Footer from "../Components/Footer";
 interface Tag {
     name: string;
     value: string;
@@ -73,6 +74,7 @@ const Onchain = () => {
                     <p className="text-white">No processes available.</p>
                 )}
             </div>
+            <Footer/>
         </div>
     );
 };

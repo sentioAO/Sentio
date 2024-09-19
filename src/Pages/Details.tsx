@@ -1,6 +1,7 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import ReportDetails from '../Components/ReportDetails';
+import Footer from '../Components/Footer';
 
 // Define the ReportItem type
 export interface ReportItem {
@@ -14,14 +15,14 @@ export interface ReportItem {
 const ReportDetailsPage: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  
+
   // Define the type for location state
   interface LocationState {
     report: ReportItem[];
   }
 
   const { report } = location.state as LocationState; // Cast location.state to LocationState
-  
+
   const highSeverityItems: ReportItem[] = report.filter(item => item.severity.toLowerCase() === 'high');
   const mediumSeverityItems: ReportItem[] = report.filter(item => item.severity.toLowerCase() === 'medium');
   const lowSeverityItems: ReportItem[] = report.filter(item => item.severity.toLowerCase() === 'low');
@@ -58,6 +59,7 @@ const ReportDetailsPage: React.FC = () => {
           />
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

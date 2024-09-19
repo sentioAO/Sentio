@@ -73,7 +73,7 @@ const SwitchNet: React.FC = () => {
             {/* Main Content Below the Tabs */}
             <div className="flex flex-col md:flex-row">
                 {/* Left Image */}
-                <div className="flex-shrink-0 mb-4 md:mb-0 md:mr-6 w-full md:w-[400px] lg:w-[500px] h-auto">
+                <div className="flex-shrink-0  md:mb-0 md:mr-6 w-full md:w-[400px] lg:w-[500px] h-auto">
                     <AnimatePresence>
                         <motion.img
                             key={activeTab} // Ensures that the component will re-render when the tab changes
@@ -94,6 +94,7 @@ const SwitchNet: React.FC = () => {
                     <AnimatePresence>
                         <motion.div
                             className="bg-[#2a2a2a] p-4 rounded-lg flex-grow"
+                            style={{ minHeight: '300px' }} 
                             variants={contentVariants}
                             initial="hidden"
                             animate="visible"
@@ -116,14 +117,13 @@ const SwitchNet: React.FC = () => {
                                 </div>
                             )}
 
-
                             {/* Dynamic Go Button */}
                             <div className="mt-6 flex justify-center">
                                 <motion.button
                                     onClick={handleNavigate}
                                     onMouseEnter={handleMouseEnter}
                                     onMouseLeave={handleMouseLeave}
-                                    className="px-6 py-2 bg-transparent border border-[#a09e9e] rounded-xl p-1 text-white font-semibold rounded-lg hover:bg-black"
+                                    className="px-6 py-2 bg-transparent border border-[#a09e9e] p-1 text-white font-semibold rounded-lg hover:bg-black"
                                     whileHover={{ scale: 1.05 }}
                                     whileTap={{ scale: 0.95 }}
                                 >

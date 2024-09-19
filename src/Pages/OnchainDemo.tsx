@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { FaWallet, FaListAlt, FaSearch, FaBell, FaPauseCircle } from 'react-icons/fa';
 import { BsArrowDown } from 'react-icons/bs';
 import Navbar from '../Components/Navbar';
+import Footer from '../Components/Footer';
 
 const SentinelProcess = () => {
   const [step, setStep] = useState(1);
@@ -53,7 +54,7 @@ const SentinelProcess = () => {
         <Navbar />
 
         <div
-          className="sentinel-setup p-6 rounded-lg w-full max-w-3xl mx-auto flex-grow mt-12"
+          className="sentinel-setup p-6 rounded-lg  w-full max-w-3xl mx-auto flex-grow mt-12"
           ref={containerRef}
         >
           {/* Step 1 */}
@@ -161,7 +162,7 @@ const SentinelProcess = () => {
 
           {/* Sending Animation - Process sends messages to sentinel */}
           {step >= 3 && (
-            <div className="relative flex flex-col sm:flex-row justify-center items-center mt-12">
+            <div className="relative flex flex-col  sm:flex-row justify-center items-center mt-12">
               {/* Process Icon */}
               <div className="mr-6 text-white text-center mb-4 mt-7 sm:mb-0">
                 <span className="block text-lg">Process</span>
@@ -316,6 +317,10 @@ const SentinelProcess = () => {
               </div>
             </div>
           )}
+        </div>
+        <div className='flex justify-center'> 
+
+          <Footer />
         </div>
       </div>
     </>

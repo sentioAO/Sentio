@@ -5,6 +5,7 @@ import ReportCard, { ReportItem } from "../Components/ReportCard";
 import axios from 'axios';
 import qs from 'qs';
 import { motion } from 'framer-motion'; // Import framer-motion
+import Footer from "../Components/Footer";
 
 const Offchain = () => {
   const [code, setCode] = useState('');
@@ -36,12 +37,12 @@ const Offchain = () => {
     await new Promise(resolve => setTimeout(resolve, 750));
 
     try {
-      const response = await axios.post('https://sam-offchain-dbedazdhd2dugrdk.eastus-01.azurewebsites.net/analyze', 
+      const response = await axios.post('https://sam-offchain-dbedazdhd2dugrdk.eastus-01.azurewebsites.net/analyze',
         qs.stringify({ code }), {
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-          },
-        }
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      }
       );
       console.log("Analysis result:", response.data);
       setReport(response.data); // Set the report after analysis
@@ -76,10 +77,10 @@ const Offchain = () => {
             <div className="text-center mt-4 text-gray-300 font-mono">{progressText}</div> {/* Monospace font */}
           </div>
         ) : !report ? (
-          <CodeEditor 
-            value={code} 
-            onChange={handleCodeChange} 
-            onAnalyze={handleAnalyze} 
+          <CodeEditor
+            value={code}
+            onChange={handleCodeChange}
+            onAnalyze={handleAnalyze}
           />
         ) : (
           <motion.div
@@ -90,6 +91,10 @@ const Offchain = () => {
             <ReportCard report={report} onGoBack={handleGoBack} />
           </motion.div>
         )}
+      </div>
+      <div className="fixed bottom-0 flex w-[88%] justify-center">
+
+        <Footer />
       </div>
     </div>
   );

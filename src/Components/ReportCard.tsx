@@ -3,6 +3,7 @@ import { Doughnut } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { FaExclamationTriangle, FaCheckCircle, FaBug, FaSkull, FaCode } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';  // Import useNavigate for navigation
+import Footer from './Footer';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -75,7 +76,7 @@ const ReportCard: React.FC<ReportCardProps> = ({ report, onGoBack }) => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col justify-between bg-[#1E1E1E] text-white p-4 rounded-lg shadow-lg" style={{ fontFamily: "'Roboto'" }}>
+    <div className="min-h-1/2 flex flex-col justify-between bg-[#1E1E1E] text-white p-4 rounded-lg shadow-lg" style={{ fontFamily: "'Roboto'" }}>
       <div>
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-2xl font-bold">Summary + Security Assessment</h2>
@@ -164,10 +165,13 @@ const ReportCard: React.FC<ReportCardProps> = ({ report, onGoBack }) => {
       </div>
 
       {/* Report Details Button */}
-      <div className="mt-4 text-right">
-        <button className="bg-[#3b3f5c] text-sm px-4 py-2 rounded-lg" onClick={goToReportDetails}>
+      <div className="text-right">
+        <button className="bg-[#3b3f5c] mt-2 text-sm px-4 py-2 rounded-lg" onClick={goToReportDetails}>
           View Detailed Report
         </button>
+      </div>
+      <div>
+        <Footer/>
       </div>
     </div>
   );

@@ -6,7 +6,9 @@ import CustomCard from '../Components/Cards'; // Import the CustomCard component
 import Navbar from '../Components/Navbar';
 import SwitchNet from '../Components/SwitchNet';
 import Footer from '../Components/Footer';
-
+import { DotPattern } from "../Components/ui/dot-pattern";
+import { cn } from '../../src/lib/utils';
+// import ClientTweetCard from '../../src/Components/ClientTweetCard';
 const Home: React.FC = () => {
   const navigate = useNavigate(); // Initialize the useNavigate hook
 
@@ -50,7 +52,7 @@ const Home: React.FC = () => {
     <>
       <div className="app-background min-h-screen flex flex-col justify-center items-center overflow-hidden">
         <Navbar />
-
+        
         <motion.div
           className="flex flex-col justify-center items-center text-center mb-16 mt-24"
           initial="hidden"
@@ -86,7 +88,11 @@ const Home: React.FC = () => {
             </button>
           </motion.div>
         </motion.div>
-
+        <DotPattern
+        className={cn(
+          "[mask-image:radial-gradient(500px_circle_at_center,white,transparent)]",
+        )}
+      />
         {/* Cards Section */}
         <motion.div
           className="grid grid-cols-1 md:grid-cols-3 gap-8 justify-center mb-4 items-center px-6"
@@ -121,6 +127,15 @@ const Home: React.FC = () => {
 
         <SwitchNet />
         <hr className="w-[50%] border-t border-gray-500 mt-10 my-10" />
+          
+          {/* Tweets Section */}
+        {/* <div className="flex justify-center items-center space-x-4">
+          <ClientTweetCard id="1845372595656630434" className='shadow-2xl' />
+          <ClientTweetCard id="1845372597590163659" className='shadow-2xl' />
+          <ClientTweetCard id="1845372599687315484" className='shadow-2xl' />
+          <ClientTweetCard id="1845372601805439043" className='shadow-2xl' />
+        </div> */}
+
         <Footer />
       </div>
     </>

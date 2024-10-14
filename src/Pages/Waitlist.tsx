@@ -7,6 +7,7 @@ import { ToastContainer, toast } from 'react-toastify';  // Import Toastify comp
 import 'react-toastify/dist/ReactToastify.css';          // Import Toastify CSS
 import "../styles/Waitlist.css";
 import Footer from '../Components/Footer';
+import RetroGrid from '../../src/Components/ui/retro-grid';
 // import Navbar from '../Components/Navbar';
 // import {BACKEND_URL} from "../../env"
 const Waitlist = () => {
@@ -72,10 +73,9 @@ const Waitlist = () => {
       {/* <Navbar/> */}
       <div className="bg-[#0E0E0E] app-background h-screen w-full  flex flex-col justify-center items-center relative">
         <BackButton mode='dark' />
-
+        <RetroGrid/>
         {/* Toast Container */}
         <ToastContainer />
-
         <button onClick={toggleNotifications} className="absolute top-4 right-4 text-white p-2 rounded-full ">
           <FontAwesomeIcon icon={faBell} className="text-2xl" />
           {hasUpdates && (
@@ -84,7 +84,7 @@ const Waitlist = () => {
         </button>
 
         {showNotifications && (
-          <div className="notifications bg-gray-900 text-white p-4 rounded-lg shadow-lg fixed top-16 right-4 w-80 h-auto z-50">
+          <div className="notifications backdrop-blur-sm	 text-white p-4 rounded-lg shadow-lg fixed top-16 right-4 w-80 h-auto z-50">
             <h2 className="text-lg font-semibold mb-2">Updates</h2>
             <div className="updates-list">
               {updates.map((update, index) => (
@@ -94,11 +94,12 @@ const Waitlist = () => {
                 </div>
               ))}
             </div>
-            <button onClick={toggleNotifications} className="text-sm text-right text-gray-400 mt-4">
+            <button onClick={toggleNotifications} className="text-md text-right text-white mt-4">
               Close
             </button>
           </div>
         )}
+
 
         {!showConfirmation ? (
           <div className="text-center mb-9">

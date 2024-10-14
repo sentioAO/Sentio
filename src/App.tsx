@@ -9,15 +9,12 @@ import Offchain from './Pages/Offchain';
 import  Dashboard  from './Pages/Dashboard';
 // import WatcherProcess from './Pages/OnchainDemo';
 import SentinelProcess from './Pages/OnchainDemo';
-import ReportDetailsPage from './Pages/Details';
-import { DotPatternDemo } from './Pages/NewHome';
-function App() {
+import ReportDetailsPage from './Pages/Details';function App() {
   return (
     <ArweaveWalletKit>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path = "/newHome" element={<DotPatternDemo/>}/>
           <Route path="/wait" element={<Waitlist/>} />
           {/* <Route path="/onchain" element={<Onchain/>} /> */}
           <Route path="/offchain" element={<Offchain/>} />

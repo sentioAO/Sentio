@@ -16,11 +16,10 @@ import ReportDetailsPage from './Pages/Details';function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/wait" element={<Waitlist/>} />
-          {/* <Route path="/onchain" element={<Onchain/>} /> */}
           <Route path="/offchain" element={<Offchain/>} />
           <Route path="/onchain" element={<SentinelProcess/>} />
           <Route path="/report-details" element={<ReportDetailsPage/>}/>
-          <Route path="/dashboard/:processId" element={<Dashboard/>}/>
+          <Route path="/dashboard" element={<Dashboard/>}/>
         </Routes>
       </BrowserRouter>
     </ArweaveWalletKit>

@@ -12,8 +12,8 @@ import { cn } from '../../src/lib/utils';
 const Home: React.FC = () => {
   const navigate = useNavigate(); // Initialize the useNavigate hook
 
-  const handleJoinWaitlist = () => {
-    navigate('/wait'); // Navigate to /wait when the button is clicked
+  const goToDashboard = () => {
+    navigate('/dashboard'); // Navigate to /wait when the button is clicked
   };
 
   // Animation variants for text and button
@@ -81,10 +81,10 @@ const Home: React.FC = () => {
             variants={buttonVariant}
           >
             <button
-              className="px-10 py-3 bg-white rounded-xl font-bold text-lg"
-              onClick={handleJoinWaitlist}
+              className="px-10 py-3 text-white outline  rounded-xl font-bold text-lg  "
+              onClick={goToDashboard}
             >
-              Join Waitlist
+              Get Started
             </button>
           </motion.div>
         </motion.div>

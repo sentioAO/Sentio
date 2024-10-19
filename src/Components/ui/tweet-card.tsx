@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { Suspense } from "react";
 import {
     enrichTweet,
@@ -9,11 +7,11 @@ import {
 } from "react-tweet";
 import { getTweet, type Tweet } from "react-tweet/api";
 
-import { cn } from "../../lib/utils";
+import { cn } from '../../lib/utils';
 
 interface TwitterIconProps {
     className?: string;
-    [key: string]: any;
+    [key: string]: unknown;
 }
 const Twitter = ({ className, ...props }: TwitterIconProps) => (
     <svg
@@ -47,7 +45,6 @@ const Verified = ({ className, ...props }: TwitterIconProps) => (
     </svg>
 );
 
-// eslint-disable-next-line react-refresh/only-export-components
 export const truncate = (str: string | null, length: number) => {
     if (!str || str.length <= length) return str;
     return `${str.slice(0, length - 3)}...`;
@@ -67,7 +64,7 @@ export const TweetSkeleton = ({
     ...props
 }: {
     className?: string;
-    [key: string]: any;
+    [key: string]: unknown;
 }) => (
     <div
         className={cn(
@@ -89,7 +86,7 @@ export const TweetNotFound = ({
     ...props
 }: {
     className?: string;
-    [key: string]: any;
+    [key: string]: unknown;
 }) => (
     <div
         className={cn(
@@ -180,7 +177,7 @@ export const TweetBody = ({ tweet }: { tweet: EnrichedTweet }) => (
 );
 
 export const TweetMedia = ({ tweet }: { tweet: EnrichedTweet }) => (
-    <div className="flex flex-1 items-center justify-center">
+    <div className="flex flex-1 items-center justify-center overflow-hidden">
         {tweet.video && (
             <video
                 poster={tweet.video.poster}
@@ -188,35 +185,33 @@ export const TweetMedia = ({ tweet }: { tweet: EnrichedTweet }) => (
                 loop
                 muted
                 playsInline
-                className="rounded-xl border shadow-sm"
+                className="rounded-xl border shadow-sm max-w-full max-h-64"
             >
                 <source src={tweet.video.variants[0].src} type="video/mp4" />
                 Your browser does not support the video tag.
             </video>
         )}
         {tweet.photos && (
-            <div className="relative flex transform-gpu snap-x snap-mandatory gap-4 overflow-x-auto">
-                <div className="shrink-0 snap-center sm:w-2" />
+            <div className="relative flex transform-gpu snap-x snap-mandatory gap-4 overflow-x-auto hide-scrollbar">
                 {tweet.photos.map((photo) => (
                     <img
                         key={photo.url}
                         src={photo.url}
                         title={"Photo by " + tweet.user.name}
                         alt={tweet.text}
-                        className="h-64 w-5/6 shrink-0 snap-center snap-always rounded-xl border object-cover shadow-sm"
+                        className="h-64 w-full max-w-xs shrink-0 snap-center rounded-xl border object-cover shadow-sm"
                     />
                 ))}
-                <div className="shrink-0 snap-center sm:w-2" />
             </div>
         )}
         {!tweet.video &&
             !tweet.photos &&
-            // @ts-ignore
+            // @ts-expect-error: TypeScript cannot infer the type of tweet.card.binding_values
             tweet?.card?.binding_values?.thumbnail_image_large?.image_value.url && (
                 <img
-                    // @ts-ignore
+                    // @ts-expect-error:ACBAXC
                     src={tweet.card.binding_values.thumbnail_image_large.image_value.url}
-                    className="h-64 rounded-xl border object-cover shadow-sm"
+                    className="h-64 w-full rounded-xl border object-cover shadow-sm max-w-xs"
                 />
             )}
     </div>
@@ -224,7 +219,7 @@ export const TweetMedia = ({ tweet }: { tweet: EnrichedTweet }) => (
 
 export const MagicTweet = ({
     tweet,
-//   components,
+    components,
     className,
     ...props
 }: {
@@ -233,10 +228,12 @@ export const MagicTweet = ({
     className?: string;
 }) => {
     const enrichedTweet = enrichTweet(tweet);
+
+    console.log(components)
     return (
         <div
             className={cn(
-                "relative flex size-full max-w-lg flex-col gap-2 overflow-hidden rounded-lg border p-4 backdrop-blur-md bg-white",
+                "relative flex size-full max-w-lg flex-col gap-2 overflow-hidden rounded-lg border  p-4 backdrop-blur-md",
                 className,
             )}
             {...props}
@@ -262,12 +259,12 @@ export const TweetCard = async ({
 }) => {
     const tweet = id
         ? await getTweet(id).catch((err) => {
-                if (onError) {
-                    onError(err);
-                } else {
-                    console.error(err);
-                }
-            })
+            if (onError) {
+                onError(err);
+            } else {
+                console.error(err);
+            }
+        })
         : undefined;
 
     if (!tweet) {

@@ -7,6 +7,7 @@ import { DotPattern } from "../Components/ui/dot-pattern";
 import { cn } from '../../src/lib/utils';
 import { AnimatedBeamDemo } from '../Components/Graph';
 import tick from "../assets/icons8-checkmark.svg";
+import TweetCard from '../Components/ClientTweetCard';
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
@@ -43,6 +44,15 @@ const Home: React.FC = () => {
     },
   };
 
+  const tweetCardVariant = {
+    hidden: { opacity: 0, x: -50 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: { duration: 0.8, ease: [0.43, 0.13, 0.23, 0.96], delay: 0.4 },
+    },
+  };
+
   return (
     <>
       <div className="app-background min-h-screen flex flex-col justify-center items-center overflow-hidden">
@@ -75,6 +85,7 @@ const Home: React.FC = () => {
             animate="visible"
             variants={buttonVariant}
           >
+
             <button
               className="px-10 py-3 text-white bg-[#9966FF] mt-7 z-10 rounded-xl font-bold text-lg"
               onClick={goToDashboard}
@@ -126,7 +137,27 @@ const Home: React.FC = () => {
           <div className='w-1/2 flex flex-col items-center'>
             <AnimatedBeamDemo />
           </div>
+
         </motion.div>
+        <hr className="w-[50%] border-t border-gray-500 mt-10 my-10" />
+
+        <motion.div
+          className="flex w-full justify-center gap-2 max-h text-white flex-wrap"
+          initial="hidden"
+          animate="visible"
+          variants={tweetCardVariant}
+        >
+          <div className='flex  justify-between'>
+
+          <div className="flex flex-col items-center justify-center w-1/3 h-[450px] max-h-[450px] overflow-hidden">
+            <TweetCard id="1845372593144201450" />
+          </div>
+          <div className="flex flex-col items-center justify-center w-1/3 h-[450px] max-h-[450px] overflow-hidden">
+            <TweetCard id="1844334374558499117" />
+          </div>
+          </div>
+        </motion.div>
+
 
         <hr className="w-[50%] border-t border-gray-500 mt-10 my-10" />
 

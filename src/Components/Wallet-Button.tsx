@@ -7,11 +7,11 @@ const Wallet = () => {
 
 
     return (
-        <div className='border border-[#a09e9e] rounded-xl p-1'>
+        <div className='border border-[#757373] rounded-xl p-1'>
             <ConnectButton
                 accent="rgb(63, 63, 63,0 )"
-                profileModal={false}
-                showBalance={true}
+                profileModal={true}
+                showBalance={false}
             />
         </div>
     );

@@ -127,7 +127,7 @@ export default function Dashboard() {
                 </button>
                 <button
                   className="px-4 py-2 bg-white text-black rounded hover:bg-black hover:outline hover:text-white transition duration-200"
-                  onClick={() => alert("Analyzer feature coming soon!")}
+                  onClick={() => alert("Analyzer Cooking Soon!")}
                 >
                   Analyze Process
                 </button>

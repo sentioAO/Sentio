@@ -1,13 +1,13 @@
 import React from 'react';
-import { FaLock, FaCheckCircle, FaEye } from 'react-icons/fa'; // Import icons for your cards
+// import { FaLock, FaCheckCircle, FaEye } from 'react-icons/fa'; 
 import { useNavigate } from 'react-router-dom'; // Import useNavigate from react-router-dom
 import { motion } from 'framer-motion'; // Import Framer Motion for animations
-import CustomCard from '../Components/Cards'; // Import the CustomCard component
+// import CustomCard from '../Components/Cards';
 import Navbar from '../Components/Navbar';
-import SwitchNet from '../Components/SwitchNet';
 import Footer from '../Components/Footer';
 import { DotPattern } from "../Components/ui/dot-pattern";
 import { cn } from '../../src/lib/utils';
+import SecurityAuditingMonitoring from  '../../src/Components/SAM';
 // import ClientTweetCard from '../../src/Components/ClientTweetCard';
 const Home: React.FC = () => {
   const navigate = useNavigate(); // Initialize the useNavigate hook
@@ -35,18 +35,18 @@ const Home: React.FC = () => {
     },
   };
 
-  const cardVariant = {
-    hidden: { opacity: 0, scale: 0.9 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      transition: {
-        duration: 0.7,
-        ease: 'easeInOut',
-        staggerChildren: 0.2, // Add delay between cards
-      },
-    },
-  };
+  // const cardVariant = {
+  //   hidden: { opacity: 0, scale: 0.9 },
+  //   visible: {
+  //     opacity: 1,
+  //     scale: 1,
+  //     transition: {
+  //       duration: 0.7,
+  //       ease: 'easeInOut',
+  //       staggerChildren: 0.2, // Add delay between cards
+  //     },
+  //   },
+  // };
 
   return (
     <>
@@ -93,7 +93,7 @@ const Home: React.FC = () => {
           "[mask-image:radial-gradient(500px_circle_at_center,white,transparent)]",
         )}
       />
-        {/* Cards Section */}
+        {/* Cards Section
         <motion.div
           className="grid grid-cols-1 md:grid-cols-3 gap-8 justify-center mb-4 items-center px-6"
           initial="hidden"
@@ -121,11 +121,9 @@ const Home: React.FC = () => {
             title="MONITORING"
             description="Monitoring And Analyzing The Process To Ensure The Security And Integrity Of The Data."
           />
-        </motion.div>
-
+        </motion.div> */}
         <hr className="w-[50%] border-t border-gray-500 mt-10 my-10" />
-
-        <SwitchNet />
+        <SecurityAuditingMonitoring/>
         <hr className="w-[50%] border-t border-gray-500 mt-10 my-10" />
           
           {/* Tweets Section */}

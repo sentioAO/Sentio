@@ -26,7 +26,7 @@
     "clsx": "^2.1.1",
     "codemirror": "^5.0.0",
     "core-js": "^3.38.1",
-    "framer-motion": "^11.5.4",
+    "framer-motion": "^11.11.9",
     "framer-motion-3d": "^11.3.31",
     "lottie-react": "^2.4.0",
     "lottie-web": "^5.12.2",

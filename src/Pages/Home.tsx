@@ -8,6 +8,8 @@ import Footer from '../Components/Footer';
 import { DotPattern } from "../Components/ui/dot-pattern";
 import { cn } from '../../src/lib/utils';
 import SecurityAuditingMonitoring from  '../../src/Components/SAM';
+
+
 // import ClientTweetCard from '../../src/Components/ClientTweetCard';
 const Home: React.FC = () => {
   const navigate = useNavigate(); // Initialize the useNavigate hook
@@ -52,6 +54,7 @@ const Home: React.FC = () => {
     <>
       <div className="app-background min-h-screen flex flex-col justify-center items-center overflow-hidden">
         <Navbar />
+        
         
         <motion.div
           className="flex flex-col justify-center items-center text-center mb-16 mt-24"

@@ -7,6 +7,7 @@ import Navbar from '../Components/Navbar';
 import Footer from '../Components/Footer';
 import { DotPattern } from "../Components/ui/dot-pattern";
 import { cn } from '../../src/lib/utils';
+import OrbitalAnimation from '../Components/Orbitals';
 import SecurityAuditingMonitoring from  '../../src/Components/SAM';
 
 
@@ -55,7 +56,7 @@ const Home: React.FC = () => {
       <div className="app-background min-h-screen flex flex-col justify-center items-center overflow-hidden">
         <Navbar />
         
-        
+        <OrbitalAnimation/>
         <motion.div
           className="flex flex-col justify-center items-center text-center mb-16 mt-24"
           initial="hidden"

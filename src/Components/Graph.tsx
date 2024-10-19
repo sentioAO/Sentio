@@ -59,7 +59,8 @@ export function AnimatedBeamDemo() {
         curvature={-20}
         gradientStartColor="#ffffff"
         gradientStopColor="#9966ff"
-        duration={1}
+        duration={5}
+        delay={1}
       />
 
       {/* Beam from openai to user */}

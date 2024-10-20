@@ -162,10 +162,10 @@ const Home: React.FC = () => {
           </div>
         </motion.div>
         <hr className="w-[50%] border-t border-gray-500 mt-10 my-10" />
-        
+
         <SwitchNet/>
 
-
+        <hr className="w-[50%] border-t border-gray-500 mt-10 my-10" />
         
 
         <Footer />

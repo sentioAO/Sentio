@@ -9,6 +9,7 @@ import { AnimatedBeamDemo } from '../Components/Graph';
 import tick from "../assets/icons8-checkmark.svg";
 import TweetCard from '../Components/ClientTweetCard';
 import SwitchNet from '../Components/SwitchNet';
+import FAQSection from '../Components/FAQ';
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
@@ -167,7 +168,7 @@ const Home: React.FC = () => {
 
 
         
-
+<FAQSection/>
         <Footer />
       </div>
     </>

@@ -3,7 +3,7 @@ import { useRef, useEffect } from 'react';
 export default function FAQSection() {
   const faqs = [
     { question: "What is Sentio?", answer: "Sentio is a Latin verb that means to perceive, feel, hear, or see" },
-    { question: "Who is Lighting for?", answer: "Lighting is for..." },
+    { question: "Why Sentio?", answer:"Sentio as a platform it provides a complete pipeline from wrtiting code to deploying it and monitoring it" },
     { question: "Can I import my projects from another tool?", answer: "Yes, you can..." },
     { question: "What are projects and issues in Lighting?", answer: "Projects and issues in Lighting are..." },
     { question: "Can I integrate Lighting with other tools?", answer: "Yes, Lighting integrates with..." },
@@ -39,7 +39,7 @@ export default function FAQSection() {
           >
             <summary className="flex justify-between items-center cursor-pointer  p-4 rounded-lg bg-[#9966FF] transition-colors duration-300">
               <span className="text-lg font-medium">{faq.question}</span>
-              <span className="transition-transform transform group-open:rotate-45 text-2xl ">+</span>
+              <span className="transition-transform transform group-open:rotate-45 text-6xl ">+</span>
             </summary>
             <p className="mt-2 p-4 bg- rounded-lg text-gray-300">{faq.answer}</p>
           </details>

@@ -150,7 +150,7 @@ const Home: React.FC = () => {
           animate="visible"
           variants={tweetCardVariant}
         >
-          <div className="flex flex-col sm:flex-row justify-center items-center gap-5 lg:gap-0">
+          <div className="flex flex-col sm:flex-row justify-center items-center gap-5 lg:justify-between">
             <div className="flex flex-col items-center justify-center w-[90%] sm:w-1/3 h-[450px] max-h-[450px] overflow-hidden">
               <TweetCard id="1845372593144201450" />
             </div>

@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { motion } from 'framer-motion';
 import { FaBell, FaListAlt, FaPauseCircle, FaSearch } from 'react-icons/fa';
@@ -46,14 +46,18 @@ export default function Component() {
                         </li>
                     </ul>
                 </div>
-                <div className="relative flex flex-col justify-center mt-16 items-center mt-8">
-                    <div className="absolute text-white  text-center">
-                        <span className="block text-base  sm:text-lg">Sentinel</span>
-                        <FaSearch className="text-2xl sm:text-3xl md:text-4xl mx-auto mb-8 sm:mb-16" />
+
+                {/* Paths and Icons */}
+                <div className="relative flex flex-col justify-center items-center mt-8 sm:mt-16">
+                    {/* Central icon */}
+                    <div className="absolute text-white text-center">
+                        <span className="block text-base sm:text-lg ">Sentinel</span>
+                        <FaSearch className="text-2xl sm:text-3xl md:text-4xl  mx-auto mb-8 sm:mb-16" />
                     </div>
 
+                    {/* Path going to "Notify" */}
                     <motion.svg
-                        className="absolute left-1/4 sm:left-1/3 w-24 sm:w-32 h-12 sm:h-16"
+                        className="absolute left-[15%] mt-2 sm:left-[30%] w-24 sm:w-32 h-12 sm:h-16"
                         viewBox="0 0 100 50"
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"
@@ -70,7 +74,7 @@ export default function Component() {
                     </motion.svg>
 
                     <motion.svg
-                        className="absolute right-1/4 sm:right-1/3 w-24 sm:w-32 h-12 sm:h-16"
+                        className="absolute right-[15%] mt-3 sm:right-[30%] w-24 sm:w-32 h-12 sm:h-16"
                         viewBox="0 0 100 50"
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"
@@ -86,12 +90,14 @@ export default function Component() {
                         />
                     </motion.svg>
 
-                    <div className="absolute left-4 sm:left-1/4 flex flex-col items-center mt-24 sm:mt-32">
+                    {/* Notify icon and label */}
+                    <div className="absolute left-[10%] sm:left-[25%] flex flex-col items-center mt-24 sm:mt-32">
                         <span className="block text-sm sm:text-base md:text-lg text-white">Notify</span>
                         <FaBell className="text-xl sm:text-2xl md:text-3xl text-white mt-1" />
                     </div>
 
-                    <div className="absolute right-4 sm:right-1/4 flex flex-col items-center mt-24 sm:mt-32">
+                    {/* Process icon and label */}
+                    <div className="absolute right-[10%] sm:right-[25%] flex flex-col items-center mt-24 sm:mt-32">
                         <span className="block text-sm sm:text-base md:text-lg text-white">Process</span>
                         <FaListAlt className="text-xl sm:text-2xl md:text-3xl text-white mt-1" />
                     </div>

@@ -2,7 +2,7 @@ import { useRef, useEffect } from 'react';
 
 export default function FAQSection() {
   const faqs = [
-    { question: "What is Sentio?", answer: "Sentio is a good product" },
+    { question: "What is Sentio?", answer: "Sentio is a Latin verb that means to perceive, feel, hear, or see" },
     { question: "Who is Lighting for?", answer: "Lighting is for..." },
     { question: "Can I import my projects from another tool?", answer: "Yes, you can..." },
     { question: "What are projects and issues in Lighting?", answer: "Projects and issues in Lighting are..." },

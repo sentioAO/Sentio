@@ -104,7 +104,7 @@ const Home: React.FC = () => {
         <hr className="w-[50%] border-t border-gray-500 mt-10 my-10" />
 
         <motion.div
-          className="flex w-3/4 justify-between items-center"
+          className="flex w-3/4 justify-between items-center flex-col lg:flex-row"
           initial="hidden"
           animate="visible"
           variants={sectionVariant}
@@ -135,28 +135,31 @@ const Home: React.FC = () => {
             </ul>
           </div>
           <div className='w-1/2 flex flex-col items-center'>
-            <AnimatedBeamDemo />
+
+            <div className='flex gap-4'>
+              <AnimatedBeamDemo />
+            </div>
           </div>
 
         </motion.div>
         <hr className="w-[50%] border-t border-gray-500 mt-10 my-10" />
 
         <motion.div
-          className="flex w-full justify-center gap-2 max-h text-white flex-wrap"
+          className="flex w-full gap-2 max-h text-white flex-wrap justify-center"
           initial="hidden"
           animate="visible"
           variants={tweetCardVariant}
         >
-          <div className='flex  justify-between'>
-
-          <div className="flex flex-col items-center justify-center w-1/3 h-[450px] max-h-[450px] overflow-hidden">
-            <TweetCard id="1845372593144201450" />
-          </div>
-          <div className="flex flex-col items-center justify-center w-1/3 h-[450px] max-h-[450px] overflow-hidden">
-            <TweetCard id="1844334374558499117" />
-          </div>
+          <div className="flex flex-col sm:flex-row justify-center items-center gap-5 lg:gap-0">
+            <div className="flex flex-col items-center justify-center w-[90%] sm:w-1/3 h-[450px] max-h-[450px] overflow-hidden">
+              <TweetCard id="1845372593144201450" />
+            </div>
+            <div className="flex flex-col items-center justify-center w-[90%] sm:w-1/3 h-[450px] max-h-[450px] overflow-hidden">
+              <TweetCard id="1844334374558499117" />
+            </div>
           </div>
         </motion.div>
+
 
 
         <hr className="w-[50%] border-t border-gray-500 mt-10 my-10" />

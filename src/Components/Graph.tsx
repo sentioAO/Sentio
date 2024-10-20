@@ -32,11 +32,11 @@ export function AnimatedBeamDemo() {
 
   return (
     <div
-      className="relative flex w-full max-w-[500px] items-center justify-center overflow-hidden rounded-lg  bg-background p-10 md:shadow-xl"
+      className="relative flex w-full max-w-[500px] items-center justify-center overflow-hidden rounded-lg  bg-background p-10 md:shadow-xl "
       ref={containerRef}
     >
       <div className="flex size-full flex-col items-stretch justify-between gap-10">
-        <div className="flex flex-row justify-between">
+        <div className="flex lg:flex-row justify-between gap-7 flex-col">
           <Circle ref={div1Ref}>
             <Icons.user />
           </Circle>

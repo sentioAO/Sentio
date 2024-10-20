@@ -26,6 +26,7 @@ export default function FAQSection() {
               </summary>
               <p className="mt-2 p-4 bg-gray-900 rounded-lg text-gray-300">{faq.answer}</p>
             </details>
+        
           ))}
         </div>
       </div>

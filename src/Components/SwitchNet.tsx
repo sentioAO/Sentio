@@ -50,7 +50,7 @@ const SwitchNet: React.FC = () => {
     };
 
     return (
-        <div className="w-full max-w-4xl mx-auto bg-gray-800 p-6 rounded-lg flex flex-col"> {/* Greyish background */}
+        <div className="w-full max-w-5xl mx-auto  p-6 rounded-lg flex flex-col"> {/* Greyish background */}
 
             {/* Tab Selection at the Top */}
             <div className="flex justify-center mb-4">
@@ -86,7 +86,7 @@ const SwitchNet: React.FC = () => {
                 <div className="flex-grow flex flex-col">
                     <AnimatePresence>
                         <motion.div
-                            className="bg-gray-700 p-4 rounded-lg flex-grow" // Greyish background for content area
+                            className=" p-4 rounded-lg flex-grow" 
                             style={{ minHeight: '300px' }}
                             variants={contentVariants}
                             initial="hidden"

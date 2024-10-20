@@ -1,9 +1,9 @@
-import React from 'react';
+"use client"
+
 import { motion } from 'framer-motion';
 import { FaBell, FaListAlt, FaPauseCircle, FaSearch } from 'react-icons/fa';
 
-const Monitoring = () => {
-    // Sending Animation - simulating a Wi-Fi-like connection
+export default function Component() {
     const waveVariant = {
         hidden: { pathLength: 0 },
         visible: { pathLength: 1, transition: { duration: 1.5, repeat: Infinity, ease: 'easeInOut' } },
@@ -14,55 +14,52 @@ const Monitoring = () => {
     };
 
     return (
-        <div className="bg-black p-6 rounded-lg border h-[500px] w-full">
+        <div className="bg-black p-4 sm:p-6 rounded-lg border min-h-[500px] w-full">
             <motion.div
-                className="step-content text-center mt-6"
+                className="step-content text-center mt-4 sm:mt-6"
                 initial="hidden"
                 animate="visible"
                 variants={stepVariant}
             >
-                <h2 className="text-4xl text-white font-semibold mb-4 flex justify-center items-center">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl text-white font-semibold mb-4 flex justify-center items-center">
                     <motion.div
-                        className="mr-4"
+                        className="mr-2 sm:mr-4"
                         animate={{
                             rotate: [0, -20, 20, -20, 20, 0],
                         }}
                         transition={{
-                            duration: 1, 
-                            ease: "easeInOut", 
+                            duration: 1,
+                            ease: "easeInOut",
                             repeat: Infinity,
-                            repeatType: "loop", 
+                            repeatType: "loop",
                         }}
                     >
-                        <FaBell />
+                        <FaBell className="text-xl sm:text-2xl md:text-3xl" />
                     </motion.div>
                     Sentinel Actions
                 </h2>
-                <div className="flex justify-center text-center items-center">
-                    <ul className="mt-4 text-gray-400 pl-6 px-4 mb-16 inline-block list">
+                <div className="flex flex-col justify-center text-left items-center">
+                    <ul className="mt-4 text-gray-400 pl-4 sm:pl-6 pr-4 sm:pr-6 mb-8 sm:mb-16 list-disc space-y-2 text-sm sm:text-base">
                         <li>Notification on suspicious activity.</li>
                         <li>
                             <FaPauseCircle className="inline-block mr-1" /> Pause the process if a high-level vulnerability is detected.
                         </li>
                     </ul>
                 </div>
-                {/* Arrow for Actions from Sentinel */}
-                <div className="relative flex flex-col sm:flex-row justify-center items-center mt-8">
-                    {/* Sentinel Icon at the center */}
-                    <div className="absolute text-white text-center">
-                        <span className="block text-lg">Sentinel</span>
-                        <FaSearch className="text-4xl ml-2 mb-16" />
+                <div className="relative flex flex-col justify-center mt-16 items-center mt-8">
+                    <div className="absolute text-white  text-center">
+                        <span className="block text-base  sm:text-lg">Sentinel</span>
+                        <FaSearch className="text-2xl sm:text-3xl md:text-4xl mx-auto mb-8 sm:mb-16" />
                     </div>
 
-                    {/* Path going to User Notification */}
                     <motion.svg
-                        className="absolute left-1/3 w-32 h-16"
+                        className="absolute left-1/4 sm:left-1/3 w-24 sm:w-32 h-12 sm:h-16"
                         viewBox="0 0 100 50"
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"
                     >
                         <motion.path
-                            d="M90 40 Q 50 0, 10 40" // Adjusted for right to left
+                            d="M90 40 Q 50 0, 10 40"
                             stroke="green"
                             strokeWidth="2"
                             fill="transparent"
@@ -72,15 +69,14 @@ const Monitoring = () => {
                         />
                     </motion.svg>
 
-                    {/* Path going to Process Pause */}
                     <motion.svg
-                        className="absolute right-1/3 w-32 h-16"
+                        className="absolute right-1/4 sm:right-1/3 w-24 sm:w-32 h-12 sm:h-16"
                         viewBox="0 0 100 50"
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"
                     >
                         <motion.path
-                            d="M10 40 Q 50 0, 90 40" // Adjusted for left to right
+                            d="M10 40 Q 50 0, 90 40"
                             stroke="red"
                             strokeWidth="2"
                             fill="transparent"
@@ -90,20 +86,17 @@ const Monitoring = () => {
                         />
                     </motion.svg>
 
-                    {/* Icons for User Notification and Process */}
-                    <div className="absolute left-1/4 flex flex-col items-center">
-                        <span className="block text-lg text-white">Notify</span>
-                        <FaBell className="text-3xl mr-2 text-white" />
+                    <div className="absolute left-4 sm:left-1/4 flex flex-col items-center mt-24 sm:mt-32">
+                        <span className="block text-sm sm:text-base md:text-lg text-white">Notify</span>
+                        <FaBell className="text-xl sm:text-2xl md:text-3xl text-white mt-1" />
                     </div>
 
-                    <div className="absolute right-1/4 flex flex-col items-center">
-                        <span className="block text-lg text-white">Process</span>
-                        <FaListAlt className="text-4xl text-white" />
+                    <div className="absolute right-4 sm:right-1/4 flex flex-col items-center mt-24 sm:mt-32">
+                        <span className="block text-sm sm:text-base md:text-lg text-white">Process</span>
+                        <FaListAlt className="text-xl sm:text-2xl md:text-3xl text-white mt-1" />
                     </div>
                 </div>
             </motion.div>
         </div>
     );
-};
-
-export default Monitoring;
+}

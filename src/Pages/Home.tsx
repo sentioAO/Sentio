@@ -56,7 +56,7 @@ const Home: React.FC = () => {
 
   return (
     <>
-      <div className="app-background min-h-screen flex flex-col justify-center items-center overflow-hidden">
+      <div className="bg-black min-h-screen flex flex-col justify-center items-center overflow-hidden">
         <Navbar />
         
 

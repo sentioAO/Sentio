@@ -8,6 +8,7 @@ import { cn } from '../../src/lib/utils';
 import { AnimatedBeamDemo } from '../Components/Graph';
 import tick from "../assets/icons8-checkmark.svg";
 import TweetCard from '../Components/ClientTweetCard';
+import SwitchNet from '../Components/SwitchNet';
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
@@ -57,6 +58,7 @@ const Home: React.FC = () => {
     <>
       <div className="app-background min-h-screen flex flex-col justify-center items-center overflow-hidden">
         <Navbar />
+        
 
         <motion.div
           className="flex flex-col justify-center items-center text-center mb-16 mt-24"
@@ -159,10 +161,12 @@ const Home: React.FC = () => {
             </div>
           </div>
         </motion.div>
-
-
-
         <hr className="w-[50%] border-t border-gray-500 mt-10 my-10" />
+        
+        <SwitchNet/>
+
+
+        
 
         <Footer />
       </div>

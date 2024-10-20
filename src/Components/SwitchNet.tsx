@@ -1,45 +1,45 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion'; // Import motion and AnimatePresence from Framer Motion
-import offchainImg from '../assets/offchain.png'; // Offchain image
-import onchainImg from '../assets/onchain.png';   // Onchain image
+import { motion, AnimatePresence } from 'framer-motion'; 
+import { OrbitingCirclesDemo } from './Cricles';
 
 const SwitchNet: React.FC = () => {
-    const [activeTab, setActiveTab] = useState<'offchain' | 'onchain'>('offchain');
-    const [buttonText, setButtonText] = useState<string>(activeTab === 'offchain' ? 'Go to Offchain' : 'Go to Onchain');
+    const [activeTab, setActiveTab] = useState<'security' | 'monitoring' | 'auditing'>('security');
+    const [buttonText, setButtonText] = useState<string>('Go to Security');
     const navigate = useNavigate();
 
-    const handleTabChange = (tab: 'offchain' | 'onchain') => {
+    const handleTabChange = (tab: 'security' | 'monitoring' | 'auditing') => {
         setActiveTab(tab);
-        setButtonText(tab === 'offchain' ? 'Go to Offchain' : 'Go to Onchain');
+        setButtonText(tab === 'security' ? 'Go to Security' : tab === 'monitoring' ? 'Go to Monitoring' : 'Go to Auditing');
     };
 
     const handleNavigate = () => {
-        if (activeTab === 'offchain') {
-            navigate('/offchain'); // Navigate to the Offchain page when in Offchain tab
+        if (activeTab === 'security') {
+            navigate('/security');
+        } else if (activeTab === 'monitoring') {
+            navigate('/monitoring');
         } else {
-            navigate('/onchain');  // Navigate to the Onchain page when in Onchain tab
+            navigate('/auditing');
         }
     };
 
     const handleMouseEnter = () => {
-        setButtonText(activeTab === 'offchain' ? 'Audit Process Code' : 'Monitor & Analyze Process');
+        if (activeTab === 'security') {
+            setButtonText('Ensure Code Security');
+        } else if (activeTab === 'monitoring') {
+            setButtonText('Monitor & Analyze Process');
+        } else {
+            setButtonText('Audit Process Code');
+        }
     };
 
     const handleMouseLeave = () => {
-        setButtonText(activeTab === 'offchain' ? 'Go to Offchain' : 'Go to Onchain');
+        setButtonText(activeTab === 'security' ? 'Go to Security' : activeTab === 'monitoring' ? 'Go to Monitoring' : 'Go to Auditing');
     };
 
-    // Animation variants
     const tabButtonVariants = {
-        active: { scale: 1.05, backgroundColor: '#4a4a4a', transition: { duration: 0.3 } },
-        inactive: { scale: 1, backgroundColor: '#2a2a2a', transition: { duration: 0.3 } },
-    };
-
-    const imageVariants = {
-        initial: { opacity: 0 },
-        animate: { opacity: 1 },
-        exit: { opacity: 0 },
+        active: { scale: 1.05, backgroundColor: '#6c42e2', transition: { duration: 0.3 } }, // Purple for active tab
+        inactive: { scale: 1, backgroundColor: '#4d2f91', transition: { duration: 0.3 } }, // Darker purple for inactive
     };
 
     const contentVariants = {
@@ -48,71 +48,74 @@ const SwitchNet: React.FC = () => {
     };
 
     return (
-        <div className="w-full max-w-4xl mx-auto bg-[#1a1a1a] p-6 rounded-lg flex flex-col">
+        <div className="w-full max-w-4xl mx-auto bg-gray-800 p-6 rounded-lg flex flex-col"> {/* Greyish background */}
 
             {/* Tab Selection at the Top */}
             <div className="flex justify-center mb-4">
                 <motion.button
-                    className={`flex-1 py-2 text-white font-semibold rounded-l-lg focus:outline-none ${activeTab === 'offchain' ? 'bg-gray-700' : 'bg-gray-900'}`}
-                    onClick={() => handleTabChange('offchain')}
+                    className={`flex-1 py-2 text-white font-semibold rounded-l-lg focus:outline-none ${activeTab === 'security' ? 'bg-[#6c42e2]' : 'bg-gray-700'}`} // Purple and greyish background
+                    onClick={() => handleTabChange('security')}
                     variants={tabButtonVariants}
-                    animate={activeTab === 'offchain' ? 'active' : 'inactive'}
+                    animate={activeTab === 'security' ? 'active' : 'inactive'}
                 >
-                    Offchain
+                    Security
                 </motion.button>
                 <motion.button
-                    className={`flex-1 py-2 text-white font-semibold rounded-r-lg focus:outline-none ${activeTab === 'onchain' ? 'bg-gray-700' : 'bg-gray-900'}`}
-                    onClick={() => handleTabChange('onchain')}
+                    className={`flex-1 py-2 text-white font-semibold focus:outline-none ${activeTab === 'monitoring' ? 'bg-[#6c42e2]' : 'bg-gray-700'}`}
+                    onClick={() => handleTabChange('monitoring')}
                     variants={tabButtonVariants}
-                    animate={activeTab === 'onchain' ? 'active' : 'inactive'}
+                    animate={activeTab === 'monitoring' ? 'active' : 'inactive'}
                 >
-                    Onchain
+                    Monitoring
+                </motion.button>
+                <motion.button
+                    className={`flex-1 py-2 text-white font-semibold rounded-r-lg focus:outline-none ${activeTab === 'auditing' ? 'bg-[#6c42e2]' : 'bg-gray-700'}`}
+                    onClick={() => handleTabChange('auditing')}
+                    variants={tabButtonVariants}
+                    animate={activeTab === 'auditing' ? 'active' : 'inactive'}
+                >
+                    Auditing
                 </motion.button>
             </div>
 
             {/* Main Content Below the Tabs */}
             <div className="flex flex-col md:flex-row">
-                {/* Left Image */}
-                <div className="flex-shrink-0  md:mb-0 md:mr-6 w-full md:w-[400px] lg:w-[500px] h-auto">
-                    <AnimatePresence>
-                        <motion.img
-                            key={activeTab} // Ensures that the component will re-render when the tab changes
-                            src={activeTab === 'offchain' ? offchainImg : onchainImg} // Dynamically change image based on active tab
-                            alt={activeTab === 'offchain' ? 'Offchain illustration' : 'Onchain illustration'}
-                            className="rounded-lg w-full h-full object-cover"
-                            variants={imageVariants}
-                            initial="initial"
-                            animate="animate"
-                            exit="exit"
-                            transition={{ duration: 0.5 }}
-                        />
-                    </AnimatePresence>
-                </div>
-
                 {/* Right Side Content */}
                 <div className="flex-grow flex flex-col">
                     <AnimatePresence>
                         <motion.div
-                            className="bg-[#2a2a2a] p-4 rounded-lg flex-grow"
+                            className="bg-gray-700 p-4 rounded-lg flex-grow" // Greyish background for content area
                             style={{ minHeight: '300px' }} 
                             variants={contentVariants}
                             initial="hidden"
                             animate="visible"
                             exit="hidden"
                         >
-                            {activeTab === 'offchain' && (
+                            {activeTab === 'security' && (
                                 <div>
-                                    <h2 className="text-lg font-bold text-white">Offchain</h2>
-                                    <p className="text-sm text-gray-400 mt-7">
-                                    Identify the vulnerabilities in your LUA code prior to deployment on AO
+                                    <h2 className="text-lg font-bold text-white">Security</h2>
+                                    <p className="text-sm text-gray-300 mt-7">
+                                        Ensure that your smart contracts are secure and free from vulnerabilities before deployment.
+                                    </p>
+                                
+                                    <div className="mt-6">
+                                        <OrbitingCirclesDemo />
+                                    </div> 
+                                </div>
+                            )}
+                            {activeTab === 'monitoring' && (
+                                <div>
+                                    <h2 className="text-lg font-bold text-white">Monitoring</h2>
+                                    <p className="text-sm text-gray-300 mt-4">
+                                        Monitor on-chain activity to detect potential issues or anomalies in real time.
                                     </p>
                                 </div>
                             )}
-                            {activeTab === 'onchain' && (
+                            {activeTab === 'auditing' && (
                                 <div>
-                                    <h2 className="text-lg font-bold text-white">Onchain</h2>
-                                    <p className="text-sm text-gray-400 mt-4">
-                                    To monitor and track messages coming to our Arweave Wallet and give records to respective users who have connected their Arweave Wallet.
+                                    <h2 className="text-lg font-bold text-white">Auditing</h2>
+                                    <p className="text-sm text-gray-300 mt-4">
+                                        Audit the codebase and transaction history to ensure compliance and integrity of the smart contract.
                                     </p>
                                 </div>
                             )}
@@ -123,7 +126,7 @@ const SwitchNet: React.FC = () => {
                                     onClick={handleNavigate}
                                     onMouseEnter={handleMouseEnter}
                                     onMouseLeave={handleMouseLeave}
-                                    className="px-6 py-2 bg-transparent border border-[#a09e9e] p-1 text-white font-semibold rounded-lg hover:bg-black"
+                                    className="px-6 py-2 bg-transparent border border-[#a09e9e] p-1 text-white font-semibold rounded-lg hover:bg-[#6c42e2]" // Purple hover effect
                                     whileHover={{ scale: 1.05 }}
                                     whileTap={{ scale: 0.95 }}
                                 >

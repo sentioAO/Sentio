@@ -55,7 +55,7 @@ export default function Dashboard() {
     setLoading(true);
     setError(null);
     try {
-      const response = await axios.post('https://sam-server.azurewebsites.net/getProcesses', { walletAddress: id });
+      const response = await axios.post('https://sam-server.azurewebsites.net/getProcesses', { address: id });
       const sortedProcesses = response.data.edges.sort((a: ProcessEdge, b: ProcessEdge) => a.node.status.localeCompare(b.node.status));
       setProcesses(sortedProcesses);
     } catch (error) {

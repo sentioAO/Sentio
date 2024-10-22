@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { FaCopy, FaChevronDown, FaChevronUp } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -13,9 +13,9 @@ interface Process {
   tags: Tag[];
 }
 
-const ProcessCard: React.FC<{ process: Process }> = ({ process }) => {
+const ProcessCard: React.FC<{ process: Process; onCopy: () => void }> = ({ process, onCopy }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const navigate = useNavigate(); // Use navigate hook for routing
+  const navigate = useNavigate();
 
   if (!process || !process.id) {
     return <div>Error: Process data is not available</div>;
@@ -26,65 +26,64 @@ const ProcessCard: React.FC<{ process: Process }> = ({ process }) => {
 
   const handleCopyId = () => {
     navigator.clipboard.writeText(processId);
-    alert("ID copied to clipboard!");
+    onCopy(); // Call the onCopy callback
   };
 
   const handleAnalyze = () => {
-    navigate(`/dashboard/${processId}`); // Navigate to the process page
+    navigate(`/dashboard/${processId}`);
   };
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 10 }} // Start with an offset
-      animate={{ opacity: 1, y: 0 }} // Bring into view
-      transition={{ duration: 0.5 }} // Animation timing
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
       className="bg-[#1E1E1E] rounded-lg p-4 my-4 w-3/4"
     >
       <div className="flex justify-between items-center">
         <div className="flex items-center space-x-2">
           <h3 className="text-white text-base font-semibold">ID:</h3>
-          <p className="text-gray-300 text-sm truncate">{processId}</p>
+          <div className="flex items-center">
+            <p className="text-gray-300 text-sm truncate">{processId}</p>
+            <button
+              onClick={handleCopyId}
+              className="text-gray-400 hover:text-white ml-2"
+            >
+              <FaCopy />
+            </button>
+          </div>
         </div>
-        <div className="flex items-center space-x-2">
-          <button
-            onClick={handleCopyId}
-            className="text-gray-400 hover:text-white"
-          >
-            <FaCopy />
-          </button>
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="text-gray-400 hover:text-white"
-          >
-            {isOpen ? <FaChevronUp /> : <FaChevronDown />}
-          </button>
-        </div>
+        <button
+          onClick={() => setIsOpen(prev => !prev)}
+          className="text-gray-400 hover:text-white"
+        >
+          {isOpen ? <FaChevronUp /> : <FaChevronDown />}
+        </button>
       </div>
 
-      <motion.div
-        initial={false}
-        animate={{ height: isOpen ? "auto" : 0 }}
-        transition={{ duration: 0.3 }}
-        className="overflow-hidden"
-      >
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.3 }}
-            className="mt-2 bg-[#2B2B2B] p-2 rounded"
-          >
-            {tags.map((tag, index) => (
-              <div key={index} className="text-gray-400 text-sm">
-                <strong>{tag.name}:</strong>{" "}
-                <span className="text-white">{tag.value}</span>
-              </div>
-            ))}
-          </motion.div>
-        )}
-      </motion.div>
+      {isOpen && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.3 }}
+          className="mt-2 bg-[#2B2B2B] p-2 rounded"
+        >
+          {tags.map((tag, index) => (
+            <div key={index} className="text-gray-400 text-sm">
+              <strong>{tag.name}:</strong> <span className="text-white">{tag.value}</span>
+            </div>
+          ))}
+          <div className="mt-2">
+            <button
+              className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700"
+              onClick={() => alert("Setup Sentinel clicked")}
+            >
+              Setup Sentinel
+            </button>
+          </div>
+        </motion.div>
+      )}
 
-      {/* Analyze Button */}
       <motion.div
         initial={{ scale: 0.9 }}
         animate={{ scale: 1 }}
@@ -95,7 +94,7 @@ const ProcessCard: React.FC<{ process: Process }> = ({ process }) => {
           onClick={handleAnalyze}
           className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
         >
-          Analyze
+          Analyze 
         </button>
       </motion.div>
     </motion.div>

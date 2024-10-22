@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import Navbar from '../Components/Navbar';
@@ -13,6 +13,8 @@ import FAQSection from '../Components/FAQ';
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
+  const faqRef = useRef<HTMLDivElement | null>(null);  // Create ref for FAQ section
+  const howItWorksRef = useRef<HTMLDivElement | null>(null); // Create ref for "How it works"
 
   const goToDashboard = () => {
     navigate('/dashboard');
@@ -58,8 +60,8 @@ const Home: React.FC = () => {
   return (
     <>
       <div className="bg-black min-h-screen flex flex-col justify-center items-center overflow-hidden">
-        <Navbar />
-        
+        {/* Pass faqRef and howItWorksRef to Navbar */}
+        <Navbar faqRef={faqRef} howItWorksRef={howItWorksRef} />
 
         <motion.div
           className="flex flex-col justify-center items-center text-center mb-16 mt-24"
@@ -88,7 +90,6 @@ const Home: React.FC = () => {
             animate="visible"
             variants={buttonVariant}
           >
-
             <button
               className="px-10 py-3 text-white bg-[#9966FF] mt-7 z-10 rounded-xl font-bold text-lg"
               onClick={goToDashboard}
@@ -106,7 +107,9 @@ const Home: React.FC = () => {
 
         <hr className="w-[50%] border-t border-gray-500 mt-10 my-10" />
 
+        {/* "How it Works" section */}
         <motion.div
+          ref={howItWorksRef}  // Attach the ref to the "How it Works" section
           className="flex w-3/4 justify-between items-center flex-col lg:flex-row"
           initial="hidden"
           animate="visible"
@@ -138,13 +141,12 @@ const Home: React.FC = () => {
             </ul>
           </div>
           <div className='w-1/2 flex flex-col items-center'>
-
             <div className='flex gap-4'>
               <AnimatedBeamDemo />
             </div>
           </div>
-
         </motion.div>
+
         <hr className="w-[50%] border-t border-gray-500 mt-10 my-10" />
 
         <motion.div
@@ -162,13 +164,18 @@ const Home: React.FC = () => {
             </div>
           </div>
         </motion.div>
-        <hr className="w-[50%] border-t border-gray-500 mt-10 my-10" />
-
-        <SwitchNet/>
 
         <hr className="w-[50%] border-t border-gray-500 mt-10 my-10" />
-        
-<FAQSection/>
+
+        <SwitchNet />
+
+        <hr className="w-[50%] border-t border-gray-500 mt-10 my-10" />
+
+        {/* Pass faqRef to the FAQSection */}
+        <div ref={faqRef}>
+          <FAQSection />
+        </div>
+
         <Footer />
       </div>
     </>

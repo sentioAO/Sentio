@@ -3,7 +3,7 @@ import { useRef, useEffect } from 'react';
 export default function FAQSection() {
   const faqs = [
     { question: "What is Sentio?", answer: "Sentio is a Latin verb that means to perceive, feel, hear, or see" },
-    { question: "Why Sentio?", answer:"Sentio as a platform it provides a complete pipeline from wrtiting code to deploying it and monitoring it" },
+    { question: "Why Sentio?", answer: "Sentio as a platform it provides a complete pipeline from writing code to deploying it and monitoring it" },
     { question: "Can I import my projects from another tool?", answer: "Yes, you can..." },
     { question: "What are projects and issues in Lighting?", answer: "Projects and issues in Lighting are..." },
     { question: "Can I integrate Lighting with other tools?", answer: "Yes, Lighting integrates with..." },
@@ -27,7 +27,7 @@ export default function FAQSection() {
 
   return (
     <div className="min-h-screen flex items-center justify-center text-white p-6">
-      <div className="w-full max-w-3xl">
+      <div className="w-full max-w-3xl mx-auto">
         <h1 className="text-4xl font-bold text-center mb-6">FAQ</h1>
         <p className="text-xl text-center text-gray-400 mb-8">Everything You Need to Know About Sentio.</p>
 
@@ -35,13 +35,15 @@ export default function FAQSection() {
           <details
             key={index}
             ref={(el) => (detailsRefs.current[index] = el)}
-            className="mb-4 group  rounded-lg overflow-hidden shadow-lg transition-transform hover:scale-105"
+            className="mb-4 group rounded-lg text-wrap overflow-hidden shadow-lg transition-transform hover:scale-105"
           >
-            <summary className="flex justify-between items-center cursor-pointer  p-4 rounded-lg bg-[#9966FF] transition-colors duration-300">
+            <summary className="flex justify-between items-center cursor-pointer p-4 rounded-lg bg-[#9966FF] transition-colors duration-300">
               <span className="text-lg font-medium">{faq.question}</span>
-              <span className="transition-transform transform group-open:rotate-45 text-6xl ">+</span>
+              <span className="transition-transform transform group-open:rotate-45 text-6xl">+</span>
             </summary>
-            <p className="mt-2 p-4 bg- rounded-lg text-gray-300">{faq.answer}</p>
+            <p className="mt-2 p-4 bg-gray-800 rounded-lg text-gray-300 whitespace-pre-wrap">
+              {faq.answer}
+            </p>
           </details>
         ))}
       </div>

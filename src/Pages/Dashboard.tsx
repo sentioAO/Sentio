@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 import axios from "axios"
-import Navbar from "../Components/Navbar"
+import Navbar from "./../Components/Navbar"
 
 interface Tag {
   name: string

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 'use client'
 
 import  { useState, useEffect } from 'react'
@@ -11,7 +10,7 @@ const steps = [
 
 export default function StepAnimation() {
   const [currentStep, setCurrentStep] = useState(0)
-  const [isVisible, setIsVisible] = useState(false)
+  const [, setIsVisible] = useState(false)
 
   useEffect(() => {
     const intervalId = setInterval(() => {

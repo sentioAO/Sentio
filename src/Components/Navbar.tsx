@@ -5,7 +5,7 @@ import logo from "../assets/logo.png";
 import { motion } from "framer-motion";
 import { FaBars, FaTimes } from "react-icons/fa"; // Import hamburger and close icons
 
-const Navbar = () => {
+const Navbar = ({ faqRef, howItWorksRef }) => {
     const navigate = useNavigate();
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
@@ -16,6 +16,18 @@ const Navbar = () => {
             x: 0,
             transition: { duration: 0.5, ease: [0.43, 0.13, 0.23, 0.96] },
         },
+    };
+
+    // Scroll to FAQ section
+    const handleScrollToFaq = () => {
+        faqRef.current?.scrollIntoView({ behavior: "smooth" });
+        setIsSidebarOpen(false); // Close sidebar if it's open
+    };
+
+    // Scroll to "How it Works" section
+    const handleScrollToHowItWorks = () => {
+        howItWorksRef.current?.scrollIntoView({ behavior: "smooth" });
+        setIsSidebarOpen(false); // Close sidebar if it's open
     };
 
     return (
@@ -39,8 +51,8 @@ const Navbar = () => {
 
             {/* Full Navbar for laptops */}
             <div className="hidden lg:flex gap-4 text-lg">
-                <button onClick={() => navigate("/how-it-works")}>How it works</button>
-                <button onClick={() => navigate("/faq")}>FAQ</button>
+                <button onClick={handleScrollToHowItWorks}>How it works</button> {/* Scroll on click */}
+                <button onClick={handleScrollToFaq}>FAQ</button>
                 <button onClick={() => navigate("/features")}>Features</button>
                 <Wallet />
             </div>
@@ -65,9 +77,9 @@ const Navbar = () => {
                     <div className="flex items-center mb-4">
                         <img src={logo} alt="Logo" className="w-12" />
                     </div>
-                    <button className="text-left" onClick={() => navigate("/how-it-works")}>How it works</button>
+                    <button className="text-left" onClick={handleScrollToHowItWorks}>How it works</button> {/* Scroll on click */}
+                    <button className="text-left" onClick={handleScrollToFaq}>FAQ</button>
                     <button className="text-left" onClick={() => navigate("/features")}>Features</button>
-                    <button className="text-left" onClick={() => navigate("/faq")}>FAQ</button>
                     <Wallet />
                 </motion.div>
             )}

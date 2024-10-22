@@ -27,14 +27,14 @@ const Footer = () => {
 
                 {/* Social Media Icons */}
                 <div className="flex gap-4 text-2xl">
-                    <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
+                    <a href="https://twitter.com/sentio_AR" target="_blank" rel="noopener noreferrer">
                         <FaTwitter className="hover:text-[#1DA1F2]" />
                     </a>
                     <a href="https://github.com" target="_blank" rel="noopener noreferrer">
                         <FaGithub className="hover:text-gray-300" />
                     </a>
                     {/* Replace LinkedIn with Araw Icon */}
-                    <a href="https://arweave.org" target="_blank" rel="noopener noreferrer">
+                    <a href="https://arweaveindia.com/projects/sentio" target="_blank" rel="noopener noreferrer">
                     <FontAwesomeIcon icon={faUpRightFromSquare} />
                     </a>
                 </div>

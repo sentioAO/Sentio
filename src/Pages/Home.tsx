@@ -15,10 +15,13 @@ const Home: React.FC = () => {
   const navigate = useNavigate();
   const faqRef = useRef<HTMLDivElement | null>(null);  // Create ref for FAQ section
   const howItWorksRef = useRef<HTMLDivElement | null>(null); // Create ref for "How it works"
+  const switchNetRef = useRef<HTMLDivElement | null>(null);  // Create ref for SwitchNet section
 
   const goToDashboard = () => {
     navigate('/dashboard');
   };
+
+
 
   // Animation variants for different components
   const textVariant = {
@@ -59,9 +62,18 @@ const Home: React.FC = () => {
 
   return (
     <>
+
       <div className="bg-black min-h-screen flex flex-col justify-center items-center overflow-hidden">
-        {/* Pass faqRef and howItWorksRef to Navbar */}
-        <Navbar faqRef={faqRef} howItWorksRef={howItWorksRef} />
+        {/* Pass refs to Navbar */}
+        <div className='sticky w-[90%] lg:[95%]  top-0 z-50 flex justify-center items-center  '>
+
+        <Navbar
+          faqRef={faqRef}
+          howItWorksRef={howItWorksRef}
+          switchNetRef={switchNetRef} // Pass switchNetRef to Navbar
+          // Pass goToSwitchNet function
+          />
+          </div>
 
         <motion.div
           className="flex flex-col justify-center items-center text-center mb-16 mt-24"
@@ -167,7 +179,10 @@ const Home: React.FC = () => {
 
         <hr className="w-[50%] border-t border-gray-500 mt-10 my-10" />
 
-        <SwitchNet />
+        {/* Attach ref to SwitchNet */}
+        <div ref={switchNetRef}>
+          <SwitchNet />
+        </div>
 
         <hr className="w-[50%] border-t border-gray-500 mt-10 my-10" />
 

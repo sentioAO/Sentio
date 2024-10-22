@@ -6,7 +6,8 @@ import {
   MagicTweet,
   TweetNotFound,
   TweetSkeleton,
-} from "../Components/ui/tweet-card";
+} 
+from "./../Components/ui/tweet-card"
 
 const ClientTweetCard = ({
   id,

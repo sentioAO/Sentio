@@ -21,7 +21,7 @@ const Footer = () => {
                     </div>
                     {/* New tagline below the logo and SENTIO */}
                     <p className="text-sm text-gray-400 text-center lg:text-left mt-2">
-                        Enter an End To End Pipeline with Security, Analysis, and Monitoring
+                        Enter an End To End Pipeline with Security, Analysis and Monitoring
                     </p>
                 </div>
 

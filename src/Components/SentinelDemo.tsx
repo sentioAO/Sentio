@@ -4,7 +4,7 @@
 import  { useState, useEffect } from 'react'
 
 const steps = [
-  { id: 1, title: "Install Package", description: "npm install your-package-name", emoji: "📦" },
+  { id: 1, title: "Install Package", description: "Install Sentinel Package", emoji: "📦" },
   { id: 2, title: "Setup Sentinel ID", description: "Configure your unique sentinel identifier", emoji: "🔐" },
   { id: 3, title: "Start Analyzing", description: "Begin the text analysis process", emoji: "🔍" },
 ]
@@ -28,7 +28,7 @@ export default function StepAnimation() {
   return (
       <div className="bg-white p-8 rounded-lg shadow-lg w-96">
         <h2 className="text-2xl font-bold mb-4 text-center text-[#9966FF]">
-          Sentinal Demo
+          Sentinel Demo
         </h2>
         <div className="relative h-48">
           {steps.map((step, index) => (

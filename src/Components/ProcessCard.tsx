@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { FaCopy, FaChevronDown, FaChevronUp } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import { FaCopy, FaChevronDown, FaChevronUp, FaTimes } from "react-icons/fa";
+// import { useNavigate } from "react-router-dom";
+import SentinelDemo from "./SentinelDemo";
 import { motion } from "framer-motion";
 
 interface Tag {
@@ -15,7 +16,8 @@ interface Process {
 
 const ProcessCard: React.FC<{ process: Process; onCopy: () => void }> = ({ process, onCopy }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const navigate = useNavigate();
+  const [showSentinelDemo, setShowSentinelDemo] = useState(false); // New state for SentinelDemo visibility
+  // const navigate = useNavigate();
 
   if (!process || !process.id) {
     return <div>Error: Process data is not available</div>;
@@ -29,16 +31,16 @@ const ProcessCard: React.FC<{ process: Process; onCopy: () => void }> = ({ proce
     onCopy(); // Call the onCopy callback
   };
 
-  const handleAnalyze = () => {
-    navigate(`/dashboard/${processId}`);
-  };
+  // const handleAnalyze = () => {
+  //   navigate(`/dashboard/${processId}`);
+  // };
 
   return (
     <motion.div
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="bg-[#1E1E1E] rounded-lg p-4 my-4 w-3/4"
+      className="rounded-lg my-4 w-3/4"
     >
       <div className="flex justify-between items-center">
         <div className="flex items-center space-x-2">
@@ -74,12 +76,12 @@ const ProcessCard: React.FC<{ process: Process; onCopy: () => void }> = ({ proce
             </div>
           ))}
           <div className="mt-2">
-            <button
-              className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700"
-              onClick={() => alert("Setup Sentinel clicked")}
-            >
-              Setup Sentinel
-            </button>
+          {/* <button
+          onClick={handleAnalyze}
+          className="px-10 py-3 text-white bg-[#9966FF] mt-7 z-10 rounded-xl font-bold text-md"
+        >
+          Analyze 
+        </button> */}
           </div>
         </motion.div>
       )}
@@ -90,13 +92,27 @@ const ProcessCard: React.FC<{ process: Process; onCopy: () => void }> = ({ proce
         transition={{ duration: 0.3 }}
         className="mt-4"
       >
-        <button
-          onClick={handleAnalyze}
-          className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
-        >
-          Analyze 
-        </button>
       </motion.div>
+      <button
+        className="px-10 py-3 text-[#9966FF] bg-white mt-7 z-10 rounded-xl font-bold text-sm"
+        onClick={() => setShowSentinelDemo(prev => !prev)} 
+      >
+        Setup Sentinel
+      </button>
+
+      {showSentinelDemo && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+          <div className="bg-white p-5 rounded-lg shadow-lg max-w-md  relative"> 
+            <button
+              className="absolute top-2 right-2 text-gray-600"
+              onClick={() => setShowSentinelDemo(false)}
+            >
+              <FaTimes />
+            </button>
+            <SentinelDemo />
+          </div>
+        </div>
+      )}
     </motion.div>
   );
 };

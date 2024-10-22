@@ -78,7 +78,7 @@ export default function Dashboard() {
   return (
     <div className="app-background text-white min-h-screen" style={{ fontFamily: "'Roboto'" }}>
       <div className="flex justify-center">
-        <Navbar />
+        <Navbar faqRef={undefined} howItWorksRef={undefined}/>
       </div>
       <div className="flex justify-center mb-4 mt-5">
         <h1 className="text-4xl font-bold">Process Dashboard</h1>

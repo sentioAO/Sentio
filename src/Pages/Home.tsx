@@ -21,9 +21,7 @@ const Home: React.FC = () => {
     navigate('/dashboard');
   };
 
-  const goToSwitchNet = () => {
-    switchNetRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
+
 
   // Animation variants for different components
   const textVariant = {
@@ -64,14 +62,18 @@ const Home: React.FC = () => {
 
   return (
     <>
+
       <div className="bg-black min-h-screen flex flex-col justify-center items-center overflow-hidden">
         {/* Pass refs to Navbar */}
-        <Navbar 
-          faqRef={faqRef} 
-          howItWorksRef={howItWorksRef} 
+        <div className='sticky w-[90%] lg:[95%]  top-0 z-50 flex justify-center items-center  '>
+
+        <Navbar
+          faqRef={faqRef}
+          howItWorksRef={howItWorksRef}
           switchNetRef={switchNetRef} // Pass switchNetRef to Navbar
-          goToSwitchNet={goToSwitchNet} // Pass goToSwitchNet function
-        />
+          // Pass goToSwitchNet function
+          />
+          </div>
 
         <motion.div
           className="flex flex-col justify-center items-center text-center mb-16 mt-24"

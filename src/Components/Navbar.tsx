@@ -1,18 +1,20 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import Wallet from "./Wallet-Button";
 import logo from "../assets/logo.png";
 import { motion } from "framer-motion";
 import { FaBars, FaTimes } from "react-icons/fa";
 
 interface NavbarProps {
-    faqRef: React.RefObject<HTMLElement>;
-    howItWorksRef: React.RefObject<HTMLElement>;
-    switchNetRef: React.RefObject<HTMLElement>;
+    faqRef?: React.RefObject<HTMLElement>;
+    howItWorksRef?: React.RefObject<HTMLElement>;
+    switchNetRef?: React.RefObject<HTMLElement>;
+    // This prop will be passed conditionally
 }
 
 const Navbar: React.FC<NavbarProps> = ({ faqRef, howItWorksRef, switchNetRef }) => {
     const navigate = useNavigate();
+    const location = useLocation(); // Get the current location
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [activeSection, setActiveSection] = useState<string>("");
 
@@ -27,49 +29,51 @@ const Navbar: React.FC<NavbarProps> = ({ faqRef, howItWorksRef, switchNetRef }) 
 
     // Scroll to section handlers
     const handleScrollToFaq = () => {
-        faqRef.current?.scrollIntoView({ behavior: "smooth" });
+        faqRef?.current?.scrollIntoView({ behavior: "smooth" });
         setIsSidebarOpen(false);
     };
 
     const handleScrollToHowItWorks = () => {
-        howItWorksRef.current?.scrollIntoView({ behavior: "smooth" });
+        howItWorksRef?.current?.scrollIntoView({ behavior: "smooth" });
         setIsSidebarOpen(false);
     };
 
     const handleScrollToSwitchNet = () => {
-        switchNetRef.current?.scrollIntoView({ behavior: "smooth" });
+        switchNetRef?.current?.scrollIntoView({ behavior: "smooth" });
         setIsSidebarOpen(false);
     };
 
     // Update active section based on scroll position
     useEffect(() => {
         const handleScroll = () => {
-            const sections = [
-                { id: "howItWorks", ref: howItWorksRef },
-                { id: "faq", ref: faqRef },
-                { id: "switchNet", ref: switchNetRef },
-            ];
+            if (location.pathname === "/") { // Only track scroll position if on "/"
+                const sections = [
+                    { id: "howItWorks", ref: howItWorksRef },
+                    { id: "faq", ref: faqRef },
+                    { id: "switchNet", ref: switchNetRef },
+                ];
 
-            const scrollPosition = window.scrollY + window.innerHeight / 2;
+                const scrollPosition = window.scrollY + window.innerHeight / 2;
 
-            sections.forEach((section) => {
-                const sectionTop = section.ref.current?.offsetTop || 0;
-                const sectionBottom = sectionTop + (section.ref.current?.offsetHeight || 0);
+                sections.forEach((section) => {
+                    const sectionTop = section.ref?.current?.offsetTop || 0;
+                    const sectionBottom = sectionTop + (section.ref?.current?.offsetHeight || 0);
 
-                if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
-                    setActiveSection(section.id);
-                }
-            });
+                    if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+                        setActiveSection(section.id);
+                    }
+                });
+            }
         };
 
         window.addEventListener("scroll", handleScroll);
         return () => {
             window.removeEventListener("scroll", handleScroll);
         };
-    }, [faqRef, howItWorksRef, switchNetRef]);
+    }, [faqRef, howItWorksRef, switchNetRef, location.pathname]);
 
     return (
-        <motion.div className="text-white flex mt-4 text-2xl justify-between items-center border border-[#66686e] rounded-lg p-6 w-[90%] lg:w-2/3">
+        <motion.div className="sticky top-0 z-50 bg-black text-white flex mt-4 text-2xl justify-between items-center border border-[#66686e] rounded-lg p-6 w-[90%] lg:w-2/3">
             <div className="flex items-center">
                 <div className="w-12">
                     <img src={logo} alt="Logo" />
@@ -86,27 +90,31 @@ const Navbar: React.FC<NavbarProps> = ({ faqRef, howItWorksRef, switchNetRef }) 
 
             {/* Full Navbar for larger screens */}
             <div className="hidden lg:flex gap-4 text-lg">
-                <button
-                    className={`text-left ${activeSection === 'howItWorks' ? 'font-bold' : ''}`}
-                    onClick={handleScrollToHowItWorks}
-                    aria-label="Scroll to How it Works section"
-                >
-                    How it works
-                </button>
-                <button
-                    className={`text-left ${activeSection === 'faq' ? 'font-bold' : ''}`}
-                    onClick={handleScrollToFaq}
-                    aria-label="Scroll to FAQ section"
-                >
-                    FAQ
-                </button>
-                <button
-                    className={`text-left ${activeSection === 'switchNet' ? 'font-bold' : ''}`}
-                    onClick={handleScrollToSwitchNet}
-                    aria-label="Scroll to Features section"
-                >
-                    Features
-                </button>
+                {location.pathname === "/" && (
+                    <>
+                        <button
+                            className={`text-left `}
+                            onClick={handleScrollToHowItWorks}
+                            aria-label="Scroll to How it Works section"
+                        >
+                            How it works
+                        </button>
+                        <button
+                            className={`text-left`}
+                            onClick={handleScrollToFaq}
+                            aria-label="Scroll to FAQ section"
+                        >
+                            FAQ
+                        </button>
+                        <button
+                            className={`text-left `}
+                            onClick={handleScrollToSwitchNet}
+                            aria-label="Scroll to Features section"
+                        >
+                            Features
+                        </button>
+                    </>
+                )}
                 <Wallet />
             </div>
 
@@ -130,27 +138,33 @@ const Navbar: React.FC<NavbarProps> = ({ faqRef, howItWorksRef, switchNetRef }) 
                     <div className="flex items-center mb-4">
                         <img src={logo} alt="Logo" className="w-12" />
                     </div>
-                    <button
-                        className={`text-left ${activeSection === 'howItWorks' ? 'font-bold' : ''}`}
-                        onClick={handleScrollToHowItWorks}
-                        aria-label="Scroll to How it Works section"
-                    >
-                        How it works
-                    </button>
-                    <button
-                        className={`text-left ${activeSection === 'faq' ? 'font-bold' : ''}`}
-                        onClick={handleScrollToFaq}
-                        aria-label="Scroll to FAQ section"
-                    >
-                        FAQ
-                    </button>
-                    <button
-                        className={`text-left ${activeSection === 'switchNet' ? 'font-bold' : ''}`}
-                        onClick={handleScrollToSwitchNet}
-                        aria-label="Scroll to Features section"
-                    >
-                        Features
-                    </button>
+
+                    {location.pathname === "/" && (
+                        <>
+                            <button
+                                className={`text-left ${activeSection === 'howItWorks' ? 'font-bold' : ''}`}
+                                onClick={handleScrollToHowItWorks}
+                                aria-label="Scroll to How it Works section"
+                            >
+                                How it works
+                            </button>
+                            <button
+                                className={`text-left ${activeSection === 'faq' ? 'font-bold' : ''}`}
+                                onClick={handleScrollToFaq}
+                                aria-label="Scroll to FAQ section"
+                            >
+                                FAQ
+                            </button>
+                            <button
+                                className={`text-left ${activeSection === 'switchNet' ? 'font-bold' : ''}`}
+                                onClick={handleScrollToSwitchNet}
+                                aria-label="Scroll to Features section"
+                            >
+                                Features
+                            </button>
+                        </>
+                    )}
+
                     <Wallet />
                 </motion.div>
             )}

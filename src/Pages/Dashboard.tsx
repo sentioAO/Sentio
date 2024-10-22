@@ -77,11 +77,11 @@ export default function Dashboard() {
 
   const faqRef = useRef(null);
   const howItWorksRef = useRef(null);
-
+  const switchNetRef = useRef(null);
   return (
     <div className="app-background text-white min-h-screen" style={{ fontFamily: "'Roboto'" }}>
       <div className="flex justify-center">
-        <Navbar faqRef={faqRef} howItWorksRef={howItWorksRef}/>
+        <Navbar faqRef={faqRef} howItWorksRef={howItWorksRef} switchNetRef={switchNetRef}/>
       </div>
       <div className="flex justify-center mb-4 mt-5">
         <h1 className="text-4xl font-bold">Process Dashboard</h1>

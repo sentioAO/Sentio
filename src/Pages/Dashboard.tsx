@@ -76,7 +76,7 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="app-background text-white min-h-screen" style={{ fontFamily: "'Roboto'" }}>
+    <div className="bg-black text-white min-h-screen" style={{ fontFamily: "'Roboto'" }}>
       <div className="flex justify-center">
         <Navbar faqRef={undefined} howItWorksRef={undefined}/>
       </div>

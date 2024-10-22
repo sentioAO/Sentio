@@ -73,7 +73,7 @@ const Navbar: React.FC<NavbarProps> = ({ faqRef, howItWorksRef, switchNetRef }) 
     }, [faqRef, howItWorksRef, switchNetRef, location.pathname]);
 
     return (
-        <motion.div className="sticky top-0 z-50 bg-black text-white flex mt-4 text-2xl justify-between items-center border border-[#66686e] rounded-lg p-6 w-[90%] lg:w-2/3">
+        <motion.div className="sticky top-0 z-50 bg-black text-white flex  text-2xl justify-between items-center border border-[#66686e] rounded-lg p-6 w-[90%] lg:w-2/3">
             <div className="flex items-center">
                 <div className="w-12">
                     <img src={logo} alt="Logo" />

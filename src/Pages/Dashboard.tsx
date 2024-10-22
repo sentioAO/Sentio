@@ -1,10 +1,13 @@
-'use client'
+'use client';
 
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Navbar from "../Components/Navbar";
 import ProcessCard from "../Components/ProcessCard";
 import SentinelDemo from "../Components/SentinelDemo";
+import DotPattern from "../Components/ui/dot-pattern";
+import { cn } from "../lib/utils";
+import Sentinel from "../Components/Sentinel"; // Import the Sentinel component
 
 interface Tag {
   name: string;
@@ -13,7 +16,6 @@ interface Tag {
 
 interface Process {
   id: string;
-  status: string;
   tags: Tag[];
 }
 
@@ -27,9 +29,9 @@ export default function Dashboard() {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [copied, setCopied] = useState<boolean>(false);
-  const [sentinelMode, setSentinelMode] = useState<boolean>(false); // Sentinel mode state
-  const [selectedProcesses, setSelectedProcesses] = useState<string[]>([]); // For selected processes
-  const [showSentinelDemo, setShowSentinelDemo] = useState<boolean>(false); // For showing SentinelDemo
+  const [sentinelMode, setSentinelMode] = useState<boolean>(false);
+  const [selectedProcesses, setSelectedProcesses] = useState<string[]>([]);
+  const [showSentinelDemo, setShowSentinelDemo] = useState<boolean>(false);
 
   const checkWallet = async () => {
     const isConnected = localStorage.getItem("wallet_kit_strategy_id");
@@ -45,27 +47,29 @@ export default function Dashboard() {
 
   useEffect(() => {
     if (walletId) {
-      console.log("walletId:", walletId);
       fetchProcessDetails(walletId);
     }
   }, [walletId]);
-  
 
   const fetchProcessDetails = async (id: string) => {
     setLoading(true);
     setError(null);
     try {
       const response = await axios.post('https://sam-server.azurewebsites.net/getProcesses', { address: id });
-      const sortedProcesses = response.data.edges.sort((a: ProcessEdge, b: ProcessEdge) => a.node.status.localeCompare(b.node.status));
+      const sortedProcesses = response.data.edges.sort((a: ProcessEdge, b: ProcessEdge) => {
+        const aTag = a.node.tags.find(tag => tag.name === "Date-Created")?.value || "";
+        const bTag = b.node.tags.find(tag => tag.name === "Date-Created")?.value || "";
+        return aTag.localeCompare(bTag);
+      });
       setProcesses(sortedProcesses);
     } catch (error) {
-      console.error("Full error details:", error); 
+      console.log(error);
       setError("Failed to load process details. Please try again later.");
     } finally {
       setLoading(false);
     }
   };
-  
+
   const handleProcessSelection = (processId: string) => {
     if (selectedProcesses.includes(processId)) {
       setSelectedProcesses(selectedProcesses.filter(id => id !== processId));
@@ -74,12 +78,17 @@ export default function Dashboard() {
     }
   };
 
-  const handleActivateSentinel = () => {
-    setShowSentinelDemo(true); // Show the SentinelDemo component
-  };
+  // const handleActivateSentinel = () => {
+  //   setShowSentinelDemo(true);
+  // };
 
   return (
     <div className="bg-black text-white min-h-screen" style={{ fontFamily: "'Roboto'" }}>
+      <DotPattern
+        className={cn(
+          "[mask-image:radial-gradient(800px_circle_at_center,white,transparent)]",
+        )}
+      />
       <div className="flex justify-center">
         <Navbar faqRef={undefined} howItWorksRef={undefined} />
       </div>
@@ -99,26 +108,9 @@ export default function Dashboard() {
 
       {loading ? (
         <div className="flex justify-center items-center mt-5 h-48">
-          <svg
-            className="animate-spin h-12 w-12 text-blue-500"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-          >
-            <circle
-              className="opacity-25"
-              cx="12"
-              cy="12"
-              r="10"
-              stroke="currentColor"
-              strokeWidth="4"
-            ></circle>
-            <path
-              className="opacity-75"
-              fill="currentColor"
-              d="M4 12a8 8 0 018-8v8l4 4-4 4v-8a8 8 0 00-8-8z"
-            ></path>
+          <svg className="animate-spin h-12 w-12 text-blue-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8l4 4-4 4v-8a8 8 0 00-8-8z"></path>
           </svg>
         </div>
       ) : error ? (
@@ -128,16 +120,24 @@ export default function Dashboard() {
           {processes.map((process, index) => (
             <div key={index}>
               {sentinelMode && (
-                <div className="mb-2">
+                <div className="mb-2 flex items-start ">
                   <input
                     type="checkbox"
                     checked={selectedProcesses.includes(process.node.id)}
                     onChange={() => handleProcessSelection(process.node.id)}
+                    className="mt-1"
                   />
-                  <span className="ml-2 text-white">{`Select ${process.node.id}`}</span>
+                  <span className="ml-2 text-white break-words w-full">{`Select ${process.node.id}`}</span>
                 </div>
               )}
-              <ProcessCard process={process.node} onCopy={() => setCopied(true)} />
+              <ProcessCard
+                process={process.node}
+                onCopy={() => {
+                  navigator.clipboard.writeText(process.node.id);
+                  setCopied(true);
+                  setTimeout(() => setCopied(false), 2000);
+                }}
+              />
             </div>
           ))}
         </div>
@@ -146,14 +146,16 @@ export default function Dashboard() {
       )}
 
       {sentinelMode && (
-        <div className="flex justify-center mt-5">
-          <button
-            className="px-10 py-3 text-white bg-[#9966FF] mt-7 z-10 rounded-xl font-bold text-md"
-            onClick={handleActivateSentinel}
-          >
-            Activate Sentinel
-          </button>
-        </div>
+        <Sentinel
+          processes={processes.map(process => ({ id: process.node.id }))} // Pass processes to the Sentinel component
+          onClose={() => setSentinelMode(false)} // Close modal callback
+          onSpawnSentinel={(processId) => {
+            console.log(`Spawned Sentinel for Process ID: ${processId}`);
+            // Implement your logic to spawn a sentinel
+            // After spawning, you might want to close the modal or perform another action
+            setSentinelMode(false); // Close the modal after spawning
+          }}
+        />
       )}
 
       {showSentinelDemo && (

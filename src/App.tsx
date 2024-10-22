@@ -9,7 +9,9 @@ import Offchain from './Pages/Offchain';
 import  Dashboard  from './Pages/Dashboard';
 // import WatcherProcess from './Pages/OnchainDemo';
 import SentinelProcess from './Pages/OnchainDemo';
-import ReportDetailsPage from './Pages/Details';function App() {
+import ReportDetailsPage from './Pages/Details';
+import SentinelPage from './Pages/Sentinel';
+function App() {
   return (
     <ArweaveWalletKit>
       <BrowserRouter>
@@ -20,6 +22,7 @@ import ReportDetailsPage from './Pages/Details';function App() {
           <Route path="/onchain" element={<SentinelProcess/>} />
           <Route path="/report-details" element={<ReportDetailsPage/>}/>
           <Route path="/dashboard" element={<Dashboard/>}/>
+          <Route path="/sentinel/:processId" element={<SentinelPage/>}/>
         </Routes>
       </BrowserRouter>
     </ArweaveWalletKit>

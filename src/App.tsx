@@ -13,7 +13,7 @@ import ReportDetailsPage from './Pages/Details';
 import SentinelPage from './Pages/Sentinel';
 import ReactGA from 'react-ga4';
 import { useEffect } from 'react';
-
+import {Analytics} from "@vercel/analytics/react"
 
 function App() {
   useEffect(() => {
@@ -41,6 +41,7 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/sentinel/:processId" element={<SentinelPage />} />
         </Routes>
+        <Analytics/>
       </BrowserRouter>
     </ArweaveWalletKit>
   );

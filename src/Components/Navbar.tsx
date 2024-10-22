@@ -5,7 +5,12 @@ import logo from "../assets/logo.png";
 import { motion } from "framer-motion";
 import { FaBars, FaTimes } from "react-icons/fa"; // Import hamburger and close icons
 
-const Navbar = ({ faqRef, howItWorksRef }) => {
+interface NavbarProps {
+    faqRef: React.RefObject<HTMLElement>;
+    howItWorksRef: React.RefObject<HTMLElement>;
+}
+
+const Navbar: React.FC<NavbarProps> = ({ faqRef, howItWorksRef }) => {
     const navigate = useNavigate();
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 

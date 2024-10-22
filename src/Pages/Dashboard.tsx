@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import Navbar from "../Components/Navbar";
 import ProcessCard from "../Components/ProcessCard";
@@ -75,10 +75,13 @@ export default function Dashboard() {
     setTimeout(() => setCopied(false), 2000); // Hide the popup after 2 seconds
   };
 
+  const faqRef = useRef(null);
+  const howItWorksRef = useRef(null);
+
   return (
     <div className="app-background text-white min-h-screen" style={{ fontFamily: "'Roboto'" }}>
       <div className="flex justify-center">
-        <Navbar faqRef={undefined} howItWorksRef={undefined}/>
+        <Navbar faqRef={faqRef} howItWorksRef={howItWorksRef}/>
       </div>
       <div className="flex justify-center mb-4 mt-5">
         <h1 className="text-4xl font-bold">Process Dashboard</h1>

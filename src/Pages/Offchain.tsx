@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Navbar from "../Components/Navbar";
 import CodeEditor from "../Components/TextEditor";
 import ReportCard, { ReportItem } from "../Components/ReportCard";
@@ -57,13 +57,14 @@ const Offchain = () => {
   const handleGoBack = () => {
     setReport(null); // Reset report to null to go back to CodeEditor
   };
-
+  const faqRef = useRef<HTMLDivElement | null>(null);  // Create ref for FAQ section
+  const howItWorksRef = useRef<HTMLDivElement | null>(null); // Create ref for "How it works"
   console.log("Current report state:", report);
 
   return (
     <div className="app-background min-h-screen flex flex-col items-center">
-      <Navbar />
-      <div className="flex flex-col justify-center items-center mt-10 space-y-4 w-full max-w-4xl">
+        <Navbar faqRef={faqRef} howItWorksRef={howItWorksRef} />
+        <div className="flex flex-col justify-center items-center mt-10 space-y-4 w-full max-w-4xl">
         {showProgress && !report ? (
           <div className="relative w-full">
             <div className="absolute top-0 left-0 w-full h-2 bg-gray-800 rounded-lg overflow-hidden">

@@ -1,9 +1,10 @@
 'use client'
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import Navbar from "../Components/Navbar";
 import ProcessCard from "../Components/ProcessCard";
+import SentinelDemo from "../Components/SentinelDemo";
 
 interface Tag {
   name: string;
@@ -25,14 +26,16 @@ export default function Dashboard() {
   const [walletId, setWalletId] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-  const [copied, setCopied] = useState<boolean>(false); // State for clipboard notification
+  const [copied, setCopied] = useState<boolean>(false);
+  const [sentinelMode, setSentinelMode] = useState<boolean>(false); // Sentinel mode state
+  const [selectedProcesses, setSelectedProcesses] = useState<string[]>([]); // For selected processes
+  const [showSentinelDemo, setShowSentinelDemo] = useState<boolean>(false); // For showing SentinelDemo
 
   const checkWallet = async () => {
     const isConnected = localStorage.getItem("wallet_kit_strategy_id");
     if (isConnected) {
       const walletId = await window.arweaveWallet.getActiveAddress();
       setWalletId(walletId);
-      console.log(walletId);
     }
   };
 
@@ -42,49 +45,56 @@ export default function Dashboard() {
 
   useEffect(() => {
     if (walletId) {
+      console.log("walletId:", walletId);
       fetchProcessDetails(walletId);
     }
   }, [walletId]);
+  
 
   const fetchProcessDetails = async (id: string) => {
     setLoading(true);
     setError(null);
     try {
-      const response = await axios.post('https://sam-server.azurewebsites.net/getProcesses', {
-        address: id,
-      });
-  
-      // Sort processes by status
-      const sortedProcesses = response.data.edges.sort((a: ProcessEdge, b: ProcessEdge) => {
-        if (a.node.status < b.node.status) return -1;
-        if (a.node.status > b.node.status) return 1;
-        return 0;
-      });
-  
+      const response = await axios.post('https://sam-server.azurewebsites.net/getProcesses', { address: id });
+      const sortedProcesses = response.data.edges.sort((a: ProcessEdge, b: ProcessEdge) => a.node.status.localeCompare(b.node.status));
       setProcesses(sortedProcesses);
     } catch (error) {
-      console.error("Error fetching process details:", error);
+      console.error("Full error details:", error); 
       setError("Failed to load process details. Please try again later.");
     } finally {
       setLoading(false);
     }
   };
-
-  const handleCopy = () => {
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000); // Hide the popup after 2 seconds
+  
+  const handleProcessSelection = (processId: string) => {
+    if (selectedProcesses.includes(processId)) {
+      setSelectedProcesses(selectedProcesses.filter(id => id !== processId));
+    } else {
+      setSelectedProcesses([...selectedProcesses, processId]);
+    }
   };
 
-  const faqRef = useRef(null);
-  const howItWorksRef = useRef(null);
-  const switchNetRef = useRef(null);
+  const handleActivateSentinel = () => {
+    setShowSentinelDemo(true); // Show the SentinelDemo component
+  };
+
   return (
     <div className="bg-black text-white min-h-screen" style={{ fontFamily: "'Roboto'" }}>
       <div className="flex justify-center">
-        <Navbar faqRef={faqRef} howItWorksRef={howItWorksRef} switchNetRef={switchNetRef}/>
+        <Navbar faqRef={undefined} howItWorksRef={undefined} />
       </div>
+
       <div className="flex justify-center mb-4 mt-5">
         <h1 className="text-4xl font-bold">Process Dashboard</h1>
+      </div>
+
+      <div className="flex justify-center mt-5">
+        <button
+          className="px-10 py-3 text-white bg-[#9966FF] mt-7 z-10 rounded-xl font-bold text-md"
+          onClick={() => setSentinelMode(prev => !prev)}
+        >
+          {sentinelMode ? 'Cancel Setup Sentinel' : 'Setup Sentinel'}
+        </button>
       </div>
 
       {loading ? (
@@ -116,11 +126,48 @@ export default function Dashboard() {
       ) : processes.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
           {processes.map((process, index) => (
-            <ProcessCard key={index} process={process.node} onCopy={handleCopy} />
+            <div key={index}>
+              {sentinelMode && (
+                <div className="mb-2">
+                  <input
+                    type="checkbox"
+                    checked={selectedProcesses.includes(process.node.id)}
+                    onChange={() => handleProcessSelection(process.node.id)}
+                  />
+                  <span className="ml-2 text-white">{`Select ${process.node.id}`}</span>
+                </div>
+              )}
+              <ProcessCard process={process.node} onCopy={() => setCopied(true)} />
+            </div>
           ))}
         </div>
       ) : (
         <p>No process found with the given ID.</p>
+      )}
+
+      {sentinelMode && (
+        <div className="flex justify-center mt-5">
+          <button
+            className="px-10 py-3 text-white bg-[#9966FF] mt-7 z-10 rounded-xl font-bold text-md"
+            onClick={handleActivateSentinel}
+          >
+            Activate Sentinel
+          </button>
+        </div>
+      )}
+
+      {showSentinelDemo && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+          <div className="bg-white p-5 rounded-lg shadow-lg max-w-md relative">
+            <button
+              className="absolute top-2 right-2 text-gray-600"
+              onClick={() => setShowSentinelDemo(false)}
+            >
+              Close
+            </button>
+            <SentinelDemo />
+          </div>
+        </div>
       )}
 
       {copied && (

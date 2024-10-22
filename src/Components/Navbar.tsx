@@ -1,45 +1,75 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Wallet from "./Wallet-Button";
 import logo from "../assets/logo.png";
 import { motion } from "framer-motion";
-import { FaBars, FaTimes } from "react-icons/fa"; // Import hamburger and close icons
+import { FaBars, FaTimes } from "react-icons/fa";
 
 interface NavbarProps {
     faqRef: React.RefObject<HTMLElement>;
     howItWorksRef: React.RefObject<HTMLElement>;
+    switchNetRef: React.RefObject<HTMLElement>;
 }
 
-const Navbar: React.FC<NavbarProps> = ({ faqRef, howItWorksRef }) => {
+const Navbar: React.FC<NavbarProps> = ({ faqRef, howItWorksRef, switchNetRef }) => {
     const navigate = useNavigate();
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+    const [activeSection, setActiveSection] = useState<string>("");
 
-    // Animation variants for the sidebar
+    // Sidebar animation variants
     const sidebarVariants = {
-        hidden: { x: "100%" }, // Sidebar starts from the right
+        hidden: { x: "100%" },
         visible: {
             x: 0,
             transition: { duration: 0.5, ease: [0.43, 0.13, 0.23, 0.96] },
         },
     };
 
-    // Scroll to FAQ section
+    // Scroll to section handlers
     const handleScrollToFaq = () => {
         faqRef.current?.scrollIntoView({ behavior: "smooth" });
-        setIsSidebarOpen(false); // Close sidebar if it's open
+        setIsSidebarOpen(false);
     };
 
-    // Scroll to "How it Works" section
     const handleScrollToHowItWorks = () => {
         howItWorksRef.current?.scrollIntoView({ behavior: "smooth" });
-        setIsSidebarOpen(false); // Close sidebar if it's open
+        setIsSidebarOpen(false);
     };
 
+    const handleScrollToSwitchNet = () => {
+        switchNetRef.current?.scrollIntoView({ behavior: "smooth" });
+        setIsSidebarOpen(false);
+    };
+
+    // Update active section based on scroll position
+    useEffect(() => {
+        const handleScroll = () => {
+            const sections = [
+                { id: "howItWorks", ref: howItWorksRef },
+                { id: "faq", ref: faqRef },
+                { id: "switchNet", ref: switchNetRef },
+            ];
+
+            const scrollPosition = window.scrollY + window.innerHeight / 2;
+
+            sections.forEach((section) => {
+                const sectionTop = section.ref.current?.offsetTop || 0;
+                const sectionBottom = sectionTop + (section.ref.current?.offsetHeight || 0);
+
+                if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+                    setActiveSection(section.id);
+                }
+            });
+        };
+
+        window.addEventListener("scroll", handleScroll);
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+        };
+    }, [faqRef, howItWorksRef, switchNetRef]);
+
     return (
-        <motion.div
-            className="text-white flex mt-4 text-2xl justify-between items-center border border-[#66686e] rounded-lg p-6 w-[90%] lg:w-2/3"
-            style={{ fontFamily: "'Roboto'" }}
-        >
+        <motion.div className="text-white flex mt-4 text-2xl justify-between items-center border border-[#66686e] rounded-lg p-6 w-[90%] lg:w-2/3">
             <div className="flex items-center">
                 <div className="w-12">
                     <img src={logo} alt="Logo" />
@@ -54,11 +84,29 @@ const Navbar: React.FC<NavbarProps> = ({ faqRef, howItWorksRef }) => {
                 <FaBars onClick={() => setIsSidebarOpen(!isSidebarOpen)} className="cursor-pointer" />
             </div>
 
-            {/* Full Navbar for laptops */}
+            {/* Full Navbar for larger screens */}
             <div className="hidden lg:flex gap-4 text-lg">
-                <button onClick={handleScrollToHowItWorks}>How it works</button> {/* Scroll on click */}
-                <button onClick={handleScrollToFaq}>FAQ</button>
-                <button onClick={() => navigate("/features")}>Features</button>
+                <button
+                    className={`text-left ${activeSection === 'howItWorks' ? 'font-bold' : ''}`}
+                    onClick={handleScrollToHowItWorks}
+                    aria-label="Scroll to How it Works section"
+                >
+                    How it works
+                </button>
+                <button
+                    className={`text-left ${activeSection === 'faq' ? 'font-bold' : ''}`}
+                    onClick={handleScrollToFaq}
+                    aria-label="Scroll to FAQ section"
+                >
+                    FAQ
+                </button>
+                <button
+                    className={`text-left ${activeSection === 'switchNet' ? 'font-bold' : ''}`}
+                    onClick={handleScrollToSwitchNet}
+                    aria-label="Scroll to Features section"
+                >
+                    Features
+                </button>
                 <Wallet />
             </div>
 
@@ -71,20 +119,38 @@ const Navbar: React.FC<NavbarProps> = ({ faqRef, howItWorksRef }) => {
                     exit="hidden"
                     variants={sidebarVariants}
                 >
-                    {/* Close icon */}
                     <div className="flex justify-end mb-4">
                         <FaTimes
                             className="text-white text-2xl cursor-pointer"
-                            onClick={() => setIsSidebarOpen(false)} // Close sidebar on click
+                            onClick={() => setIsSidebarOpen(false)}
+                            aria-label="Close sidebar"
                         />
                     </div>
 
                     <div className="flex items-center mb-4">
                         <img src={logo} alt="Logo" className="w-12" />
                     </div>
-                    <button className="text-left" onClick={handleScrollToHowItWorks}>How it works</button> {/* Scroll on click */}
-                    <button className="text-left" onClick={handleScrollToFaq}>FAQ</button>
-                    <button className="text-left" onClick={() => navigate("/features")}>Features</button>
+                    <button
+                        className={`text-left ${activeSection === 'howItWorks' ? 'font-bold' : ''}`}
+                        onClick={handleScrollToHowItWorks}
+                        aria-label="Scroll to How it Works section"
+                    >
+                        How it works
+                    </button>
+                    <button
+                        className={`text-left ${activeSection === 'faq' ? 'font-bold' : ''}`}
+                        onClick={handleScrollToFaq}
+                        aria-label="Scroll to FAQ section"
+                    >
+                        FAQ
+                    </button>
+                    <button
+                        className={`text-left ${activeSection === 'switchNet' ? 'font-bold' : ''}`}
+                        onClick={handleScrollToSwitchNet}
+                        aria-label="Scroll to Features section"
+                    >
+                        Features
+                    </button>
                     <Wallet />
                 </motion.div>
             )}

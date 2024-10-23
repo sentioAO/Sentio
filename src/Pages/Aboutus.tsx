@@ -1,4 +1,4 @@
-import React from 'react'
+
 import { ExpandableCardDemo } from '../Components/TeamCards'
 import { TimelineDemo } from '../Components/TimelineDemo'
 import Navbar from '../Components/Navbar'

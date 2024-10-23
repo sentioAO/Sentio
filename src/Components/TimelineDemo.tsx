@@ -1,4 +1,4 @@
-import React from "react";
+
 import { Timeline } from "../Components/ui/timeline";
 
 export function TimelineDemo() {

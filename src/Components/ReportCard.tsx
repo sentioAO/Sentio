@@ -3,7 +3,7 @@ import { Doughnut } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { FaExclamationTriangle, FaCheckCircle, FaBug, FaSkull, FaCode } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';  // Import useNavigate for navigation
-import Footer from './Footer';
+
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -165,14 +165,15 @@ const ReportCard: React.FC<ReportCardProps> = ({ report, onGoBack }) => {
       </div>
 
       {/* Report Details Button */}
-      <div className="text-right">
+      <div className="text-right flex gap-3 justify-end">
         <button className="bg-[#3b3f5c] mt-2 text-sm px-4 py-2 rounded-lg" onClick={goToReportDetails}>
           View Detailed Report
         </button>
+        <button className="bg-[#3b3f5c] mt-2 text-sm px-4 py-2 rounded-lg" onClick={goToReportDetails}>
+          Get Certified(Coming Soon)
+        </button>
       </div>
-      <div>
-        <Footer/>
-      </div>
+
     </div>
   );
 };

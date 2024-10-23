@@ -59,7 +59,10 @@ const ReportDetailsPage: React.FC = () => {
           />
         </div>
       </div>
-      <Footer />
+      <div className='relative bottom-0 left-0 right-0'>
+
+        <Footer />
+      </div>
     </div>
   );
 };

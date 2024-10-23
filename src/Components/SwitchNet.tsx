@@ -17,11 +17,11 @@ const SwitchNet: React.FC = () => {
 
     const handleNavigate = () => {
         if (activeTab === 'security') {
-            navigate('/security');
+            navigate('/dashboard');
         } else if (activeTab === 'auditing') {
-            navigate('/auditing');
+            navigate('/offchain');
         } else {
-            navigate('/monitoring');
+            navigate('/dashboard');
         }
     };
 

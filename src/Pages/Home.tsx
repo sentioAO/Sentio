@@ -134,19 +134,19 @@ const Home: React.FC = () => {
                 <div className='border items-center w-12' style={{ borderRadius: "100%" }}>
                   <img src={tick} alt="tick" />
                 </div>
-                Feature 1
+                1. Analyzes the CodeBase Ensuring Pre Deployment Security
               </li>
               <li className="flex items-center mb-2 gap-3">
                 <div className='border items-center w-12' style={{ borderRadius: "100%" }}>
                   <img src={tick} alt="tick" />
                 </div>
-                Feature 2
+                2. Fetches your Inbox Cronically and Monitors the Transactions
               </li>
               <li className="flex items-center mb-2 gap-3">
                 <div className='border items-center w-12' style={{ borderRadius: "100%" }}>
                   <img src={tick} alt="tick" />
                 </div>
-                Feature 3
+                3. In Case of Security Breach, Notifies the User Immediately
               </li>
             </ul>
           </div>

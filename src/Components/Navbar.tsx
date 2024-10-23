@@ -42,6 +42,9 @@ const Navbar: React.FC<NavbarProps> = ({ faqRef, howItWorksRef, switchNetRef }) 
         switchNetRef?.current?.scrollIntoView({ behavior: "smooth" });
         setIsSidebarOpen(false);
     };
+    const navigateToAboutUs = () => {
+        navigate('/about'); // Navigates to /aboutus
+      };
 
     // Update active section based on scroll position
     useEffect(() => {
@@ -107,6 +110,14 @@ const Navbar: React.FC<NavbarProps> = ({ faqRef, howItWorksRef, switchNetRef }) 
                             FAQ
                         </button>
                         <button
+                            className={`text-left`}
+                            onClick={navigateToAboutUs} 
+                            aria-label="Scroll to FAQ section"
+                            
+                        >
+                            About Us
+                        </button>
+                        <button
                             className={`text-left `}
                             onClick={handleScrollToSwitchNet}
                             aria-label="Scroll to Features section"
@@ -147,6 +158,13 @@ const Navbar: React.FC<NavbarProps> = ({ faqRef, howItWorksRef, switchNetRef }) 
                                 aria-label="Scroll to How it Works section"
                             >
                                 How it works
+                            </button>
+                            <button
+                                className={`text-left ${activeSection === 'howItWorks' ? 'font-bold' : ''}`}
+                                onClick={handleScrollToHowItWorks}
+                                aria-label="Scroll to How it Works section"
+                            >
+                                About Us
                             </button>
                             <button
                                 className={`text-left ${activeSection === 'faq' ? 'font-bold' : ''}`}

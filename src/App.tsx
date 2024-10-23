@@ -14,6 +14,7 @@ import SentinelPage from './Pages/Sentinel';
 import ReactGA from 'react-ga4';
 import { useEffect } from 'react';
 import {Analytics} from "@vercel/analytics/react"
+import Aboutus from './Pages/Aboutus';
 
 function App() {
   useEffect(() => {
@@ -26,6 +27,7 @@ function App() {
     ReactGA.send({ hitType: "pageview", page: "/report-details", title: "Report Details Page" });
     ReactGA.send({ hitType: "pageview", page: "/dashboard", title: "Dashboard Page" });
     ReactGA.send({ hitType: "pageview", page: "/sentinel/:processId", title: "Sentinel Page" });
+    ReactGA.send({ hitType: "pageview", page: "/aboutus", title: "About us Page " });
 
   })
   return (
@@ -40,6 +42,7 @@ function App() {
           <Route path="/report-details" element={<ReportDetailsPage />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/sentinel/:processId" element={<SentinelPage />} />
+          <Route path="/about" element={<Aboutus/>} />
         </Routes>
         <Analytics/>
       </BrowserRouter>

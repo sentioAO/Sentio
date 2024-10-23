@@ -4,7 +4,7 @@ import React, { forwardRef, useRef } from "react";
 
 import { cn } from "../lib/utils";
 import { AnimatedBeam } from "./../Components/ui/animated-beam";
-
+import logo from "../assets/logo_white.jpg"
 const Circle = forwardRef<
   HTMLDivElement,
   { className?: string; children?: React.ReactNode }
@@ -90,7 +90,7 @@ export function AnimatedBeamDemo() {
 const Icons = {
   openai: () => (
     <img
-      src="../../src/assets/logo_white.jpg"
+      src={logo}
       alt="OpenAI Logo"
       width="40"
       height="34"

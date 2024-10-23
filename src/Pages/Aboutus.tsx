@@ -6,17 +6,19 @@ import Navbar from '../Components/Navbar'
 
 const Aboutus = () => {
   return (
-        <>
+    <>
+      <div className='app-background h-screen w-full'>
 
         <div className="navbar flex justify-center">
-        <Navbar/>
+          <Navbar />
         </div>
         <div className="timeline bg-black">
-        <TimelineDemo/>
+          <TimelineDemo />
         </div>
-        <ExpandableCardDemo/>
-        
-        </>
+        <ExpandableCardDemo />
+      </div>
+
+    </>
   )
 }
 

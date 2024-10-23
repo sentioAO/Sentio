@@ -7,8 +7,9 @@ export function TimelineDemo() {
             title: "Phase 2",
             content: (
                 <div>
-                    <p className="text-neutral-800 dark:text-neutral-200 text-xs md:text-sm font-normal mb-8">
-                        Development and testing of the Aceternity UI tools and components.
+                    <p className="text-white dark:text-neutral-200 text-xs md:text-sm font-normal mb-8">
+                        SENTIO is among the 3 projects selected for the Arweave India Launchpad program which is a 3 month long program that provides funding, mentorship and resources to the selected projects. The program is designed to help the projects build and launch their products on the Arweave blockchain.
+                        We are targeting the Demo day to present our product to the Arweave community and the investors.The v1 will be launched on the Arweave network and the beta users will be able to access the platform and use the services. 
                     </p>
                     <div className="grid grid-cols-2 gap-4">
                         <img
@@ -47,8 +48,8 @@ export function TimelineDemo() {
             title: "Phase 1",
             content: (
                 <div className="app-background">
-                    <p className="text-neutral-800 dark:text-neutral-200 text-xs md:text-sm font-normal mb-8">
-                        Built and launched Aceternity UI and Aceternity UI Pro from scratch
+                    <p className="text-white dark:text-neutral-200 text-xs md:text-sm font-normal mb-8">
+                        After Hacker-House we presented the idea to a few more people Arweave day in Singapore which pushed us to recreate and reframe the idea, providing better usecase and userexperience for the users.The first phase included the collaboration with Better Idea and an easy access for beta users.
                     </p>
                     <div className="grid grid-cols-2 gap-4">
                         <img
@@ -87,13 +88,12 @@ export function TimelineDemo() {
             title: "Hacker House Mussoorie",
             content: (
                 <div>
-                    <p className="text-neutral-800 dark:text-neutral-200 text-xs md:text-sm font-normal mb-8">
-                        I usually run out of copy, but when I see content this big, I try to
-                        integrate lorem ipsum.
+                    <p className="text-white dark:text-neutral-200 text-xs md:text-sm font-normal mb-8">
+                       The idea started with a notion of securing arweave and AO space 
+                       Providing security at both faces on-chain and off-chain.
                     </p>
-                    <p className="text-neutral-800 dark:text-neutral-200 text-xs md:text-sm font-normal mb-8">
-                        Lorem ipsum is for people who are too lazy to write copy. But we are
-                        not. Here are some more examples of beautiful designs I built.
+                    <p className="text-white dark:text-neutral-200 text-xs md:text-sm font-normal mb-8">
+                        The idea started taking form in Mussoorie Hacker-House where after 72 hours of development and testing, we gave our first pitch to the Arweave team.
                     </p>
                     <div className="grid grid-cols-2 gap-4">
 

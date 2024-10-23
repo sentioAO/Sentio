@@ -90,10 +90,11 @@ export function AnimatedBeamDemo() {
 const Icons = {
   openai: () => (
     <img
-      src="../../src/assets/LogoFinal.svg"
+      src="../../src/assets/logo_white.jpg"
       alt="OpenAI Logo"
-      width="30"
-      height="24"
+      width="40"
+      height="34"
+      className="rounded-full"
     />
   ),
   user: () => (

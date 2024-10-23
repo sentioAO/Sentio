@@ -56,7 +56,7 @@ const Sentinel: React.FC<SentinelProps> = ({ processes, onClose, onSpawnSentinel
         </div>
         <div className="flex justify-between">
           <button
-            className="px-4 py-2 bg-blue-500 text-black rounded"
+            className="px-4 py-2 bg-[#9966ff] text-black rounded"
             onClick={handleSpawn}
             disabled={!selectedProcessId} // Disable button if no process is selected
           >

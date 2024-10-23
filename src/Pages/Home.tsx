@@ -74,7 +74,7 @@ const Home: React.FC = () => {
 
   return (
     <>
-      <div className="bg-black min-h-screen flex flex-col justify-center items-center overflow-hidden">
+      <div className="app-background min-h-screen flex flex-col justify-center items-center overflow-hidden">
         {/* Pass refs to Navbar */}
         <div className='sticky w-[90%] lg:[95%]  top-0 z-50 flex justify-center items-center'>
           <Navbar faqRef={faqRef} howItWorksRef={howItWorksRef} switchNetRef={switchNetRef} />

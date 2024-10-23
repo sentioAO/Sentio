@@ -83,7 +83,7 @@ export default function Dashboard() {
   // };
 
   return (
-    <div className="bg-black text-white min-h-screen" style={{ fontFamily: "'Roboto'" }}>
+    <div className="app-background text-white min-h-screen" style={{ fontFamily: "'Roboto'" }}>
       <DotPattern
         className={cn(
           "[mask-image:radial-gradient(800px_circle_at_center,white,transparent)]",

@@ -1,4 +1,5 @@
-import { useRef, useState, useEffect } from "react";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useState, useEffect } from "react";
 import Navbar from "../Components/Navbar";
 import CodeEditor from "../Components/TextEditor";
 import ReportCard, { ReportItem } from "../Components/ReportCard";
@@ -7,6 +8,12 @@ import qs from 'qs';
 import { motion } from 'framer-motion';
 import Footer from "../Components/Footer";
 
+interface Repository {
+  id: number;
+  name: string;
+  full_name: string;
+}
+
 const Offchain = () => {
   const [code, setCode] = useState('');
   const [report, setReport] = useState<null | ReportItem[]>(null);
@@ -14,9 +21,10 @@ const Offchain = () => {
   const [progressText, setProgressText] = useState('');
   const [progress, setProgress] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [owner, setOwner] = useState('');
-  const [repo, setRepo] = useState('');
-  const [path, setPath] = useState('');
+  const [repositories, setRepositories] = useState<Repository[]>([]);
+  const [selectedRepo, setSelectedRepo] = useState('');
+  const [files, setFiles] = useState<string[]>([]);
+  const [selectedFile, setSelectedFile] = useState('');
   const [importError, setImportError] = useState('');
 
   const handleCodeChange = (newValue: string) => {
@@ -61,52 +69,55 @@ const Offchain = () => {
     setReport(null);
   };
 
-  const isValidPath = (path: string) => {
-    return /\.(lua|luanb)$/.test(path);
-  };
-
   const handleGitHubImport = () => {
-    setIsModalOpen(true);
+    const accessToken = localStorage.getItem('github_access_token');
+    if (!accessToken) {
+      window.location.href = `https://github.com/login/oauth/authorize?client_id=Ov23li9yd222KkA5HpSF&scope=repo&redirect_uri=http://localhost:5173/offchain`;
+    } else {
+      fetchUserRepos(accessToken);
+      setIsModalOpen(true);
+    }
   };
 
   const handleImportSubmit = async () => {
-    if (!isValidPath(path)) {
-      setImportError('Only .lua or .luanb files are allowed');
+    if (!selectedFile) {
+      setImportError('Please select a file to import.');
+      return;
+    }
+
+    if (!/\.(lua|luanb)$/.test(selectedFile)) {
+      setImportError('Selected file must be a .lua or .luanb file.');
       return;
     }
 
     setShowProgress(true);
     setProgress(25);
-    setProgressText('Authenticating with GitHub');
+    setProgressText('Fetching file content');
     setImportError('');
 
     try {
-      // First get the access token from local storage
       const accessToken = localStorage.getItem('github_access_token');
 
-      // If access token doesn't exist, redirect to GitHub for authorization
       if (!accessToken) {
-        window.location.href = `https://github.com/login/oauth/authorize?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&scope=repo`;
+        setImportError('Authentication required.');
         return;
       }
 
       setProgress(50);
-      setProgressText('Fetching file content');
-
-      const response = await axios.get(`https://api.github.com/repos/${owner}/${repo}/contents/${path}`, {
+      const response = await axios.get(`https://api.github.com/repos/${selectedRepo}/contents/${selectedFile}`, {
         headers: {
           Authorization: `token ${accessToken}`,
           Accept: 'application/vnd.github.v3.raw',
         },
       });
 
+      const content = Buffer.from(response.data.content, 'base64').toString('utf-8');
       setProgress(100);
       setProgressText('Loading file content');
-      setCode(response.data);
+      setCode(content);  
       setIsModalOpen(false);
-      setOwner('');
-      setRepo('');
-      setPath('');
+      setSelectedRepo('');
+      setSelectedFile('');
     } catch (error) {
       if (axios.isAxiosError(error)) {
         setImportError(error.response?.data?.message || 'Failed to import file');
@@ -119,27 +130,47 @@ const Offchain = () => {
     }
   };
 
-  const handleWriteCode = () => {
-    setCode('');
+  const fetchUserRepos = async (accessToken: string) => {
+    try {
+      const response = await axios.get('https://api.github.com/user/repos', {
+        headers: {
+          Authorization: `token ${accessToken}`,
+        },
+      });
+      setRepositories(response.data);
+    } catch (error) {
+      console.error('Error fetching repositories:', error);
+    }
   };
 
-  const faqRef = useRef<HTMLDivElement | null>(null);
-  const howItWorksRef = useRef<HTMLDivElement | null>(null);
+  const fetchRepoFiles = async (repo: string) => {
+    try {
+      const response = await axios.get(`https://api.github.com/repos/${repo}/contents`, {
+        headers: {
+          Authorization: `token ${localStorage.getItem('github_access_token')}`,
+        },
+      });
+      const luaFiles = response.data
+        .filter((file: any) => /\.(lua|luanb)$/.test(file.name))
+        .map((file: any) => file.path);
+      setFiles(luaFiles);
+    } catch (error) {
+      console.error('Error fetching repo files:', error);
+    }
+  };
 
-  // Handle GitHub authentication callback
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const code = urlParams.get('code');
+
     if (code) {
       const fetchAccessToken = async () => {
         try {
           const authResponse = await axios.post('http://localhost:3000/api/github/exchange-code', { code });
           const token = authResponse.data.access_token;
 
-          // Save the access token in local storage
-          localStorage.setItem('token', token);
-
-          // Redirect to the same page without the code query parameter
+          localStorage.setItem('github_access_token', token);
+          await fetchUserRepos(token);
           window.history.replaceState({}, document.title, window.location.pathname);
         } catch (error) {
           console.error('Error exchanging code for access token:', error);
@@ -147,18 +178,23 @@ const Offchain = () => {
       };
 
       fetchAccessToken();
+    } else {
+      const accessToken = localStorage.getItem('github_access_token');
+      if (accessToken) {
+        fetchUserRepos(accessToken);
+      }
     }
   }, []);
 
   return (
     <div className="app-background min-h-screen flex flex-col items-center">
-      <Navbar faqRef={faqRef} howItWorksRef={howItWorksRef} />
+      <Navbar />
       
       <div className="flex flex-col justify-center items-center mt-10 space-y-4 w-full max-w-4xl">
         <div className="flex space-x-4">
           <button
             className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700"
-            onClick={handleWriteCode}
+            onClick={() => setCode('')}
           >
             Write Code
           </button>
@@ -170,7 +206,6 @@ const Offchain = () => {
           </button>
         </div>
 
-        {/* Progress bar */}
         {showProgress && !report ? (
           <div className="relative w-full">
             <div className="absolute top-0 left-0 w-full h-2 bg-gray-800 rounded-lg overflow-hidden">
@@ -199,69 +234,68 @@ const Offchain = () => {
           </motion.div>
         )}
 
-        {/* GitHub Import Modal */}
         {isModalOpen && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
             <motion.div 
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              className="bg-gray-800 rounded-lg max-w-md w-full p-6"
+              initial={{ opacity: 0, scale: 0.9 }} 
+              animate={{ opacity: 1, scale: 1 }} 
+              transition={{ duration: 0.3 }} 
+              className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md"
             >
-              <h2 className="text-xl font-bold mb-4 text-white">Import from GitHub</h2>
-              
-              <div className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium mb-1 text-gray-300">Repository Owner</label>
-                  <input
-                    type="text"
-                    value={owner}
-                    onChange={(e) => setOwner(e.target.value)}
-                    className="w-full p-2 bg-gray-700 rounded border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 text-white"
-                    placeholder="e.g., username"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium mb-1 text-gray-300">Repository Name</label>
-                  <input
-                    type="text"
-                    value={repo}
-                    onChange={(e) => setRepo(e.target.value)}
-                    className="w-full p-2 bg-gray-700 rounded border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 text-white"
-                    placeholder="e.g., project-name"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium mb-1 text-gray-300">File Path</label>
-                  <input
-                    type="text"
-                    value={path}
-                    onChange={(e) => setPath(e.target.value)}
-                    className="w-full p-2 bg-gray-700 rounded border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 text-white"
-                    placeholder="e.g., src/file.lua"
-                  />
-                  {importError && <p className="text-red-500 text-sm">{importError}</p>}
-                </div>
-
+              <h2 className="text-xl font-semibold mb-4">Select a Repository</h2>
+              <select
+                className="border rounded px-3 py-2 w-full mb-4"
+                value={selectedRepo}
+                onChange={(e) => {
+                  setSelectedRepo(e.target.value);
+                  fetchRepoFiles(e.target.value);
+                }}
+              >
+                <option value="">Select a repository</option>
+                {repositories.map((repo) => (
+                  <option key={repo.id} value={repo.full_name}>
+                    {repo.name}
+                  </option>
+                ))}
+              </select>
+              {selectedRepo && (
+                <>
+                  <select
+                    className="border rounded px-3 py-2 w-full mb-4"
+                    value={selectedFile}
+                    onChange={(e) => setSelectedFile(e.target.value)}
+                  >
+                    <option value="">Select a file</option>
+                    {files.map((file) => (
+                      <option key={file} value={file}>
+                        {file}
+                      </option>
+                    ))}
+                  </select>
+                  {importError && (
+                    <p className="text-red-500 text-sm">{importError}</p>
+                  )}
+                </>
+              )}
+              <div className="flex justify-end space-x-2 mt-4">
                 <button
-                  onClick={handleImportSubmit}
-                  className="w-full bg-green-500 text-white px-4 py-2 rounded hover:bg-green-700"
-                >
-                  Import
-                </button>
-
-                <button
+                  className="bg-gray-300 text-gray-800 px-4 py-2 rounded hover:bg-gray-400"
                   onClick={() => setIsModalOpen(false)}
-                  className="w-full bg-red-500 text-white px-4 py-2 rounded hover:bg-red-700"
                 >
                   Cancel
+                </button>
+                <button
+                  className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-700"
+                  onClick={handleImportSubmit}
+                >
+                  Import
                 </button>
               </div>
             </motion.div>
           </div>
         )}
       </div>
+
       <Footer />
     </div>
   );

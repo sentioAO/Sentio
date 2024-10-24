@@ -14,6 +14,7 @@ import FAQSection from '../Components/FAQ';
 import CustomCard from '../Components/Cards';
 import { FaLock, FaCheckCircle, FaEye } from 'react-icons/fa'; // Import icons for your cards
 
+
 // import { ExpandableCardDemo } from '../Components/TeamCards';
 
 
@@ -236,7 +237,7 @@ const Home: React.FC = () => {
           <FAQSection />
         </div>
 
-
+          
         <Footer />
       </div>
     </>

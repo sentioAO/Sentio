@@ -78,7 +78,6 @@ const Offchain = () => {
       setIsModalOpen(true);
     }
   };
-
   const handleImportSubmit = async () => {
     if (!selectedFile) {
       setImportError('Please select a file to import.');
@@ -110,15 +109,15 @@ const Offchain = () => {
           Accept: 'application/vnd.github.v3.raw',
         },
       });
-
-      const content = Buffer.from(response.data.content, 'base64').toString('utf-8');
+      const content = response.data;  
       setProgress(100);
       setProgressText('Loading file content');
-      setCode(content);  
+      setCode(content);
       setIsModalOpen(false);
       setSelectedRepo('');
       setSelectedFile('');
     } catch (error) {
+      console.error('Error importing file:', error);
       if (axios.isAxiosError(error)) {
         setImportError(error.response?.data?.message || 'Failed to import file');
       } else {
@@ -130,12 +129,18 @@ const Offchain = () => {
     }
   };
 
+
   const fetchUserRepos = async (accessToken: string) => {
+
     try {
       const response = await axios.get('https://api.github.com/user/repos', {
         headers: {
           Authorization: `token ${accessToken}`,
         },
+        params: {
+          per_page: 100
+
+        }
       });
       setRepositories(response.data);
     } catch (error) {
@@ -189,7 +194,7 @@ const Offchain = () => {
   return (
     <div className="app-background min-h-screen flex flex-col items-center">
       <Navbar />
-      
+
       <div className="flex flex-col justify-center items-center mt-10 space-y-4 w-full max-w-4xl">
         <div className="flex space-x-4">
           <button
@@ -236,10 +241,10 @@ const Offchain = () => {
 
         {isModalOpen && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-            <motion.div 
-              initial={{ opacity: 0, scale: 0.9 }} 
-              animate={{ opacity: 1, scale: 1 }} 
-              transition={{ duration: 0.3 }} 
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.3 }}
               className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md"
             >
               <h2 className="text-xl font-semibold mb-4">Select a Repository</h2>

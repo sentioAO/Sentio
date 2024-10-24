@@ -10,6 +10,7 @@ import Footer from "../Components/Footer";
 import { HeroHighlightDemo } from "../Components/Hero";
 
 
+
 interface Repository {
   id: number;
   name: string;
@@ -207,6 +208,7 @@ const Offchain = () => {
 
             <HeroHighlightDemo />
           </div>
+        
 
         </div>
 

@@ -7,6 +7,8 @@ import axios from 'axios';
 import qs from 'qs';
 import { motion } from 'framer-motion';
 import Footer from "../Components/Footer";
+import { GitHubloader } from "../Components/Githubloader";
+
 
 interface Repository {
   id: number;
@@ -26,10 +28,12 @@ const Offchain = () => {
   const [files, setFiles] = useState<string[]>([]);
   const [selectedFile, setSelectedFile] = useState('');
   const [importError, setImportError] = useState('');
+  const [loading, setLoading] = useState(true);
 
   const handleCodeChange = (newValue: string) => {
     setCode(newValue);
   };
+
 
   const handleAnalyze = async () => {
     setShowProgress(true);
@@ -109,7 +113,7 @@ const Offchain = () => {
           Accept: 'application/vnd.github.v3.raw',
         },
       });
-      const content = response.data;  
+      const content = response.data;
       setProgress(100);
       setProgressText('Loading file content');
       setCode(content);
@@ -171,7 +175,7 @@ const Offchain = () => {
     if (code) {
       const fetchAccessToken = async () => {
         try {
-          const authResponse = await axios.post('http://localhost:3000/api/github/exchange-code', { code });
+          const authResponse = await axios.post('https://sam-server-1.onrender.com/api/github/exchange-code', { code });
           const token = authResponse.data.access_token;
 
           localStorage.setItem('github_access_token', token);
@@ -193,22 +197,22 @@ const Offchain = () => {
 
   return (
     <div className="app-background min-h-screen flex flex-col items-center">
+
       <Navbar />
 
       <div className="flex flex-col justify-center items-center mt-10 space-y-4 w-full max-w-4xl">
         <div className="flex space-x-4">
+
           <button
-            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700"
-            onClick={() => setCode('')}
-          >
-            Write Code
-          </button>
-          <button
-            className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-700"
+            className="bg-gray-800 text-white font-medium px-4 py-2 rounded-md border border-gray-600 shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition duration-150"
             onClick={handleGitHubImport}
           >
+            <svg className="w-5 h-5 inline-block mr-2" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
+              <path d="M8 0C3.58 0 0 3.58 0 8a8 8 0 005.47 7.6c.4.08.55-.17.55-.38v-1.34c-2.23.48-2.69-1.07-2.69-1.07-.36-.91-.88-1.15-.88-1.15-.72-.49.05-.48.05-.48.8.06 1.22.82 1.22.82.71 1.22 1.87.87 2.33.66.07-.51.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.97 0-.88.31-1.6.82-2.16-.08-.2-.36-1.02.08-2.12 0 0 .67-.22 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.52-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.28.82 2.16 0 3.09-1.87 3.76-3.65 3.96.29.25.54.74.54 1.5v2.22c0 .21.15.46.55.38A8.01 8.01 0 0016 8c0-4.42-3.58-8-8-8z" />
+            </svg>
             Import from GitHub
           </button>
+
         </div>
 
         {showProgress && !report ? (

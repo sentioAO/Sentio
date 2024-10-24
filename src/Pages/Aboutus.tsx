@@ -14,9 +14,9 @@ const Aboutus = () => {
         </div>
         <div className="timeline bg-black">
           <TimelineDemo />
+        <Footer/>
         </div>
 
-        <Footer/>
       </div>
 
     </>

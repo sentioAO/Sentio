@@ -2,8 +2,7 @@ import React from 'react';
 import { Doughnut } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { FaExclamationTriangle, FaCheckCircle, FaBug, FaSkull, FaCode } from 'react-icons/fa';
-import { useNavigate } from 'react-router-dom';  // Import useNavigate for navigation
-
+import { useNavigate } from 'react-router-dom';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -15,14 +14,22 @@ export interface ReportItem {
   severity: string;
 }
 
+export interface ReportStats {
+  highSeverity: number;
+  mediumSeverity: number;
+  lowSeverity: number;
+  totalLinesOfCode: number;
+  uniqueVulnerableLines: number;
+  vulnerableCodePercentage: string;
+  threatChecklist: { label: string; exists: boolean }[];
+}
+
 interface ReportCardProps {
   report: ReportItem[];
   onGoBack: () => void;
 }
 
-const ReportCard: React.FC<ReportCardProps> = ({ report, onGoBack }) => {
-  const navigate = useNavigate();  // Use navigate hook
-
+const computeReportStats = (report: ReportItem[]): ReportStats => {
   const highSeverityItems = report.filter(item => item.severity.toLowerCase() === 'high');
   const mediumSeverityItems = report.filter(item => item.severity.toLowerCase() === 'medium');
   const lowSeverityItems = report.filter(item => item.severity.toLowerCase() === 'low');
@@ -37,6 +44,32 @@ const ReportCard: React.FC<ReportCardProps> = ({ report, onGoBack }) => {
     ? ((uniqueVulnerableLines / totalLinesOfCode) * 100).toFixed(2)
     : '0';
 
+  const threatChecklist = [
+    { label: 'Does the code allow reentrancy?', exists: report.some(item => item.name.toLowerCase() === 'reentrancy') },
+    { label: 'Is there a floating pragma issue?', exists: report.some(item => item.name.toLowerCase() === 'floating pragma') },
+    { label: 'Are there unchecked external calls?', exists: report.some(item => item.name.toLowerCase() === 'unchecked external calls') },
+    { label: 'Does the code have integer overflow or underflow vulnerabilities?', exists: report.some(item => ['integer overflow', 'integer underflow'].includes(item.name.toLowerCase())) },
+    { label: 'Is there a denial of service vulnerability?', exists: report.some(item => item.name.toLowerCase() === 'denial of service') },
+  ];
+
+  return {
+    highSeverity,
+    mediumSeverity,
+    lowSeverity,
+    totalLinesOfCode,
+    uniqueVulnerableLines,
+    vulnerableCodePercentage,
+    threatChecklist,
+  };
+
+};
+
+const ReportCard: React.FC<ReportCardProps> = ({ report, onGoBack }) => {
+  const navigate = useNavigate();
+  const reportStats = computeReportStats(report);
+  console.log(reportStats);
+  const { highSeverity, mediumSeverity, lowSeverity, totalLinesOfCode, uniqueVulnerableLines, vulnerableCodePercentage, threatChecklist } = reportStats;
+
   let summaryText = '';
   if (highSeverity > 0 && mediumSeverity > 0 && lowSeverity > 0) {
     summaryText = 'Your code contains critical vulnerabilities, and it is recommended to rewrite the logic entirely.';
@@ -47,14 +80,6 @@ const ReportCard: React.FC<ReportCardProps> = ({ report, onGoBack }) => {
   } else if (highSeverity === 0 && mediumSeverity === 0 && lowSeverity === 0) {
     summaryText = 'Your code is production ready.';
   }
-
-  const threatChecklist = [
-    { label: 'Does the code allow reentrancy?', exists: report.some(item => item.name.toLowerCase() === 'reentrancy') },
-    { label: 'Is there a floating pragma issue?', exists: report.some(item => item.name.toLowerCase() === 'floating pragma') },
-    { label: 'Are there unchecked external calls?', exists: report.some(item => item.name.toLowerCase() === 'unchecked external calls') },
-    { label: 'Does the code have integer overflow or underflow vulnerabilities?', exists: report.some(item => ['integer overflow', 'integer underflow'].includes(item.name.toLowerCase())) },
-    { label: 'Is there a denial of service vulnerability?', exists: report.some(item => item.name.toLowerCase() === 'denial of service') },
-  ];
 
   const data = {
     labels: ['High', 'Medium', 'Low'],
@@ -70,9 +95,12 @@ const ReportCard: React.FC<ReportCardProps> = ({ report, onGoBack }) => {
     ],
   };
 
-  // Navigate to the report details page when button is clicked
   const goToReportDetails = () => {
-    navigate('/report-details', { state: { report } }); // Pass the report data via state
+    navigate('/report-details', { state: { report } });
+  };
+
+  const goToCertifications = () => {
+    navigate('/certificates', { state: { report, reportStats } });
   };
 
   return (
@@ -164,16 +192,15 @@ const ReportCard: React.FC<ReportCardProps> = ({ report, onGoBack }) => {
         </div>
       </div>
 
-      {/* Report Details Button */}
-      <div className="text-right flex gap-3 justify-end">
-        <button className="bg-[#3b3f5c] mt-2 text-sm px-4 py-2 rounded-lg" onClick={goToReportDetails}>
-          View Detailed Report
+      {/* Action Buttons */}
+      <div className="mt-4 flex space-x-2">
+        <button className="bg-green-500 text-white px-4 py-2 rounded-lg" onClick={goToReportDetails}>
+          View Details
         </button>
-        <button className="bg-[#3b3f5c] mt-2 text-sm px-4 py-2 rounded-lg" onClick={goToReportDetails}>
-          Get Certified(Coming Soon)
+        <button className="bg-purple-500 text-white px-4 py-2 rounded-lg" onClick={goToCertifications}>
+          Get Security Certification
         </button>
       </div>
-
     </div>
   );
 };

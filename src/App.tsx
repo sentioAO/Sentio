@@ -12,6 +12,7 @@ import ReactGA from 'react-ga4';
 import { useEffect } from 'react';
 import { Analytics } from "@vercel/analytics/react";
 import Aboutus from './Pages/Aboutus';
+import Certificate from './Pages/Certificate';
 
 function App() {
   useEffect(() => {
@@ -39,6 +40,7 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/sentinel/:processId" element={<SentinelPage />} />
           <Route path="/about" element={<Aboutus />} />
+          <Route path="/certificates" element={<Certificate/>} />
         </Routes>
         <Analytics />
       </BrowserRouter>

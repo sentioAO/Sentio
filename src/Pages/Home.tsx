@@ -121,42 +121,46 @@ const Home: React.FC = () => {
           className={cn("[mask-image:radial-gradient(200px_circle_at_center,white,transparent)]")}
         />
 
-        <hr className="w-[50%] border-t border-gray-500 mt-10 my-10" />
+        <hr className="w-[76%] border-t border-gray-500 mt-10 my-10" />
 
         {/* "How it Works" section */}
         <motion.div
           ref={howItWorksRef}
-          className="flex w-3/4 justify-between items-center flex-col lg:flex-row"
+          className="flex w-[90%] justify-center items-center flex-col lg:flex-row"
           initial="hidden"
           animate="visible"
           variants={sectionVariant}
         >
-          <div>
-            <h1 className='text-4xl text-white mb-5'>How it Works</h1>
-            <ul className="list-none text-white">
-              <li className="flex items-center mb-2 gap-3">
-                <div className='border items-center w-12' style={{ borderRadius: "100%" }}>
-                  <img src={tick} alt="tick" />
-                </div>
-                1. Analyzes the CodeBase Ensuring Pre Deployment Security
-              </li>
-              <li className="flex items-center mb-2 gap-3">
-                <div className='border items-center w-12' style={{ borderRadius: "100%" }}>
-                  <img src={tick} alt="tick" />
-                </div>
-                2. Fetches your Inbox Cronically and Monitors the Transactions
-              </li>
-              <li className="flex items-center mb-2 gap-3">
-                <div className='border items-center w-12' style={{ borderRadius: "100%" }}>
-                  <img src={tick} alt="tick" />
-                </div>
-                3. In Case of Security Breach, Notifies the User Immediately
-              </li>
-            </ul>
-          </div>
-          <div className='w-1/2 flex flex-col items-center'>
-            <div className='flex gap-4'>
-              <AnimatedBeamDemo />
+          <div className='flex justify-between ' >
+            <div className='w-[100%]'>
+
+              <h1 className='text-4xl text-white mb-5'>How it Works</h1>
+              <ul className="list-none text-white">
+                <li className="flex items-center mb-2 gap-3">
+                  <div className='border items-center w-12' style={{ borderRadius: "100%" }}>
+                    <img src={tick} alt="tick" />
+                  </div>
+                  1. Analyzes the CodeBase Ensuring Pre Deployment Security
+                </li>
+                <li className="flex items-center mb-2 gap-3">
+                  <div className='border items-center w-12' style={{ borderRadius: "100%" }}>
+                    <img src={tick} alt="tick" />
+                  </div>
+                  2. Fetches your Inbox Cronically and Monitors the Transactions
+                </li>
+                <li className="flex items-center mb-2 gap-3">
+                  <div className='border items-center w-12' style={{ borderRadius: "100%" }}>
+                    <img src={tick} alt="tick" />
+                  </div>
+                  3. In Case of Security Breach, Notifies the User Immediately
+                </li>
+              </ul>
+            </div>
+
+            <div className='w-1/2 flex flex-col items-center'>
+              <div className='flex gap-7'>
+                <AnimatedBeamDemo />
+              </div>
             </div>
           </div>
         </motion.div>
@@ -200,23 +204,23 @@ const Home: React.FC = () => {
                 title={card.title}
                 description={card.description}
               />
-              
+
             </motion.div>
-            
+
           ))}
         </div>
 
-        <hr className="w-[50%] border-t border-gray-500 mt-10 my-10" />
+        <hr className="w-[76%] border-t border-gray-500 mt-10 my-10" />
 
 
 
-       
+
 
         <div ref={switchNetRef}>
           <SwitchNet />
         </div>
 
-        <hr className="w-[50%] border-t border-gray-500 mt-10 my-10" />
+        <hr className="w-[76%] border-t border-gray-500 mt-10 my-10" />
         <motion.div
           className="flex w-full gap-2 max-h text-white flex-wrap justify-center"
           initial="hidden"
@@ -237,7 +241,7 @@ const Home: React.FC = () => {
           <FAQSection />
         </div>
 
-          
+
         <Footer />
       </div>
     </>

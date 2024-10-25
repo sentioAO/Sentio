@@ -77,7 +77,7 @@ const Offchain = () => {
   const handleGitHubImport = () => {
     const accessToken = localStorage.getItem('github_access_token');
     if (!accessToken) {
-      window.location.href = `https://github.com/login/oauth/authorize?client_id=Ov23li9yd222KkA5HpSF&scope=repo&redirect_uri=https://sentio-app.ar-io.dev/offchain`;
+      window.location.href = `https://github.com/login/oauth/authorize?client_id=Ov23li9yd222KkA5HpSF&scope=repo`;
     } else {
       fetchUserRepos(accessToken);
       setIsModalOpen(true);
@@ -176,7 +176,7 @@ const Offchain = () => {
     if (code) {
       const fetchAccessToken = async () => {
         try {
-          const authResponse = await axios.post('https://sam-server-1.onrender.com/api/github/exchange-code', { code });
+          const authResponse = await axios.post('https://sam-server.azurewebsites.net/api/github/exchange-code', { code });
           const token = authResponse.data.access_token;
 
           localStorage.setItem('github_access_token', token);

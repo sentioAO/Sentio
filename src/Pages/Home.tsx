@@ -14,6 +14,7 @@ import FAQSection from '../Components/FAQ';
 import CustomCard from '../Components/Cards';
 import { FaLock, FaCheckCircle, FaEye } from 'react-icons/fa'; // Import icons for your cards
 
+import { useMotionValue, useMotionTemplate } from "framer-motion";
 
 // import { ExpandableCardDemo } from '../Components/TeamCards';
 
@@ -68,6 +69,20 @@ const Home: React.FC = () => {
   // Use Framer Motion's `useAnimation` to control the animation
   const controls = useAnimation();
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.2 });
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  function handleMouseMove({
+    currentTarget,
+    clientX,
+    clientY,
+  }: React.MouseEvent<HTMLDivElement>) {
+    if (!currentTarget) return;
+    const { left, top } = currentTarget.getBoundingClientRect();
+
+    mouseX.set(clientX - left);
+    mouseY.set(clientY - top);
+  }
 
   // Trigger animation when cards are in view
   React.useEffect(() => {
@@ -164,7 +179,37 @@ const Home: React.FC = () => {
             </div>
           </div>
         </motion.div>
+        <div
+          className={cn(
+            "relative h-[40rem] flex mt-[13%] app-background dark:bg-black justify-center w-full group",
+          
+          )}
+          onMouseMove={handleMouseMove}
+        >
+          <div className="absolute inset-0 app-background dark:bg-dot-thick-neutral-600 pointer-events-none opacity-50" /> {/* Lower opacity for dots */}
+          <motion.div
+            className="pointer-events-none bg-dot-thick-indigo-500 dark:bg-dot-thick-indigo-500 absolute inset-0 opacity-0 transition duration-300 group-hover:opacity-100"
+            style={{
+              WebkitMaskImage: useMotionTemplate`
+            radial-gradient(
+              200px circle at ${mouseX}px ${mouseY}px,
+              black 0%,
+              transparent 100%
+            )
+          `,
+              maskImage: useMotionTemplate`
+            radial-gradient(
+              200px circle at ${mouseX}px ${mouseY}px,
+              black 0%,
+              transparent 100%
+            )
+          `,
+            }}
+          />
 
+          {/* <div className={cn("relative z-20 text-white", className)}>{children}</div> Ensure text is white */}
+<div className={cn("relative z-20 text-white")}>heklkdasj</div>
+        </div>
         {/* Lazy Loading Cards */}
         <div ref={ref} className="cards flex flex-row gap-20 mt-10">
           {[

@@ -25,8 +25,13 @@ export function HeroHighlightDemo() {
         <Highlight className="text-black dark:text-white">
           function, of a function, of a function.
         </Highlight><br/>
-        
-        <button className="px-4 py-2 bg-[#9966ff] rounded-lg text-sm hover:bg-white hover:text-[#9966ff] transition-colors duration-300">
+        <button
+          className="px-4 py-2 bg-[#9966ff] rounded-lg text-sm hover:bg-white hover:text-[#9966ff] transition-colors duration-300"
+          onClick={() => {
+           
+            window.scrollTo(0, document.body.scrollHeight);
+          }}
+        >
           Get Sentio Audit
         </button>
       </motion.h1>

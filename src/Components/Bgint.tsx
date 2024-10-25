@@ -1,6 +1,6 @@
 import React from 'react'
-import { motion, useAnimation, useMotionValue, useMotionTemplate } from 'framer-motion';
-import { cn } from '../l ';
+import { motion, useMotionValue, useMotionTemplate } from 'framer-motion';
+import { cn } from '../../src/lib/utils';
 
 const Bgint = () => {
     const mouseX = useMotionValue(0);

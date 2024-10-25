@@ -77,7 +77,7 @@ const Offchain = () => {
   const handleGitHubImport = () => {
     const accessToken = localStorage.getItem('github_access_token');
     if (!accessToken) {
-      window.location.href = `https://github.com/login/oauth/authorize?client_id=Ov23li9yd222KkA5HpSF&scope=repo&redirect_uri=https://sentio-app.ar-io.dev/offchain`;
+      window.location.href = `https://github.com/login/oauth/authorize?client_id=Ov23li9yd222KkA5HpSF&scope=repo`;
     } else {
       fetchUserRepos(accessToken);
       setIsModalOpen(true);

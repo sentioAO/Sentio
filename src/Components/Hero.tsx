@@ -20,12 +20,13 @@ export function HeroHighlightDemo() {
         }}
         className="text-2xl  px-4 md:text-4xl lg:text-5xl font-bold text-white dark:text-white max-w-4xl leading-relaxed lg:leading-snug text-center mx-auto "
        style={{fontFamily:"'Roboto'"}}>
-        With insomnia, nothing&apos;s real. Everything is far away. Everything
+        With code audits, nothing&apos;s clear. Everything is complex. Everything
         is a{" "}
         <Highlight className="text-black dark:text-white">
-          copy, of a copy, of a copy.
+          function, of a function, of a function.
         </Highlight><br/>
-        <button className="px-4 py-2 bg-[#9966ff] rounded-lg text-sm hover:bg-[#7a4dcc] transition-colors duration-300">
+        
+        <button className="px-4 py-2 bg-[#9966ff] rounded-lg text-sm hover:bg-white hover:text-[#9966ff] transition-colors duration-300">
           Get Sentio Audit
         </button>
       </motion.h1>

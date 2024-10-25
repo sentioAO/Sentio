@@ -1,10 +1,10 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom'; // Import useLocation
-import { ReportItem, ReportStats } from '../Components/ReportCard'; // Ensure this interface is shared
+import { useLocation } from 'react-router-dom'; 
+import { ReportItem, ReportStats } from '../Components/ReportCard';
 
 const Certificate: React.FC = () => {
-    const location = useLocation(); // Use useLocation to get the state passed from navigation
-    const { report, reportStats }: { report: ReportItem[], reportStats: ReportStats } = location.state || { report: [], reportStats: null }; // Extract report and reportStats
+    const location = useLocation(); 
+    const { report, reportStats }: { report: ReportItem[], reportStats: ReportStats } = location.state || { report: [], reportStats: null }; 
 
     return (
         <div className="p-10 bg-gray-100 border border-gray-300 rounded-lg shadow-md max-w-4xl mx-auto">

@@ -13,8 +13,10 @@ import SwitchNet from '../Components/SwitchNet';
 import FAQSection from '../Components/FAQ';
 import CustomCard from '../Components/Cards';
 import { FaLock, FaCheckCircle, FaEye } from 'react-icons/fa'; // Import icons for your cards
+import { DotPatternHover } from '../Components/ui/Hoverdots';
 
-import { useMotionValue, useMotionTemplate } from "framer-motion";
+
+
 
 // import { ExpandableCardDemo } from '../Components/TeamCards';
 
@@ -69,20 +71,9 @@ const Home: React.FC = () => {
   // Use Framer Motion's `useAnimation` to control the animation
   const controls = useAnimation();
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.2 });
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
 
-  function handleMouseMove({
-    currentTarget,
-    clientX,
-    clientY,
-  }: React.MouseEvent<HTMLDivElement>) {
-    if (!currentTarget) return;
-    const { left, top } = currentTarget.getBoundingClientRect();
 
-    mouseX.set(clientX - left);
-    mouseY.set(clientY - top);
-  }
+
 
   // Trigger animation when cards are in view
   React.useEffect(() => {
@@ -93,7 +84,9 @@ const Home: React.FC = () => {
 
   return (
     <>
+    
       <div className="app-background min-h-screen flex flex-col justify-center items-center overflow-hidden">
+      <DotPatternHover>
         {/* Pass refs to Navbar */}
         <div className='sticky w-[90%] lg:[95%]  top-0 z-50 flex justify-center items-center'>
           <Navbar faqRef={faqRef} howItWorksRef={howItWorksRef} switchNetRef={switchNetRef} />
@@ -105,6 +98,7 @@ const Home: React.FC = () => {
           animate="visible"
           variants={textVariant}
         >
+          
           <p className="text-white text-2xl md:text-5xl font-extralight mt-2 md:mt-4" style={{ fontFamily: "'Roboto'" }}>
             Enter an End To End Pipeline with <br /> Security, analysis and{" "}
             <motion.span
@@ -116,7 +110,10 @@ const Home: React.FC = () => {
               Monitoring
             </motion.span>
           </p>
-
+          <DotPattern
+          className={cn("[mask-image:radial-gradient(200px_circle_at_center,white,transparent)]")}
+        />
+      
           <motion.div
             className="mt-8"
             initial="hidden"
@@ -132,9 +129,7 @@ const Home: React.FC = () => {
           </motion.div>
         </motion.div>
 
-        <DotPattern
-          className={cn("[mask-image:radial-gradient(200px_circle_at_center,white,transparent)]")}
-        />
+
 
         <hr className="w-[76%] border-t border-gray-500 mt-10 my-10" />
 
@@ -179,37 +174,7 @@ const Home: React.FC = () => {
             </div>
           </div>
         </motion.div>
-        <div
-          className={cn(
-            "relative h-[40rem] flex mt-[13%] app-background dark:bg-black justify-center w-full group",
-          
-          )}
-          onMouseMove={handleMouseMove}
-        >
-          <div className="absolute inset-0 app-background dark:bg-dot-thick-neutral-600 pointer-events-none opacity-50" /> {/* Lower opacity for dots */}
-          <motion.div
-            className="pointer-events-none bg-dot-thick-indigo-500 dark:bg-dot-thick-indigo-500 absolute inset-0 opacity-0 transition duration-300 group-hover:opacity-100"
-            style={{
-              WebkitMaskImage: useMotionTemplate`
-            radial-gradient(
-              200px circle at ${mouseX}px ${mouseY}px,
-              black 0%,
-              transparent 100%
-            )
-          `,
-              maskImage: useMotionTemplate`
-            radial-gradient(
-              200px circle at ${mouseX}px ${mouseY}px,
-              black 0%,
-              transparent 100%
-            )
-          `,
-            }}
-          />
-
-          {/* <div className={cn("relative z-20 text-white", className)}>{children}</div> Ensure text is white */}
-<div className={cn("relative z-20 text-white")}>heklkdasj</div>
-        </div>
+        
         {/* Lazy Loading Cards */}
         <div ref={ref} className="cards flex flex-row gap-20 mt-10">
           {[
@@ -288,7 +253,9 @@ const Home: React.FC = () => {
 
 
         <Footer />
+        </DotPatternHover>
       </div>
+      
     </>
   );
 };

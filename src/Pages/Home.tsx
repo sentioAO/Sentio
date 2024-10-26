@@ -86,11 +86,10 @@ const Home: React.FC = () => {
     <>
     
       <div className="app-background min-h-screen flex flex-col justify-center items-center overflow-hidden">
+          <Navbar faqRef={faqRef} howItWorksRef={howItWorksRef} switchNetRef={switchNetRef} />
       <DotPatternHover>
         {/* Pass refs to Navbar */}
-        <div className='sticky w-[90%] lg:[95%]  top-0 z-50 flex justify-center items-center'>
-          <Navbar faqRef={faqRef} howItWorksRef={howItWorksRef} switchNetRef={switchNetRef} />
-        </div>
+        
 
         <motion.div
           className="flex flex-col justify-center items-center text-center mb-16 mt-24"
@@ -131,12 +130,12 @@ const Home: React.FC = () => {
 
 
 
-        <hr className="w-[76%] border-t border-gray-500 mt-10 my-10" />
+        <hr className="w-full border-t justify-center border-gray-500  my-10" />
 
         {/* "How it Works" section */}
         <motion.div
           ref={howItWorksRef}
-          className="flex w-[90%] justify-center items-center flex-col lg:flex-row"
+          className="flex w-full justify-between items-center flex-col lg:flex-row"
           initial="hidden"
           animate="visible"
           variants={sectionVariant}

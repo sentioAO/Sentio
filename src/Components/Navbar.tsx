@@ -161,7 +161,7 @@ const Navbar: React.FC<NavbarProps> = ({ faqRef, howItWorksRef, switchNetRef }) 
                             </button>
                             <button
                                 className={`text-left ${activeSection === 'howItWorks' ? 'font-bold' : ''}`}
-                                onClick={handleScrollToHowItWorks}
+                                onClick={navigateToAboutUs}
                                 aria-label="Scroll to How it Works section"
                             >
                                 About Us

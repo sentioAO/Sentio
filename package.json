@@ -32,6 +32,8 @@
     "dotenv": "^16.4.5",
     "framer-motion": "^11.11.9",
     "framer-motion-3d": "^11.3.31",
+    "html2canvas": "^1.4.1",
+    "jspdf": "^2.5.2",
     "lottie-react": "^2.4.0",
     "lottie-web": "^5.12.2",
     "lucide-react": "^0.452.0",

@@ -13,6 +13,7 @@ import { useEffect } from 'react';
 import { Analytics } from "@vercel/analytics/react";
 import Aboutus from './Pages/Aboutus';
 import Certificate from './Pages/Certificate';
+import Faucetspage from './Pages/Faucetspage';
 
 function App() {
   useEffect(() => {
@@ -41,6 +42,7 @@ function App() {
           <Route path="/sentinel/:processId" element={<SentinelPage />} />
           <Route path="/about" element={<Aboutus />} />
           <Route path="/certificates" element={<Certificate/>} />
+          <Route path="/faucets" element={<Faucetspage/>} />
         </Routes>
         <Analytics />
       </BrowserRouter>

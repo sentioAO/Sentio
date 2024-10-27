@@ -45,6 +45,9 @@ const Navbar: React.FC<NavbarProps> = ({ faqRef, howItWorksRef, switchNetRef }) 
     const navigateToAboutUs = () => {
         navigate('/about'); // Navigates to /aboutus
       };
+      const navigateToFaucets = () => {
+        navigate('/faucets'); // Navigates to /aboutus
+      };
 
     // Update active section based on scroll position
     useEffect(() => {
@@ -123,6 +126,13 @@ const Navbar: React.FC<NavbarProps> = ({ faqRef, howItWorksRef, switchNetRef }) 
                             aria-label="Scroll to Features section"
                         >
                             Features
+                        </button>
+                        <button
+                            className={`text-left `}
+                            onClick={navigateToFaucets}
+                            aria-label="Scroll to Features section"
+                        >
+                            Faucets
                         </button>
                     </>
                 )}

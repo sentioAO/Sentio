@@ -5,6 +5,7 @@ import Footer from "../Components/Footer";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 import { useRef } from "react";
+import axios from "axios";
 
 export default function Component() {
     const location = useLocation();
@@ -16,43 +17,74 @@ export default function Component() {
         reportStats: null,
     };
     const reportRef = useRef<HTMLDivElement | null>(null);
-
-    const downloadPDF = () => {
+    const generatePDF = () => {
         const input = reportRef.current;
-        if (!input) {
-            console.error("Report reference is not defined.");
-            return;
-        }
-        const pdf = new jsPDF("p", "mm", "a4");
-        const pdfWidth = 210; // A4 width in mm
-        const pdfHeight = 297; // A4 height in mm
-        const scale = 2; // Increase scale for higher quality
+        return new Promise<jsPDF>((resolve, reject) => {
+            if (!input) {
+                console.error("Report reference is not defined.");
+                reject();
+                return;
+            }
+            const pdf = new jsPDF("p", "mm", "a4");
+            const pdfWidth = 210; // A4 width in mm
+            const pdfHeight = 297; // A4 height in mm
+            const scale = 2;
 
-        html2canvas(input, {
-            scale: scale,
-            useCORS: true, // Enable if you're fetching images across origins
-            scrollY: -window.scrollY, // Ensures the full element is rendered in the canvas
-        }).then((canvas) => {
-            const imgData = canvas.toDataURL("image/png");
-            const imgWidth = pdfWidth;
-            const imgHeight = (canvas.height * pdfWidth) / canvas.width;
+            html2canvas(input, {
+                scale: scale,
+                useCORS: true,
+                scrollY: -window.scrollY,
+            }).then((canvas) => {
+                const imgData = canvas.toDataURL("image/png");
+                const imgWidth = pdfWidth;
+                const imgHeight = (canvas.height * pdfWidth) / canvas.width;
 
-            let heightLeft = imgHeight;
-            let position = 0;
+                let heightLeft = imgHeight;
+                let position = 0;
 
-            pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
-            heightLeft -= pdfHeight;
-            position = heightLeft - imgHeight;
-
-            while (heightLeft > 0) {
-                pdf.addPage();
-                position = heightLeft - imgHeight;
                 pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
                 heightLeft -= pdfHeight;
-            }
+                position = heightLeft - imgHeight;
 
-            pdf.save("Sentio-Audit.pdf");
+                while (heightLeft > 0) {
+                    pdf.addPage();
+                    position = heightLeft - imgHeight;
+                    pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
+                    heightLeft -= pdfHeight;
+                }
+
+                resolve(pdf);
+            }).catch(reject);
         });
+    };
+
+    const downloadPDF = async () => {
+        try {
+            const pdf = await generatePDF();
+            pdf.save("Sentio-Audit.pdf");
+        } catch (error) {
+            console.error("Error generating PDF for download:", error);
+        }
+    };
+
+    const uploadToPermaweb = async () => {
+        try {
+            const pdf = await generatePDF();
+            const pdfBlob = pdf.output("blob"); // Get the PDF as a Blob
+
+            const formData = new FormData();
+            formData.append("file", pdfBlob, "Sentio-Audit.pdf");
+
+            const response = await axios.post("http://localhost:3000/api/process/uploadToArweave", formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
+            });
+
+            console.log("Upload successful:", response.data);
+        } catch (error) {
+            console.error("Error uploading PDF to Permaweb:", error);
+        }
     };
 
     return (
@@ -200,10 +232,10 @@ export default function Component() {
                                         </p>
                                         <span
                                             className={`px-3 py-1 rounded-full text-sm font-medium ${item.severity === "high"
-                                                    ? "bg-red-100 text-red-800"
-                                                    : item.severity === "medium"
-                                                        ? "bg-yellow-100 text-yellow-800"
-                                                        : "bg-green-100 text-green-800"
+                                                ? "bg-red-100 text-red-800"
+                                                : item.severity === "medium"
+                                                    ? "bg-yellow-100 text-yellow-800"
+                                                    : "bg-green-100 text-green-800"
                                                 }`}
                                         >
                                             {item.severity.charAt(0).toUpperCase() +
@@ -263,26 +295,8 @@ export default function Component() {
                         Download Report
                     </button>
                     <button
-                        onClick={async () => {
-                            try {
-                                const response = await fetch('http://localhost:3000/api/process/uploadToArweave', {
-                                    method: 'POST',
-                                    headers: {
-                                        'Content-Type': 'application/pdf',
-                                    },
-                                });
-                                if (!response.ok) {
-                                    throw new Error('Network response was not ok');
-                                }
-                                const data = await response.json();
-                                alert('Upload to Permaweb successful: ' + data.message);
-                            } catch (error) {
-                                console.error('There was a problem with the fetch operation:', error);
-                                alert('Upload to Permaweb failed.');
-                            }
-                        }}
-                        className="px-8 py-3 bg-green-600 hover:bg-green-700 text-white font-semibold text-lg sm:text-xl rounded-lg shadow-lg transition-all duration-300"
-                    >
+                    onClick={uploadToPermaweb}
+                    className="px-8 py-3 bg-green-600 hover:bg-green-700 text-white font-semibold text-lg sm:text-xl rounded-lg shadow-lg transition-all duration-300" >
                         Upload to Permaweb
                     </button>
                 </div>

@@ -17,7 +17,6 @@ export default function Component() {
     };
     const reportRef = useRef<HTMLDivElement | null>(null);
 
-    // Function to download the report as a PDF
     const downloadPDF = () => {
         const input = reportRef.current;
         if (!input) {
@@ -256,12 +255,35 @@ export default function Component() {
                     </div>
                 </div>
 
-                <div className="flex justify-center mt-8 sm:mt-12">
+                <div className="flex justify-center mt-8 sm:mt-12 space-x-4">
                     <button
                         onClick={downloadPDF}
                         className="px-8 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-lg sm:text-xl rounded-lg shadow-lg transition-all duration-300"
                     >
-                        Download Report as PDF
+                        Download Report
+                    </button>
+                    <button
+                        onClick={async () => {
+                            try {
+                                const response = await fetch('http://localhost:3000/api/process/uploadToArweave', {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/pdf',
+                                    },
+                                });
+                                if (!response.ok) {
+                                    throw new Error('Network response was not ok');
+                                }
+                                const data = await response.json();
+                                alert('Upload to Permaweb successful: ' + data.message);
+                            } catch (error) {
+                                console.error('There was a problem with the fetch operation:', error);
+                                alert('Upload to Permaweb failed.');
+                            }
+                        }}
+                        className="px-8 py-3 bg-green-600 hover:bg-green-700 text-white font-semibold text-lg sm:text-xl rounded-lg shadow-lg transition-all duration-300"
+                    >
+                        Upload to Permaweb
                     </button>
                 </div>
             </div>

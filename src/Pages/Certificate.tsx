@@ -5,7 +5,7 @@ import Footer from "../Components/Footer";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 import { useRef } from "react";
-import axios from "axios";
+import { motion } from "framer-motion"; // Import motion from framer-motion
 
 export default function Component() {
     const location = useLocation();
@@ -67,35 +67,18 @@ export default function Component() {
         }
     };
 
-    const uploadToPermaweb = async () => {
-        try {
-            const pdf = await generatePDF();
-            const pdfBlob = pdf.output("blob"); // Get the PDF as a Blob
-
-            const formData = new FormData();
-            formData.append("file", pdfBlob, "Sentio-Audit.pdf");
-
-            const response = await axios.post("http://localhost:3000/api/process/uploadToArweave", formData, {
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                },
-            });
-
-            console.log("Upload successful:", response.data);
-        } catch (error) {
-            console.error("Error uploading PDF to Permaweb:", error);
-        }
-    };
-
     return (
         <div className="min-h-screen app-background py-6 sm:py-12 px-4 sm:px-6 lg:px-8">
             <div className="flex justify-center mb-4 sm:mb-8">
                 <Navbar />
             </div>
             <div className="Report">
-                <div
+                <motion.div
                     ref={reportRef}
                     className="max-w-4xl mx-auto bg-white shadow-2xl rounded-2xl overflow-hidden"
+                    initial={{ opacity: 0, y: 50 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5 }}
                 >
                     <div className="bg-gradient-to-r from-indigo-600 to-purple-600 p-4 sm:p-8">
                         <div className="flex justify-center mb-4">
@@ -215,7 +198,6 @@ export default function Component() {
                         </div>
                     )}
 
-                    {/* Detailed Vulnerability Report */}
                     <div className="p-4 sm:p-8">
                         <h3 className="text-xl sm:text-2xl font-bold text-indigo-700 mb-4 sm:mb-6">
                             Detailed Vulnerability Report
@@ -250,7 +232,6 @@ export default function Component() {
                             ))}
                         </div>
                     </div>
-                    {/* Overall Conclusion */}
                     <div className="bg-gradient-to-r from-indigo-100 to-purple-100 p-4 sm:p-8 border-t border-gray-200">
                         <h3 className="text-2xl sm:text-3xl font-bold text-center text-indigo-700 mb-4 sm:mb-6">
                             Overall Conclusion
@@ -285,7 +266,7 @@ export default function Component() {
                             )}
                         </p>
                     </div>
-                </div>
+                </motion.div>
 
                 <div className="flex justify-center mt-8 sm:mt-12 space-x-4">
                     <button
@@ -295,9 +276,10 @@ export default function Component() {
                         Download Report
                     </button>
                     <button
-                    onClick={uploadToPermaweb}
-                    className="px-8 py-3 bg-green-600 hover:bg-green-700 text-white font-semibold text-lg sm:text-xl rounded-lg shadow-lg transition-all duration-300" >
-                        Upload to Permaweb
+                    onClick={() => alert("Upload to Permaweb is currently disabled.")}
+                    className="px-8 py-3 bg-white text-black font-semibold text-lg sm:text-xl rounded-lg shadow-lg transition-all duration-300 cursor-not-allowed" 
+                    disabled>
+                        Push to Permaweb 🔜
                     </button>
                 </div>
             </div>

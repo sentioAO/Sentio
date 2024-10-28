@@ -7,26 +7,6 @@ import { useEffect, useState } from 'react';
 import { useActiveAddress } from 'arweave-wallet-kit';
 import { handleAirDrop } from '../lib/tokenServices';
 import AirdropGif from "../assets/Airdropping.gif";
-import axios from 'axios';
-
-interface PopupProps {
-    message: string;
-    onClose: () => void;
-}
-
-const Popup = ({ message, onClose }: PopupProps) => (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-        <div className="bg-white rounded-lg p-4 shadow-lg">
-            <p className="text-lg">{message}</p>
-            <button 
-                onClick={onClose} 
-                className="mt-4 bg-[#9966ff] text-white px-4 py-2 rounded-lg"
-            >
-                Close
-            </button>
-        </div>
-    </div>
-);
 
 const Faucetspage = () => {
   const address = useActiveAddress();

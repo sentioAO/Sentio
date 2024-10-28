@@ -8,9 +8,8 @@ import qs from 'qs';
 import { motion } from 'framer-motion';
 import Footer from "../Components/Footer";
 import { HeroHighlightDemo } from "../Components/Hero";
-import { handleTokenTransfer } from "../lib/tokenServices";
-
-
+// import { handleTokenTransfer } from "../lib/tokenServices";
+import TransferGif from "../assets/Transfer.gif";
 
 interface Repository {
   id: number;
@@ -19,6 +18,7 @@ interface Repository {
 }
 
 const Offchain = () => {
+  const [showGif, setShowGif] = useState(false);
   const [code, setCode] = useState('');
   const [report, setReport] = useState<null | ReportItem[]>(null);
   const [showProgress, setShowProgress] = useState(false);
@@ -31,19 +31,23 @@ const Offchain = () => {
   const [selectedFile, setSelectedFile] = useState('');
   const [importError, setImportError] = useState('');
 
-
   const handleCodeChange = (newValue: string) => {
     setCode(newValue);
   };
 
-
   const handleAnalyze = async () => {
+    setShowGif(true);
     try {
-      await handleTokenTransfer(window.arweaveWallet, 1); // Example amount and wallet, adjust as needed
+      // await handleTokenTransfer(window.arweaveWallet, 1); // Example amount and wallet, adjust as needed
+
+      // Show the GIF after a successful transfer
+      setShowGif(true);
     } catch (error) {
       console.error("Analysis canceled due to token transfer failure", error);
-      return; // Exit the function if token transfer fails
+      setShowGif(false);
+      return; 
     }
+
     setShowProgress(true);
     setProgress(25);
     setProgressText('Creating AST for code');
@@ -64,14 +68,15 @@ const Offchain = () => {
     try {
       const response = await axios.post('https://sam-offchain-dbedazdhd2dugrdk.eastus-01.azurewebsites.net/analyze',
         qs.stringify({ code }), {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
       });
       setReport(response.data);
     } catch (error) {
       console.error('Error analyzing code:', error);
     } finally {
+      setShowGif(false);
       setShowProgress(false);
       setProgress(0);
     }
@@ -90,6 +95,7 @@ const Offchain = () => {
       setIsModalOpen(true);
     }
   };
+
   const handleImportSubmit = async () => {
     if (!selectedFile) {
       setImportError('Please select a file to import.');
@@ -141,9 +147,7 @@ const Offchain = () => {
     }
   };
 
-
   const fetchUserRepos = async (accessToken: string) => {
-
     try {
       const response = await axios.get('https://api.github.com/user/repos', {
         headers: {
@@ -151,7 +155,6 @@ const Offchain = () => {
         },
         params: {
           per_page: 100
-
         }
       });
       setRepositories(response.data);
@@ -205,18 +208,12 @@ const Offchain = () => {
 
   return (
     <div className="app-background min-h-screen flex flex-col items-center">
-
       <Navbar />
-
       <div className="flex flex-col justify-center items-center mt-10 space-y-4 w-full max-w-4xl">
         <div className="flex space-x-4">
-
           <div className="mt-[-5]">
-
             <HeroHighlightDemo />
           </div>
-
-
         </div>
 
         {showProgress && !report ? (
@@ -245,6 +242,13 @@ const Offchain = () => {
           >
             <ReportCard report={report} onGoBack={handleGoBack} />
           </motion.div>
+        )}
+
+        {/* GIF display logic */}
+        {showGif && (
+          <div className="fixed inset-0 flex items-center justify-center z-50">
+            <img src={TransferGif} alt="Transfer in progress" className="w-24 h-auto" />
+          </div>
         )}
 
         {isModalOpen && (
@@ -306,8 +310,8 @@ const Offchain = () => {
               </div>
             </motion.div>
           </div>
-
         )}
+
         <button
           className={`bg-gray-800 text-white font-medium px-4 py-2 rounded-md border border-gray-600 shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition duration-150 ${code.trim() !== '' ? 'opacity-50 cursor-not-allowed' : ''}`}
           onClick={handleGitHubImport}
@@ -321,9 +325,8 @@ const Offchain = () => {
       </div>
 
       <Footer />
-
     </div>
   );
-};
+}
 
 export default Offchain;

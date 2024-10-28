@@ -3,8 +3,44 @@ import Navbar from '../Components/Navbar';
 import Footer from '../Components/Footer';
 import { DotPatternHover } from '../Components/ui/Hoverdots';
 import Wallet from '../Components/Wallet-Button';
+import { useEffect, useState } from 'react';
+import { useActiveAddress } from 'arweave-wallet-kit';
+import axios from 'axios';
 
 const Faucetspage = () => {
+  const address = useActiveAddress();
+  const [walletAddress, setWalletAddress] = useState<string | null>(null);
+  const [testSentiBalance, setTestSentiBalance] = useState<number | null>(null);
+  useEffect(() => {
+    if (address) {
+      console.log('Wallet connected ' + address);;
+      setWalletAddress(address);
+      getTokenBalance();
+    }
+  })
+  const getTokenBalance = async () => {
+    // Call the function to get the token balance
+    // @ts-expect-error - window.arweaveWallet is not defined
+    await window.arweaveWallet.connect(["ACCESS_TOKENS"]);
+    //@ts-expect-error - window.arweaveWallet is not defined
+    const tokens = await window.arweaveWallet.userTokens();
+    console.log("Tokens owned by the user:", tokens);
+    for (let i = 0; i < tokens.length; i++) {
+
+      console.log(tokens[i].Name);
+      if (tokens[i].Name === 'TEST$SENTI') {
+        const tokenid = tokens[i].processId;
+        const balance = await window.arweaveWallet.tokenBalance(tokenid);
+        console.log("Test Senti Balance: ", balance);
+        setTestSentiBalance(balance);
+      }
+    }
+  }
+  const handleAirDrop = async () => {
+    const response=await axios.post('http://localhost:3000/api/process/airdrop',{
+      walletid:walletAddress
+    })
+  }
   return (
     <>
       <motion.div
@@ -35,10 +71,25 @@ const Faucetspage = () => {
             >
               <Wallet />
             </motion.button>
+            <div className='text-left'>
 
-            <p className="text-lg">
-              Please connect wallet to get <span className="text-[#9966ff]">tSENTI Tokens</span>
-            </p>
+              <p className="text-lg">
+                Please connect wallet to get <span className="text-[#9966ff]">tSENTI Tokens</span>
+              </p>
+              <p>
+                Your Wallet Address: <span className="text-[#9966ff]">{walletAddress}</span>
+              </p>
+              <p>
+                Your Test Senti Balance: <span className="text-[#9966ff]">{testSentiBalance}</span>
+              </p>
+                <button 
+                onClick={handleAirDrop} 
+                className='bg-[#9966ff] text-black px-5 py-2 rounded-lg'
+                disabled={!walletAddress}
+                >
+                Claim tSENTI Tokens
+                </button>
+            </div>
           </motion.div>
         </DotPatternHover>
 

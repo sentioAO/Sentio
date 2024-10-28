@@ -30,6 +30,8 @@ const Faucetspage = () => {
       console.log(tokens[i].Name);
       if (tokens[i].Name === 'TEST$SENTI') {
         const tokenid = tokens[i].processId;
+            // @ts-expect-error - window.arweaveWallet is not defined
+
         const balance = await window.arweaveWallet.tokenBalance(tokenid);
         console.log("Test Senti Balance: ", balance);
         setTestSentiBalance(balance);
@@ -40,6 +42,7 @@ const Faucetspage = () => {
     const response=await axios.post('http://localhost:3000/api/process/airdrop',{
       walletid:walletAddress
     })
+    console.log(response.data);
   }
   return (
     <>

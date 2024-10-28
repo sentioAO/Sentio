@@ -10,6 +10,7 @@ import Footer from "../Components/Footer";
 import { HeroHighlightDemo } from "../Components/Hero";
 // import { handleTokenTransfer } from "../lib/tokenServices";
 import TransferGif from "../assets/Transfer.gif";
+import { handleTokenTransfer } from "../lib/tokenServices";
 
 interface Repository {
   id: number;
@@ -38,10 +39,10 @@ const Offchain = () => {
   const handleAnalyze = async () => {
     setShowGif(true);
     try {
-      // await handleTokenTransfer(window.arweaveWallet, 1); // Example amount and wallet, adjust as needed
+      await handleTokenTransfer(window.arweaveWallet, 1); // Example amount and wallet, adjust as needed
 
       // Show the GIF after a successful transfer
-      setShowGif(true);
+      setShowGif(false);
     } catch (error) {
       console.error("Analysis canceled due to token transfer failure", error);
       setShowGif(false);
@@ -246,8 +247,8 @@ const Offchain = () => {
 
         {/* GIF display logic */}
         {showGif && (
-          <div className="fixed inset-0 flex items-center justify-center z-50">
-            <img src={TransferGif} alt="Transfer in progress" className="w-24 h-auto" />
+          <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-75 z-50">
+            <img src={TransferGif} alt="Transfer in progress" className="w-[50%] h-auto" />
           </div>
         )}
 

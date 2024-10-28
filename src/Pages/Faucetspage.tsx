@@ -5,13 +5,14 @@ import { DotPatternHover } from '../Components/ui/Hoverdots';
 import Wallet from '../Components/Wallet-Button';
 import { useEffect, useState } from 'react';
 import { useActiveAddress } from 'arweave-wallet-kit';
-
 import { handleAirDrop } from '../lib/tokenServices';
+import AirdropGif from "../assets/Airdropping.gif";
 
 const Faucetspage = () => {
   const address = useActiveAddress();
   const [walletAddress, setWalletAddress] = useState<string | null>(null);
   const [testSentiBalance, setTestSentiBalance] = useState<number | null>(null);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (address) {
@@ -22,17 +23,13 @@ const Faucetspage = () => {
   }, [address]);
 
   const getTokenBalance = async () => {
-    // Call the function to get the token balance
-    // @ts-expect-error - window.arweaveWallet is not defined
     await window.arweaveWallet.connect(["ACCESS_TOKENS"]);
-    // @ts-expect-error - window.arweaveWallet is not defined
     const tokens = await window.arweaveWallet.userTokens();
     console.log("Tokens owned by the user:", tokens);
     for (let i = 0; i < tokens.length; i++) {
       console.log(tokens[i].Name);
       if (tokens[i].Name === 'TEST$SENTI') {
         const tokenid = tokens[i].processId;
-        // @ts-expect-error - window.arweaveWallet is not defined
         const balance = await window.arweaveWallet.tokenBalance(tokenid);
         console.log("Test Senti Balance: ", balance);
         setTestSentiBalance(balance);
@@ -41,13 +38,22 @@ const Faucetspage = () => {
   };
 
   const handleAirDropWithBalanceUpdate = async (walletAddress: string) => {
+    setLoading(true); // Start loading
     await handleAirDrop(walletAddress, window.arweaveWallet);
-    getTokenBalance();
+    setTimeout(() => {
+      getTokenBalance();
+      setLoading(false); // Stop loading after 5 seconds
+    }, 3000);
   };
-
 
   return (
     <>
+      {loading && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-75 z-50">
+          <img src={AirdropGif} alt="Airdrop in progress" className="w-69 h-69" />
+        </div>
+      )}
+
       <motion.div
         className="app-background h-screen w-full flex flex-col items-center justify-center gap-9"
         initial={{ opacity: 0 }}
@@ -77,7 +83,6 @@ const Faucetspage = () => {
               <Wallet />
             </motion.button>
             <div className='text-left'>
-
               <p className="text-lg">
                 Please connect wallet to get <span className="text-[#9966ff]">tSENTI Tokens</span>
               </p>
@@ -87,17 +92,17 @@ const Faucetspage = () => {
               <p>
                 Your Test Senti Balance: <span className="text-[#9966ff]">{testSentiBalance}</span>
               </p>
-              {walletAddress &&
+              {walletAddress && (
                 <div className='flex justify-end px-5'>
                   <button
                     onClick={() => handleAirDropWithBalanceUpdate(walletAddress)}
-                    className='bg-[#9966ff] text-black px-5 py-2 rounded-lg'
-                    disabled={!walletAddress}
+                    className='text-[#9966ff] bg-white px-5 py-2 rounded-lg'
+                    disabled={!walletAddress || loading}
                   >
-                    Claim tSENTI
+                    {loading ? "Processing..." : "Claim tSENTI"}
                   </button>
-                  
-                </div>}
+                </div>
+              )}
             </div>
           </motion.div>
         </DotPatternHover>

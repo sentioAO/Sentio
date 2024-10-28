@@ -6,7 +6,7 @@ import Wallet from '../Components/Wallet-Button';
 import { useEffect, useState } from 'react';
 import { useActiveAddress } from 'arweave-wallet-kit';
 
-import { handleAirDrop, handleTokenTransfer } from '../lib/tokenServices';
+import { handleAirDrop } from '../lib/tokenServices';
 
 const Faucetspage = () => {
   const address = useActiveAddress();
@@ -45,11 +45,6 @@ const Faucetspage = () => {
     getTokenBalance();
   };
 
-  const handleTokenTransferWithBalanceUpdate = async () => {
-    
-    await handleTokenTransfer(window.arweaveWallet, 1000000000000, "Whbpm8d0ZnSn90KUb3-IuhWOIBzBL1GpLat5ow46cPo");
-    getTokenBalance();
-  };
 
   return (
     <>
@@ -93,7 +88,7 @@ const Faucetspage = () => {
                 Your Test Senti Balance: <span className="text-[#9966ff]">{testSentiBalance}</span>
               </p>
               {walletAddress &&
-                <div className='flex justify-between px-5'>
+                <div className='flex justify-end px-5'>
                   <button
                     onClick={() => handleAirDropWithBalanceUpdate(walletAddress)}
                     className='bg-[#9966ff] text-black px-5 py-2 rounded-lg'
@@ -101,13 +96,7 @@ const Faucetspage = () => {
                   >
                     Claim tSENTI
                   </button>
-                  <button
-                    onClick={handleTokenTransferWithBalanceUpdate}
-                    className='bg-[#9966ff] text-black px-5 py-2 rounded-lg'
-                    disabled={!walletAddress}
-                  >
-                    Transfer
-                  </button>
+                  
                 </div>}
             </div>
           </motion.div>

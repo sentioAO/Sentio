@@ -1,4 +1,5 @@
 import { createDataItemSigner, message } from "@permaweb/aoconnect";
+import { RECIEPIENT_WALLET, TOKEN_PROCESS } from "./var";
 
 // @ts-expect-error - window.arweaveWallet is not defined
 export const handleAirDrop = async (walletAddress: string, wallet) => {
@@ -9,7 +10,7 @@ export const handleAirDrop = async (walletAddress: string, wallet) => {
     await window.arweaveWallet.connect(["SIGN_TRANSACTION"]);
     try {
         const messageid = await message({
-            process: "XpkGwkMXPYdvCNZaw1xAF7BitrAPOQUStSqG6tL-NRQ",
+            process: TOKEN_PROCESS,
             tags: [
                 { name: "Action", value: "tSENTI-drop" },
                 { name: "Recipient", value: `${walletAddress}` }
@@ -24,19 +25,19 @@ export const handleAirDrop = async (walletAddress: string, wallet) => {
     }   
 }
 // @ts-expect-error - window.arweaveWallet is not defined
-export const handleTokenTransfer = async (wallet, amount: number, recipient: string) => {
+export const handleTokenTransfer = async (wallet, amount: number) => {
     await window.arweaveWallet.connect(["SIGN_TRANSACTION"]);
     try {
         console.log("Started token transfer");
         const messageid = await message({
-            process: "XpkGwkMXPYdvCNZaw1xAF7BitrAPOQUStSqG6tL-NRQ",
+            process: TOKEN_PROCESS,
             tags: [
                 { name: "Action", value: "Transfer" },
-                { name: "Quantity", value: amount.toString() },
-                { name: "Recipient", value: `${recipient}` }
+                { name: "Quantity", value: `${amount.toString()}000000000000` },
+                { name: "Recipient", value: RECIEPIENT_WALLET }
             ],
             signer: createDataItemSigner(wallet),
-            data: `Transfer from ${wallet} to ${recipient}`
+            data: `Transfer from ${wallet} to ${RECIEPIENT_WALLET}`
         });
         return messageid;
     } catch (error) {

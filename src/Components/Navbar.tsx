@@ -132,14 +132,13 @@ const Navbar: React.FC<NavbarProps> = ({ faqRef, howItWorksRef, switchNetRef }) 
                             onClick={navigateToFaucets}
                             aria-label="Scroll to Features section"
                         >
-                            Faucets
+                            Air-Drop
                         </button>
                     </>
                 )}
                 <Wallet />
             </div>
 
-            {/* Sidebar for smaller devices */}
             {isSidebarOpen && (
                 <motion.div
                     className="fixed top-0 right-0 h-full w-2/3 bg-[#333] p-6 z-50 flex flex-col gap-4"

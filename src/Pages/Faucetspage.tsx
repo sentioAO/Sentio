@@ -5,45 +5,52 @@ import { DotPatternHover } from '../Components/ui/Hoverdots';
 import Wallet from '../Components/Wallet-Button';
 import { useEffect, useState } from 'react';
 import { useActiveAddress } from 'arweave-wallet-kit';
-import axios from 'axios';
+
+import { handleAirDrop, handleTokenTransfer } from '../lib/tokenServices';
 
 const Faucetspage = () => {
   const address = useActiveAddress();
   const [walletAddress, setWalletAddress] = useState<string | null>(null);
   const [testSentiBalance, setTestSentiBalance] = useState<number | null>(null);
+
   useEffect(() => {
     if (address) {
-      console.log('Wallet connected ' + address);;
+      console.log('Wallet connected ' + address);
       setWalletAddress(address);
       getTokenBalance();
     }
-  })
+  }, [address]);
+
   const getTokenBalance = async () => {
     // Call the function to get the token balance
     // @ts-expect-error - window.arweaveWallet is not defined
     await window.arweaveWallet.connect(["ACCESS_TOKENS"]);
-    //@ts-expect-error - window.arweaveWallet is not defined
+    // @ts-expect-error - window.arweaveWallet is not defined
     const tokens = await window.arweaveWallet.userTokens();
     console.log("Tokens owned by the user:", tokens);
     for (let i = 0; i < tokens.length; i++) {
-
       console.log(tokens[i].Name);
       if (tokens[i].Name === 'TEST$SENTI') {
         const tokenid = tokens[i].processId;
-            // @ts-expect-error - window.arweaveWallet is not defined
-
+        // @ts-expect-error - window.arweaveWallet is not defined
         const balance = await window.arweaveWallet.tokenBalance(tokenid);
         console.log("Test Senti Balance: ", balance);
         setTestSentiBalance(balance);
       }
     }
-  }
-  const handleAirDrop = async () => {
-    const response=await axios.post('http://localhost:3000/api/process/airdrop',{
-      walletid:walletAddress
-    })
-    console.log(response.data);
-  }
+  };
+
+  const handleAirDropWithBalanceUpdate = async (walletAddress: string) => {
+    await handleAirDrop(walletAddress);
+    getTokenBalance();
+  };
+
+  const handleTokenTransferWithBalanceUpdate = async () => {
+    
+    await handleTokenTransfer(window.arweaveWallet, 1000000000000, "4BTUofxjgfpL4kb-5ZFYUTDpyLIYg3BUnJ32u4i19mQ");
+    getTokenBalance();
+  };
+
   return (
     <>
       <motion.div
@@ -85,13 +92,23 @@ const Faucetspage = () => {
               <p>
                 Your Test Senti Balance: <span className="text-[#9966ff]">{testSentiBalance}</span>
               </p>
-                <button 
-                onClick={handleAirDrop} 
-                className='bg-[#9966ff] text-black px-5 py-2 rounded-lg'
-                disabled={!walletAddress}
-                >
-                Claim tSENTI Tokens
-                </button>
+              {walletAddress &&
+                <div className='flex justify-between px-5'>
+                  <button
+                    onClick={() => handleAirDropWithBalanceUpdate(walletAddress)}
+                    className='bg-[#9966ff] text-black px-5 py-2 rounded-lg'
+                    disabled={!walletAddress}
+                  >
+                    Claim tSENTI
+                  </button>
+                  <button
+                    onClick={handleTokenTransferWithBalanceUpdate}
+                    className='bg-[#9966ff] text-black px-5 py-2 rounded-lg'
+                    disabled={!walletAddress}
+                  >
+                    Transfer
+                  </button>
+                </div>}
             </div>
           </motion.div>
         </DotPatternHover>

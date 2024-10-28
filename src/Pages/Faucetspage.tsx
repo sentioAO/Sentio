@@ -41,13 +41,13 @@ const Faucetspage = () => {
   };
 
   const handleAirDropWithBalanceUpdate = async (walletAddress: string) => {
-    await handleAirDrop(walletAddress);
+    await handleAirDrop(walletAddress, window.arweaveWallet);
     getTokenBalance();
   };
 
   const handleTokenTransferWithBalanceUpdate = async () => {
     
-    await handleTokenTransfer(window.arweaveWallet, 1000000000000, "4BTUofxjgfpL4kb-5ZFYUTDpyLIYg3BUnJ32u4i19mQ");
+    await handleTokenTransfer(window.arweaveWallet, 1000000000000, "Whbpm8d0ZnSn90KUb3-IuhWOIBzBL1GpLat5ow46cPo");
     getTokenBalance();
   };
 

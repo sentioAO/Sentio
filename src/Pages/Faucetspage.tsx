@@ -23,13 +23,16 @@ const Faucetspage = () => {
   }, [address]);
 
   const getTokenBalance = async () => {
+    // @ts-expect-error - window.arweaveWallet is not defined
     await window.arweaveWallet.connect(["ACCESS_TOKENS"]);
+    // @ts-expect-error - window.arweaveWallet is not defined
     const tokens = await window.arweaveWallet.userTokens();
     console.log("Tokens owned by the user:", tokens);
     for (let i = 0; i < tokens.length; i++) {
       console.log(tokens[i].Name);
       if (tokens[i].Name === 'TEST$SENTI') {
         const tokenid = tokens[i].processId;
+        // @ts-expect-error - window.arweaveWallet is not defined
         const balance = await window.arweaveWallet.tokenBalance(tokenid);
         console.log("Test Senti Balance: ", balance);
         setTestSentiBalance(balance);

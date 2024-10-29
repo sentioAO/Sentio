@@ -27,10 +27,17 @@ const Home: React.FC = () => {
   const howItWorksRef = useRef<HTMLDivElement | null>(null); // Create ref for "How it works"
   const switchNetRef = useRef<HTMLDivElement | null>(null);  // Create ref for SwitchNet section
 
-  const goToDashboard = () => {
+  // const goToDashboard = () => {
+  //   navigate('/dashboard');
+  // };
+
+    const goToonchain = () => {
     navigate('/dashboard');
   };
 
+  const goTooffchain = () => {
+    navigate('/offchain');
+  };
   // Animation variants for different components
   const textVariant = {
     hidden: { opacity: 0, y: 30 },
@@ -119,12 +126,21 @@ const Home: React.FC = () => {
             animate="visible"
             variants={buttonVariant}
           >
+            <div className='flex gap-9'>
             <button
               className="px-10 py-3 text-white bg-[#9966FF] mt-7 z-10 rounded-xl font-bold text-lg"
-              onClick={goToDashboard}
+              onClick={goToonchain}
             >
-              Get Started
+              On Chain
             </button>
+
+            <button
+              className="px-10 py-3 text-white bg-[#9966FF] mt-7 z-10 rounded-xl font-bold text-lg"
+              onClick={goTooffchain}
+            >
+              Off Chain
+            </button>
+            </div>
           </motion.div>
         </motion.div>
 
@@ -140,7 +156,7 @@ const Home: React.FC = () => {
           animate="visible"
           variants={sectionVariant}
         >
-          <div className='flex justify-between ' >
+          <div className='flex justify-between  ' >
             <div className='w-[100%]'>
 
               <h1 className='text-4xl text-white mb-5'>How it Works</h1>
@@ -167,7 +183,7 @@ const Home: React.FC = () => {
             </div>
 
             <div className='w-1/2 flex flex-col items-center'>
-              <div className='flex gap-7'>
+              <div className='ml-[200%]'>
                 <AnimatedBeamDemo />
               </div>
             </div>

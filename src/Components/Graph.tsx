@@ -5,6 +5,8 @@ import React, { forwardRef, useRef } from "react";
 import { cn } from "../lib/utils";
 import { AnimatedBeam } from "./../Components/ui/animated-beam";
 import logo from "../assets/logo_white.jpg"
+import { FaUser } from "react-icons/fa";
+import { GiProcessor } from "react-icons/gi";
 const Circle = forwardRef<
   HTMLDivElement,
   { className?: string; children?: React.ReactNode }
@@ -98,32 +100,9 @@ const Icons = {
     />
   ),
   user: () => (
-    <svg
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="#000000"
-      strokeWidth="2"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
-      <circle cx="12" cy="7" r="4" />
-    </svg>
+    <FaUser size={24} color="#000000"/>
   ),
   target: () => (
-    <svg
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="#000000"
-      strokeWidth="2"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <circle cx="12" cy="12" r="8" />
-      <circle cx="12" cy="12" r="4" />
-      <circle cx="12" cy="12" r="1" />
-    </svg>
+    <GiProcessor size={28} color="#000000"/>
   ),
 };

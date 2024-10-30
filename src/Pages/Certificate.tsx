@@ -6,7 +6,7 @@ import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 import { useRef } from "react";
 import { motion } from "framer-motion"; // Import motion from framer-motion
-
+import sentioLogo from "../../src/assets/white.jpeg";
 export default function Component() {
     const location = useLocation();
     const {
@@ -83,7 +83,7 @@ export default function Component() {
                     <div className="bg-gradient-to-r from-indigo-600 to-purple-600 p-4 sm:p-8">
                         <div className="flex justify-center mb-4">
                             <img
-                                src="../../src/assets/white.jpeg"
+                                src={sentioLogo}
                                 alt="Audit Logo"
                                 className="w-16 h-16 sm:w-24 sm:h-24 rounded-full border-4 border-white shadow-md"
                             />

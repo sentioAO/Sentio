@@ -16,20 +16,15 @@ const SentinelPage = () => {
     }, [pid, processId])
     return (
         <>
-            <div className='w-full h-screen bg-black'>
-
+            <div className='w-full h-screen app-background'>
+                
                 <div className='flex justify-center'>
                     <Navbar />
 
                 </div>
-                <div>
-                    <h1 className='text-white text-4xl text-center mt-10'>Sentinel Page</h1>
-                    <h1 className='text-white text-4xl text-center mt-10'>{processId}</h1>
-                    <div>
-                        <button>
-                            Spawn a Sentinel
-                        </button>
-                    </div>
+                <div className='flex text-4xl flex-col text-white items-center mt-36' style={{fontFamily:"'Roboto'"}}>
+                    <p> Sentinel Spawning shortly for {processId}</p>
+                    COMING SOON...
                 </div>
             </div>
         </>

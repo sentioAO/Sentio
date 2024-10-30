@@ -235,7 +235,8 @@ const Home: React.FC = () => {
           ))}
         </div>
 
-        <hr className="w-[76%] border-t border-gray-500 mt-10 my-10" />
+
+        <hr className="w-full border-t justify-center border-gray-500  my-10" />
 
 
 
@@ -245,13 +246,14 @@ const Home: React.FC = () => {
           <SwitchNet />
         </div>
 
-        <hr className="w-[76%] border-t border-gray-500 mt-10 my-10" />
+ 
         <motion.div
           className="flex w-full gap-2 max-h text-white flex-wrap justify-center"
           initial="hidden"
           animate="visible"
           variants={sectionVariant}
         >
+        <hr className="w-full border-tjustify-center border-gray-500  my-10" />
           <div className="flex flex-col sm:flex-row justify-center items-center gap-5 lg:justify-between">
             <div className="flex flex-col items-center justify-center w-[90%] sm:w-1/3 h-[450px] max-h-[450px] overflow-hidden">
               <TweetCard id="1845372593144201450" />
@@ -261,6 +263,7 @@ const Home: React.FC = () => {
             </div>
           </div>
         </motion.div>
+        <hr className="w-full border-tjustify-center border-gray-500  my-10" />
 
         <div ref={faqRef}>
           <FAQSection />

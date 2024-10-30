@@ -4,11 +4,9 @@ const FAQSection = forwardRef<HTMLDivElement>((_, ref) => {
   const faqs = [
     { question: "What is Sentio?", answer: "Sentio is a Latin verb that means to perceive, feel, hear, or see" },
     { question: "Why Sentio?", answer: "Sentio as a platform provides a complete pipeline from writing code to deploying it and monitoring it" },
-    { question: "Can I import my projects from another tool?", answer: "Yes, you can..." },
-    { question: "What are projects and issues in Lighting?", answer: "Projects and issues in Lighting are..." },
-    { question: "Can I integrate Lighting with other tools?", answer: "Yes, Lighting integrates with..." },
-    { question: "Is my data secure in Lighting?", answer: "Yes, your data is secure..." },
-    { question: "How do I upgrade my plan?", answer: "To upgrade your plan..." },
+    { question: "How sentinals work's?", answer: "Yes, you can..." },
+    { question: "How to spawn a process?", answer: "Projects and issues in Lighting are..." },
+
   ];
 
   const detailsRefs = useRef<(HTMLDetailsElement | null)[]>([]);

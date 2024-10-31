@@ -210,10 +210,10 @@ const Offchain = () => {
   return (
     <div className="app-background min-h-screen flex flex-col items-center">
       <Navbar />
+      <HeroHighlightDemo />
       <div className="flex flex-col justify-center items-center mt-10 space-y-4 w-full max-w-4xl">
         <div className="flex space-x-4">
           <div className="mt-[-5]">
-            <HeroHighlightDemo />
           </div>
         </div>
 
@@ -327,6 +327,8 @@ const Offchain = () => {
 
       <Footer />
     </div>
+    
+
   );
 }
 

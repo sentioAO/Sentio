@@ -38,6 +38,11 @@ const Home: React.FC = () => {
   const goTooffchain = () => {
     navigate('/offchain');
   };
+
+  const goToDocs = () => {
+    window.location.href = 'https://sentio-docs.vercel.app/';
+  }
+
   // Animation variants for different components
   const textVariant = {
     hidden: { opacity: 0, y: 30 },
@@ -128,18 +133,25 @@ const Home: React.FC = () => {
           >
             <div className='flex gap-9'>
             <button
-              className="px-10 py-3 text-white bg-[#9966FF] mt-7 z-10 rounded-xl font-bold text-lg"
+              className="px-10 py-3 text-white bg-[#9966FF] mt-7 z-10 hover:bg-white hover:text-[#9966FF] rounded-xl font-bold text-lg"
               onClick={goToonchain}
             >
               On Chain
             </button>
 
             <button
-              className="px-10 py-3 text-white bg-[#9966FF] mt-7 z-10 rounded-xl font-bold text-lg"
+              className="px-10 py-3 text-white bg-[#9966FF] hover:bg-white hover:text-[#9966FF] mt-7 z-10 rounded-xl font-bold text-lg"
               onClick={goTooffchain}
             >
               Off Chain
             </button>
+            
+            </div>
+
+            <div>
+              <button className='py-4 px-6 bg-white text-[#9966FF] hover:bg-[#9966FF] hover:text-white mt-7 z-10 rounded-xl font-bold text-lg' onClick={goToDocs}> 
+                Explore Docs
+              </button>
             </div>
           </motion.div>
         </motion.div>

@@ -5,7 +5,7 @@ import Footer from "../Components/Footer";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 import { useRef } from "react";
-import { motion } from "framer-motion"; // Import motion from framer-motion
+import { motion } from "framer-motion"; 
 
 export default function Component() {
     const location = useLocation();

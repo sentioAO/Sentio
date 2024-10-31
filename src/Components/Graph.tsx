@@ -4,7 +4,7 @@ import React, { forwardRef, useRef } from "react";
 
 import { cn } from "../lib/utils";
 import { AnimatedBeam } from "./../Components/ui/animated-beam";
-import logo from "../assets/logo_white.jpg"
+import logo from "../assets/white.jpeg"
 import { FaUser } from "react-icons/fa";
 import { GiProcessor } from "react-icons/gi";
 const Circle = forwardRef<

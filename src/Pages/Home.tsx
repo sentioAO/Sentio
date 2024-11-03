@@ -149,7 +149,7 @@ const Home: React.FC = () => {
               </div>
 
               <div>
-                <button className='py-4 px-6 bg-transperant outline text-[#9966FF] hover:text-white mt-7 z-10 rounded-xl font-bold text-lg' onClick={goToDocs}>
+                <button className='py-4 px-6 bg-transperant border-2 border-[#9966ff] text-white hover:text-[#9966ff] hover:border-white mt-7 z-10 rounded-xl font-bold text-lg' onClick={goToDocs}>
                   Explore Docs
                 </button>
               </div>

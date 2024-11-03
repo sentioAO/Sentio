@@ -7,11 +7,11 @@ const SetupPage = () => {
     const [processId, setProcessId] = useState('');
     const [currentStep, setCurrentStep] = useState(1);
     const [selectedTime, setSelectedTime] = useState("1 min");
-    const [sentinelName, setSentinelName] = useState('');
+    // const [sentinelName, setSentinelName] = useState('');
     const { processId: pid } = useParams();
     const totalSteps = 3;
 
-    const [keyValuePairs, setKeyValuePairs] = useState([]);
+    const [keyValuePairs, setKeyValuePairs] = useState<{ key: string, value: string }[]>([]);
     const [email, setEmail] = useState('');
     const [isEmailConfirmed, setIsEmailConfirmed] = useState(false);
 
@@ -34,31 +34,28 @@ const SetupPage = () => {
         return () => clearInterval(interval);
     }, []);
 
-    const handleTimeChange = (event) => {
+    const handleTimeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         setSelectedTime(event.target.value);
     };
 
-    const handleInputChange = (event) => {
-        setSentinelName(event.target.value);
-    };
 
-    const handleKeyValueChange = (index, event, type) => {
-        const newKeyValuePairs = [...keyValuePairs];
+    const handleKeyValueChange = (index: number, event: React.ChangeEvent<HTMLInputElement>, type: 'key' | 'value') => {
+        const newKeyValuePairs = [...keyValuePairs] as { key: string, value: string }[];
         newKeyValuePairs[index][type] = event.target.value;
         setKeyValuePairs(newKeyValuePairs);
     };
 
     const handleAddKeyValuePair = () => {
-        setKeyValuePairs([...keyValuePairs, { key: '', value: '' }]);
+        setKeyValuePairs([...keyValuePairs, { key: '', value: '' }] as { key: string, value: string }[]);
     };
 
-    const handleRemoveKeyValuePair = (index) => {
+    const handleRemoveKeyValuePair = (index: number) => {
         const newKeyValuePairs = keyValuePairs.filter((_, i) => i !== index);
         setKeyValuePairs(newKeyValuePairs);
     };
 
     const handleSpawnSentinel = () => {
-        console.log(`Spawning Sentinel with name: ${sentinelName}`);
+        console.log(`Spawning Sentinel with name: `);
         console.log("Key-Value Pairs:", keyValuePairs);
         console.log("Email:", email);
         console.log("Email Confirmation:", isEmailConfirmed);

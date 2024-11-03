@@ -11,7 +11,7 @@ const SetupPage = () => {
     const { processId: pid } = useParams();
     const totalSteps = 3;
 
-    const [keyValuePairs, setKeyValuePairs] = useState([]);
+    const [keyValuePairs, setKeyValuePairs] = useState([{ key: '', value: '' }]);
     const [email, setEmail] = useState('');
     const [isEmailConfirmed, setIsEmailConfirmed] = useState(false);
 
@@ -34,27 +34,24 @@ const SetupPage = () => {
         return () => clearInterval(interval);
     }, []);
 
-    const handleTimeChange = (event) => {
+    const handleTimeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         setSelectedTime(event.target.value);
     };
 
-    const handleInputChange = (event) => {
-        setSentinelName(event.target.value);
-    };
 
-    const handleKeyValueChange = (index, event, type) => {
+    const handleKeyValueChange = (index: number, event: React.ChangeEvent<HTMLInputElement>, type: 'key' | 'value') => {
         const newKeyValuePairs = [...keyValuePairs];
         newKeyValuePairs[index][type] = event.target.value;
         setKeyValuePairs(newKeyValuePairs);
     };
 
-    const handleAddKeyValuePair = () => {
-        setKeyValuePairs([...keyValuePairs, { key: '', value: '' }]);
-    };
-
-    const handleRemoveKeyValuePair = (index) => {
+    const handleRemoveKeyValuePair = (index: number) => {
         const newKeyValuePairs = keyValuePairs.filter((_, i) => i !== index);
         setKeyValuePairs(newKeyValuePairs);
+    };
+
+    const handleAddKeyValuePair = () => {
+        setKeyValuePairs([...keyValuePairs, { key: '', value: '' }]);
     };
 
     const handleSpawnSentinel = () => {
@@ -79,7 +76,7 @@ const SetupPage = () => {
                         Sentinel Setup Process
                     </h1>
                     <p className='text-lg text-gray-300'>
-                        Your process ID is: <span className='font-mono text-blue-400'>{processId || 'N/A'}</span>
+                        Your process ID is: <span className='font-mono text-[#9966ff]'>{processId || 'N/A'}</span>
                     </p>
                 </section>
 
@@ -92,7 +89,7 @@ const SetupPage = () => {
                         {[...Array(totalSteps)].map((_, index) => (
                             <div
                                 key={index}
-                                className={`flex-1 h-4 rounded-full transition-all duration-1000 ${index < currentStep ? 'bg-blue-500' : 'bg-gray-600'}`}
+                                className={`flex-1 h-4 rounded-full transition-all duration-1000 ${index < currentStep ? 'bg-[#9966ff]' : 'bg-gray-600'}`}
                             ></div>
                         ))}
                     </div>
@@ -107,17 +104,30 @@ const SetupPage = () => {
 
                 {/* Configure Sentinel Section */}
                 <section className='rounded-xl bg-gray-800 bg-opacity-70 p-6 shadow-md flex justify-center'>
-                    <div className="text-center w-full max-w-lg">
+                    <div className="text-center w-full max-w-lg bg-gray-800 bg-opacity-70 backdrop-blur-md rounded-lg p-6">
                         <h2 className='text-3xl font-semibold text-gray-100 mb-4'>Configure Sentinel</h2>
-                        <form>
+                        <form className="bg-transparent p-4 rounded-lg grid grid-cols-1 gap-4">
+                            {/* Sentinel Name Input */}
+                            <div className='mb-4'>
+                                <label htmlFor="sentinel-name" className='text-lg text-gray-300 mr-[74%]'>Sentinel Name:</label>
+                                <input
+                                    type="text"
+                                    id="sentinel-name"
+                                    value={sentinelName}
+                                    onChange={(e) => setSentinelName(e.target.value)}
+                                    className='w-full p-2 bg-gray-700 text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-[#9966ff]'
+                                />
+                            </div>
+
+                            {/* Time Interval and Spawn Button */}
                             <div className='flex items-center justify-between mb-4'>
                                 <div className="w-1/2">
-                                    <label htmlFor="time-select" className='block text-sm text-gray-300 mb-2'>Select Time Interval:</label>
+                                    <label htmlFor="time-select" className='text-lg text-gray-300 mr-[74%]'>Interval:</label>
                                     <select
                                         id="time-select"
                                         value={selectedTime}
                                         onChange={handleTimeChange}
-                                        className='w-full p-2 bg-gray-700 text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500'
+                                        className='w-full p-2 bg-gray-700 text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-[#9966ff]'
                                     >
                                         <option value="1 min">1 min</option>
                                         <option value="3 min">3 min</option>
@@ -125,35 +135,33 @@ const SetupPage = () => {
                                         <option value="10 min">10 min</option>
                                     </select>
                                 </div>
-
-                                {/* Spawn Sentinel Button */}
                                 <button
                                     type="button"
                                     onClick={handleSpawnSentinel}
-                                    className='ml-4 px-6 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-md mt-8'
+                                    className='ml-4 px-6 py-2 bg-[#9966ff] hover:bg-[#8a5cd9] text-white rounded-md mt-7'
                                 >
                                     Spawn Sentinel
                                 </button>
                             </div>
 
                             {/* Key-Value Pair Inputs */}
-                            <div className="mb-4 ">
-                                <h3 className='text-lg text-gray-300 mb-2'>Key-Value Pairs:</h3>
+                            <div className="mb-4">
+                                <h3 className='text-lg text-gray-300 mr-[74%] '>Key-Value :</h3>
                                 {keyValuePairs.map((pair, index) => (
-                                    <div key={index} className="flex items-center justify-center mb-2 ">
+                                    <div key={index} className="flex items-center gap-8 mb-2">
                                         <input
                                             type="text"
                                             placeholder="Key"
                                             value={pair.key}
                                             onChange={(e) => handleKeyValueChange(index, e, 'key')}
-                                            className='w-32 p-2 bg-gray-700 text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 mr-2'
+                                            className='w-32 p-2 bg-gray-700 text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-[#9966ff] mr-2'
                                         />
                                         <input
                                             type="text"
                                             placeholder="Value"
                                             value={pair.value}
                                             onChange={(e) => handleKeyValueChange(index, e, 'value')}
-                                            className='w-32 p-2 bg-gray-700 text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 mr-2'
+                                            className='w-32 p-2 bg-gray-700 text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-[#9966ff] mr-2'
                                         />
                                         <button
                                             type="button"
@@ -164,45 +172,14 @@ const SetupPage = () => {
                                         </button>
                                     </div>
                                 ))}
-                                {keyValuePairs.length === 0 && (
-                                    <p className='text-gray-400'>Select key-value pairs</p>
-                                )}
+                                {/* Add Tag Button */}
                                 <button
                                     type="button"
                                     onClick={handleAddKeyValuePair}
-                                    className='mt-2 px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-md'
+                                    className='mt-4 px-4 py-2 bg-[#9966ff] hover:[#9966ff] text-white rounded-md'
                                 >
-                                    Add Key-Value Pair
+                                    Add Tag
                                 </button>
-                            </div>
-
-                            {/* Email Confirmation Section */}
-                            <div className="mb-4">
-                                <div className="flex items-center mb-2">
-                                    <input
-                                        type="checkbox"
-                                        id="email-confirm"
-                                        checked={isEmailConfirmed}
-                                        onChange={(e) => setIsEmailConfirmed(e.target.checked)}
-                                        className='mr-2'
-                                    />
-                                    <label htmlFor="email-confirm" className='text-sm text-gray-300'>I want to receive updates via email</label>
-                                </div>
-
-                                {/* Conditional rendering of email input based on checkbox */}
-                                {isEmailConfirmed && (
-                                    <>
-                                        <label htmlFor="email" className='block text-sm text-gray-300 mb-2'>Email:</label>
-                                        <input
-                                            type="email"
-                                            id="email"
-                                            value={email}
-                                            onChange={(e) => setEmail(e.target.value)}
-                                            placeholder="you@example.com"
-                                            className='w-64 p-2 bg-gray-700 text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 mb-2'
-                                        />
-                                    </>
-                                )}
                             </div>
 
                             {/* Key-Value Pair Representation */}
@@ -220,13 +197,45 @@ const SetupPage = () => {
                                     )}
                                 </div>
                             </div>
+
+                            {/* Email Confirmation Section */}
+                            <div className="mb-4 flex flex-col items-center">
+                                <div className="flex items-center mb-2">
+                                    <input
+                                        type="checkbox"
+                                        id="email-confirm"
+                                        checked={isEmailConfirmed}
+                                        onChange={(e) => setIsEmailConfirmed(e.target.checked)}
+                                        className='mr-2'
+                                    />
+                                    <label htmlFor="email-confirm" className='text-sm text-gray-300'>I want to receive updates via email</label>
+                                </div>
+
+                                {/* Conditional rendering of email input */}
+                                {isEmailConfirmed && (
+                                    <input
+                                        type="email"
+                                        placeholder="Enter your email"
+                                        value={email}
+                                        onChange={(e) => setEmail(e.target.value)}
+                                        className='w-full p-2 bg-gray-700 text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-[#9966ff]'
+                                    />
+                                )}
+                            </div>
+                            <button
+                                    type="button"
+                                    onClick={handleSpawnSentinel}
+                                    className='ml-4 px-6 py-2 bg-[#9966ff] hover:bg-[#8a5cd9] text-white rounded-md mt-7'
+                                >
+                                    Spawn Sentinel
+                                </button>
                         </form>
                     </div>
                 </section>
             </main>
 
             {/* Footer */}
-            <footer className="footer bg-gray-900 bg-opacity-75 py-4">
+            <footer className="bg-gray-900 bg-opacity-75 text-center py-4">
                 <Footer />
             </footer>
         </div>

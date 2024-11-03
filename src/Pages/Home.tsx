@@ -38,11 +38,9 @@ const Home: React.FC = () => {
   const goTooffchain = () => {
     navigate('/offchain');
   };
-
   const goToDocs = () => {
     window.location.href = 'https://sentio-docs.vercel.app/';
   }
-
   // Animation variants for different components
   const textVariant = {
     hidden: { opacity: 0, y: 30 },
@@ -132,160 +130,159 @@ const Home: React.FC = () => {
               variants={buttonVariant}
             >
               <div className='flex gap-9'>
-                <button
-                  className="px-10 py-3 text-white bg-[#9966FF] mt-7 z-10 hover:bg-white hover:text-[#9966FF] rounded-xl font-bold text-lg"
-                  onClick={goToonchain}
-                >
-                  On Chain
-                </button>
-
-                <button
-                  className="px-10 py-3 text-white bg-[#9966FF] hover:bg-white hover:text-[#9966FF] mt-7 z-10 rounded-xl font-bold text-lg"
-                  onClick={goTooffchain}
-                >
-                  Off Chain
-                </button>
-
-              </div>
-
-              <div>
-                <button className='py-4 px-6 bg-transperant border-2 border-[#9966ff] text-white hover:text-[#9966ff] hover:border-white mt-7 z-10 rounded-xl font-bold text-lg' onClick={goToDocs}>
-                  Explore Docs
-                </button>
-              </div>
-            </motion.div>
-          </motion.div>
-
-
-
-          <hr className="w-full border-t justify-center border-gray-500  my-10" />
-
-          {/* "How it Works" section */}
-          <motion.div
-            ref={howItWorksRef}
-            className="flex w-full justify-between items-center flex-col lg:flex-row"
-            initial="hidden"
-            animate="visible"
-            variants={sectionVariant}
-          >
-            <div className='flex justify-between  ' >
-              <div className='w-[100%]'>
-
-                <h1 className='text-4xl text-white mb-5'>How it Works</h1>
-                <ul className="list-none text-white">
-                  <li className="flex items-center mb-2 gap-3">
-                    <div className='border items-center w-12' style={{ borderRadius: "100%" }}>
-                      <img src={tick} alt="tick" />
-                    </div>
-                    1. Analyzes the CodeBase Ensuring Pre Deployment Security
-                  </li>
-                  <li className="flex items-center mb-2 gap-3">
-                    <div className='border items-center w-12' style={{ borderRadius: "100%" }}>
-                      <img src={tick} alt="tick" />
-                    </div>
-                    2. Fetches your Inbox Cronically and Monitors the Transactions
-                  </li>
-                  <li className="flex items-center mb-2 gap-3">
-                    <div className='border items-center w-12' style={{ borderRadius: "100%" }}>
-                      <img src={tick} alt="tick" />
-                    </div>
-                    3. In Case of Security Breach, Notifies the User Immediately
-                  </li>
-                </ul>
-              </div>
-
-              <div className='w-1/2 flex flex-col items-center'>
-                <div className='ml-[200%]'>
-                  <AnimatedBeamDemo />
-                </div>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Lazy Loading Cards */}
-          <div ref={ref} className="cards flex flex-row gap-20 mt-10">
-            {[
-              {
-                functionality: "Real-Time Security Alerts",
-                glowColor: "red",
-                icon: FaLock,
-                title: "SECURITY",
-                description: "Secure your messages with the power of Sentinels, ensuring immediate alerts for any security breaches."
-              },
-              {
-                functionality: "Comprehensive Code Auditing and Certification",
-                glowColor: "yellow",
-                icon: FaCheckCircle,
-                title: "AUDITING",
-                description: "In-depth code auditing with certification to identify and mitigate potential threats before deployment on Arweave."
-              },
-              {
-                functionality: "Continuous Threat Monitoring and Alerts",
-                glowColor: "green",
-                icon: FaEye,
-                title: "MONITORING",
-                description: "A continuous process monitoring and alerting system designed to keep you safe from potential threats in your messages."
-              }
-
-            ].map((card, index) => (
-              <motion.div
-                key={index}
-                custom={index}
-                initial="hidden"
-                animate={controls}
-                variants={cardVariants}
+              <button
+                className="px-10 py-3 text-white bg-[#9966FF] mt-7 z-10 rounded-xl font-bold text-lg"
+                onClick={goToonchain}
               >
-                <CustomCard
-                  functionality={card.functionality}
-                  glowColor={card.glowColor}
-                  icon={card.icon}
-                  title={card.title}
-                  description={card.description}
-                />
+                On Chain
+              </button>
 
-              </motion.div>
+              <button
+                className="px-10 py-3 text-white bg-[#9966FF] mt-7 z-10 rounded-xl font-bold text-lg"
+                onClick={goTooffchain}
+              >
+                Off Chain
+              </button>
+              <br />
 
-            ))}
-          </div>
-
-
-          <hr className="w-full border-t justify-center border-gray-500  my-10" />
-
-
-
-
-
-          <div ref={switchNetRef}>
-            <SwitchNet />
-          </div>
-
-
-          <motion.div
-            className="flex w-full gap-2 max-h text-white flex-wrap justify-center"
-            initial="hidden"
-            animate="visible"
-            variants={sectionVariant}
-          >
-            <hr className="w-full border-tjustify-center border-gray-500  my-10" />
-            <div className="flex flex-col sm:flex-row justify-center items-center gap-5 lg:justify-between">
-              <div className="flex flex-col items-center justify-center w-[90%] sm:w-1/3 h-[450px] max-h-[450px] overflow-hidden">
-                <TweetCard id="1845372593144201450" />
               </div>
-              <div className="flex flex-col items-center justify-center w-[90%] sm:w-1/3 h-[450px] max-h-[450px] overflow-hidden">
-                <TweetCard id="1844334374558499117" />
+              <button className='py-4 px-6 bg-transperant border-2 border-[#9966ff] text-white hover:text-[#9966ff] hover:border-white mt-7 z-10 rounded-xl font-bold text-lg' onClick={goToDocs}>
+                Explore Docs
+              </button>
+
+            
+          </motion.div>
+        </motion.div>
+
+
+
+        <hr className="w-full border-t justify-center border-gray-500  my-10" />
+
+        {/* "How it Works" section */}
+        <motion.div
+          ref={howItWorksRef}
+          className="flex w-full justify-between items-center flex-col lg:flex-row"
+          initial="hidden"
+          animate="visible"
+          variants={sectionVariant}
+        >
+          <div className='flex justify-between  ' >
+            <div className='w-[100%]'>
+
+              <h1 className='text-4xl text-white mb-5'>How it Works</h1>
+              <ul className="list-none text-white">
+                <li className="flex items-center mb-2 gap-3">
+                  <div className='border items-center w-12' style={{ borderRadius: "100%" }}>
+                    <img src={tick} alt="tick" />
+                  </div>
+                  1. Analyzes the CodeBase Ensuring Pre Deployment Security
+                </li>
+                <li className="flex items-center mb-2 gap-3">
+                  <div className='border items-center w-12' style={{ borderRadius: "100%" }}>
+                    <img src={tick} alt="tick" />
+                  </div>
+                  2. Fetches your Inbox Cronically and Monitors the Transactions
+                </li>
+                <li className="flex items-center mb-2 gap-3">
+                  <div className='border items-center w-12' style={{ borderRadius: "100%" }}>
+                    <img src={tick} alt="tick" />
+                  </div>
+                  3. In Case of Security Breach, Notifies the User Immediately
+                </li>
+              </ul>
+            </div>
+
+            <div className='w-1/2 flex flex-col items-center'>
+              <div className='ml-[200%]'>
+                <AnimatedBeamDemo />
               </div>
             </div>
-          </motion.div>
-          <hr className="w-full border-tjustify-center border-gray-500  my-10" />
-
-          <div ref={faqRef}>
-            <FAQSection />
           </div>
+        </motion.div>
+
+        {/* Lazy Loading Cards */}
+        <div ref={ref} className="cards flex flex-row gap-20 mt-10">
+          {[
+            {
+              functionality: "Notifying of Security Breach",
+              glowColor: "red",
+              icon: FaLock,
+              title: "SECURITY",
+              description: "Any Security Breach Will Be Notified To The User Immediately To Take Necessary Actions.",
+            },
+            {
+              functionality: "Notifying of Security Breach",
+              glowColor: "yellow",
+              icon: FaCheckCircle,
+              title: "AUDITING",
+              description: "Any Security Breach Will Be Notified To The User Immediately To Take Necessary Actions.",
+            },
+            {
+              functionality: "Notifying of Security Breach",
+              glowColor: "green",
+              icon: FaEye,
+              title: "MONITORING",
+              description: "Any Security Breach Will Be Notified To The User Immediately To Take Necessary Actions.",
+            },
+          ].map((card, index) => (
+            <motion.div
+              key={index}
+              custom={index}
+              initial="hidden"
+              animate={controls}
+              variants={cardVariants}
+            >
+              <CustomCard
+                functionality={card.functionality}
+                glowColor={card.glowColor}
+                icon={card.icon}
+                title={card.title}
+                description={card.description}
+              />
+
+            </motion.div>
+
+          ))}
+        </div>
 
 
-          <Footer />
-        </DotPatternHover>
-      </div>
+        <hr className="w-full border-t justify-center border-gray-500  my-10" />
+
+
+
+
+
+        <div ref={switchNetRef}>
+          <SwitchNet />
+        </div>
+
+
+        <motion.div
+          className="flex w-full gap-2 max-h text-white flex-wrap justify-center"
+          initial="hidden"
+          animate="visible"
+          variants={sectionVariant}
+        >
+          <hr className="w-full border-tjustify-center border-gray-500  my-10" />
+          <div className="flex flex-col sm:flex-row justify-center items-center gap-5 lg:justify-between">
+            <div className="flex flex-col items-center justify-center w-[90%] sm:w-1/3 h-[450px] max-h-[450px] overflow-hidden">
+              <TweetCard id="1845372593144201450" />
+            </div>
+            <div className="flex flex-col items-center justify-center w-[90%] sm:w-1/3 h-[450px] max-h-[450px] overflow-hidden">
+              <TweetCard id="1844334374558499117" />
+            </div>
+          </div>
+        </motion.div>
+        <hr className="w-full border-tjustify-center border-gray-500  my-10" />
+
+        <div ref={faqRef}>
+          <FAQSection />
+        </div>
+
+
+        <Footer />
+      </DotPatternHover>
+    </div >
 
     </>
   );

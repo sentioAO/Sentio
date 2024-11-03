@@ -7,7 +7,7 @@ const SetupPage = () => {
     const [processId, setProcessId] = useState('');
     const [currentStep, setCurrentStep] = useState(1);
     const [selectedTime, setSelectedTime] = useState("1 min");
-    const [sentinelName, setSentinelName] = useState('');
+    // const [sentinelName, setSentinelName] = useState('');
     const { processId: pid } = useParams();
     const totalSteps = 3;
 
@@ -34,18 +34,25 @@ const SetupPage = () => {
         return () => clearInterval(interval);
     }, []);
 
-    const handleTimeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const handleTimeChange = (event) => {
         setSelectedTime(event.target.value);
     };
 
+    const handleInputChange = (event) => {
+        setSentinelName(event.target.value);
+    };
 
-    const handleKeyValueChange = (index: number, event: React.ChangeEvent<HTMLInputElement>, type: 'key' | 'value') => {
+    const handleKeyValueChange = (index, event, type) => {
         const newKeyValuePairs = [...keyValuePairs];
         newKeyValuePairs[index][type] = event.target.value;
         setKeyValuePairs(newKeyValuePairs);
     };
 
-    const handleRemoveKeyValuePair = (index: number) => {
+    const handleAddKeyValuePair = () => {
+        setKeyValuePairs([...keyValuePairs, { key: '', value: '' }]);
+    };
+
+    const handleRemoveKeyValuePair = (index) => {
         const newKeyValuePairs = keyValuePairs.filter((_, i) => i !== index);
         setKeyValuePairs(newKeyValuePairs);
     };
@@ -55,7 +62,7 @@ const SetupPage = () => {
     };
 
     const handleSpawnSentinel = () => {
-        console.log(`Spawning Sentinel with name: ${sentinelName}`);
+        console.log(`Spawning Sentinel with name: `);
         console.log("Key-Value Pairs:", keyValuePairs);
         console.log("Email:", email);
         console.log("Email Confirmation:", isEmailConfirmed);

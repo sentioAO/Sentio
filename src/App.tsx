@@ -7,13 +7,14 @@ import Offchain from './Pages/Offchain';
 import Dashboard from './Pages/Dashboard';
 import SentinelProcess from './Pages/OnchainDemo';
 import ReportDetailsPage from './Pages/Details';
-import SentinelPage from './Pages/Sentinel';
+
 import ReactGA from 'react-ga4';
 import { useEffect } from 'react';
 import { Analytics } from "@vercel/analytics/react";
 import Aboutus from './Pages/Aboutus';
 import Certificate from './Pages/Certificate';
 import Faucetspage from './Pages/Faucetspage';
+import SetupPage from './Pages/Setup';
 
 function App() {
   useEffect(() => {
@@ -39,7 +40,7 @@ function App() {
           <Route path="/onchain" element={<SentinelProcess />} />
           <Route path="/report-details" element={<ReportDetailsPage />} />
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/sentinel/:processId" element={<SentinelPage />} />
+          <Route path="/setup/:processId" element={<SetupPage />} />
           <Route path="/about" element={<Aboutus />} />
           <Route path="/certificates" element={<Certificate/>} />
           <Route path="/faucets" element={<Faucetspage/>} />

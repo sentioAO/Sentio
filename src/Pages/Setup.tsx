@@ -39,7 +39,7 @@ const SetupPage: React.FC = () => {
 
     useEffect(() => {
         const fetchSentinel = async () => {
-            const response = await axios.post('http://localhost:3000/api/process/getSentinel', {
+            const response = await axios.post('https://sam-server.azurewebsites.net/api/process/getSentinel', {
                 targetProcess: processId
             });
             if (response.data.sid) {
@@ -72,7 +72,7 @@ const SetupPage: React.FC = () => {
     };
 
     const handleSpawnSentinel = async () => {
-        const response = await axios.post('http://localhost:3000/api/process/spawnProcess', {
+        const response = await axios.post('https://sam-server.azurewebsites.net/api/process/spawnProcess', {
             cronValue: selectedTime,
             targetProcess: processId,
         });
@@ -80,7 +80,7 @@ const SetupPage: React.FC = () => {
     };
 
     const configureSentinel = async () => {
-        const response = await axios.post('http://localhost:3000/api/process/sendCode', {
+        const response = await axios.post('https://sam-server.azurewebsites.net/api/process/sendCode', {
             processId: sentinelId,
             targetId: processId,
             tagArray: tags

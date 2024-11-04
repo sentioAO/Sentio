@@ -1,19 +1,22 @@
 import { useEffect, useState } from 'react';
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Navbar from '../Components/Navbar';
 import Footer from '../Components/Footer';
+import axios from 'axios';
 
-const SetupPage = () => {
-    const [processId, setProcessId] = useState('');
-    const [currentStep, setCurrentStep] = useState(1);
-    const [selectedTime, setSelectedTime] = useState("1 min");
-    const [sentinelName, setSentinelName] = useState('');
+
+
+const SetupPage: React.FC = () => {
+    const [processId, setProcessId] = useState<string>('');
+    const [currentStep, setCurrentStep] = useState<number>(1);
+    const [selectedTime, setSelectedTime] = useState<string>("1 min");
+    const [sentinelId, setSentinelId] = useState<string>('');
     const { processId: pid } = useParams();
     const totalSteps = 3;
-
-    const [keyValuePairs, setKeyValuePairs] = useState([{ key: '', value: '' }]);
-    const [email, setEmail] = useState('');
-    const [isEmailConfirmed, setIsEmailConfirmed] = useState(false);
+    const navigate = useNavigate()
+    const [tags, setTags] = useState<string[]>(['']);
+    const [email, setEmail] = useState<string>('');
+    const [isEmailConfirmed, setIsEmailConfirmed] = useState<boolean>(false);
 
     useEffect(() => {
         setProcessId(pid || '');
@@ -34,43 +37,65 @@ const SetupPage = () => {
         return () => clearInterval(interval);
     }, []);
 
+    useEffect(() => {
+        const fetchSentinel = async () => {
+            const response = await axios.post('http://localhost:3000/api/process/getSentinel', {
+                targetProcess: processId
+            });
+            if (response.data.sid) {
+                setSentinelId(response.data.sid);
+            } else {
+                console.log('Sentinel ID not found');
+            }
+        };
+
+        fetchSentinel();
+    }, [processId]);
+
     const handleTimeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         setSelectedTime(event.target.value);
     };
 
-
-    const handleKeyValueChange = (index: number, event: React.ChangeEvent<HTMLInputElement>, type: 'key' | 'value') => {
-        const newKeyValuePairs = [...keyValuePairs];
-        newKeyValuePairs[index][type] = event.target.value;
-        setKeyValuePairs(newKeyValuePairs);
+    const handleTagChange = (index: number, event: React.ChangeEvent<HTMLInputElement>) => {
+        const newTags = [...tags];
+        newTags[index] = event.target.value;
+        setTags(newTags);
     };
 
-    const handleRemoveKeyValuePair = (index: number) => {
-        const newKeyValuePairs = keyValuePairs.filter((_, i) => i !== index);
-        setKeyValuePairs(newKeyValuePairs);
+    const handleAddTag = () => {
+        setTags([...tags, '']);
     };
 
-    const handleAddKeyValuePair = () => {
-        setKeyValuePairs([...keyValuePairs, { key: '', value: '' }]);
+    const handleRemoveTag = (index: number) => {
+        const newTags = tags.filter((_, i) => i !== index);
+        setTags(newTags);
     };
 
-    const handleSpawnSentinel = () => {
-        console.log(`Spawning Sentinel with name: ${sentinelName}`);
-        console.log("Key-Value Pairs:", keyValuePairs);
-        console.log("Email:", email);
-        console.log("Email Confirmation:", isEmailConfirmed);
+    const handleSpawnSentinel = async () => {
+        const response = await axios.post('http://localhost:3000/api/process/spawnProcess', {
+            cronValue: selectedTime,
+            targetProcess: processId,
+        });
+        setSentinelId(response.data.pid);
     };
+
+    const configureSentinel = async () => {
+        const response = await axios.post('http://localhost:3000/api/process/sendCode', {
+            processId: sentinelId,
+            targetId: processId,
+            tagArray: tags
+        });
+        console.log(response.data);
+        navigate('/dashboard')
+    };  
 
     return (
         <div className='app-background min-h-screen text-white flex flex-col'>
-            {/* Navbar */}
-            <header className="navbar flex justify-center py-4 shadow-md bg-gray-900 bg-opacity-75">
+            <header className="navbar flex justify-center py-4 shadow-md ">
                 <Navbar />
             </header>
 
-            {/* Main Content */}
             <main className='flex-grow container mx-auto px-6 md:px-10 py-12'>
-                {/* Setup Sentinel Section */}
                 <section className='rounded-xl bg-gray-800 bg-opacity-70 p-8 shadow-lg mb-12 text-center md:text-left'>
                     <h1 className='text-4xl font-extrabold text-white mb-4'>
                         Sentinel Setup Process
@@ -78,9 +103,11 @@ const SetupPage = () => {
                     <p className='text-lg text-gray-300'>
                         Your process ID is: <span className='font-mono text-[#9966ff]'>{processId || 'N/A'}</span>
                     </p>
+                    {sentinelId && <p className='text-lg text-gray-300'>
+                        Your Sentinel ID is: <span className='font-mono text-[#9966ff]'>{sentinelId || 'N/A'}</span>
+                    </p>}
                 </section>
 
-                {/* Progress Bar for Installation Steps */}
                 <section className='rounded-xl bg-gray-800 bg-opacity-70 p-6 shadow-md mb-8'>
                     <h2 className='text-3xl font-semibold text-gray-100 mb-6 text-center'>
                         Installation Progress
@@ -94,7 +121,6 @@ const SetupPage = () => {
                         ))}
                     </div>
 
-                    {/* Step Description */}
                     <div className='text-lg font-semibold text-gray-200 text-center mt-6'>
                         {currentStep === 1 && <p>Step 1: Install the Sentinel software on your system.</p>}
                         {currentStep === 2 && <p>Step 2: Launch the Sentinel and configure initial settings.</p>}
@@ -102,25 +128,11 @@ const SetupPage = () => {
                     </div>
                 </section>
 
-                {/* Configure Sentinel Section */}
                 <section className='rounded-xl bg-gray-800 bg-opacity-70 p-6 shadow-md flex justify-center'>
                     <div className="text-center w-full max-w-lg bg-gray-800 bg-opacity-70 backdrop-blur-md rounded-lg p-6">
                         <h2 className='text-3xl font-semibold text-gray-100 mb-4'>Configure Sentinel</h2>
                         <form className="bg-transparent p-4 rounded-lg grid grid-cols-1 gap-4">
-                            {/* Sentinel Name Input */}
-                            <div className='mb-4'>
-                                <label htmlFor="sentinel-name" className='text-lg text-gray-300 mr-[74%]'>Sentinel Name:</label>
-                                <input
-                                    type="text"
-                                    id="sentinel-name"
-                                    value={sentinelName}
-                                    onChange={(e) => setSentinelName(e.target.value)}
-                                    className='w-full p-2 bg-gray-700 text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-[#9966ff]'
-                                />
-                            </div>
-
-                            {/* Time Interval and Spawn Button */}
-                            <div className='flex items-center justify-between mb-4'>
+                            {!sentinelId && <div className='flex items-center justify-between mb-4'>
                                 <div className="w-1/2">
                                     <label htmlFor="time-select" className='text-lg text-gray-300 mr-[74%]'>Interval:</label>
                                     <select
@@ -129,76 +141,57 @@ const SetupPage = () => {
                                         onChange={handleTimeChange}
                                         className='w-full p-2 bg-gray-700 text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-[#9966ff]'
                                     >
-                                        <option value="1 min">1 min</option>
-                                        <option value="3 min">3 min</option>
-                                        <option value="5 min">5 min</option>
-                                        <option value="10 min">10 min</option>
+                                        <option value="1-minutes">1 min</option>
+                                        <option value="3-minutes">3 min</option>
+                                        <option value="5-minutes">5 min</option>
+                                        <option value="10-minutes">10 min</option>
                                     </select>
                                 </div>
                                 <button
                                     type="button"
                                     onClick={handleSpawnSentinel}
                                     className='ml-4 px-6 py-2 bg-[#9966ff] hover:bg-[#8a5cd9] text-white rounded-md mt-7'
+                                    disabled={!!sentinelId}
                                 >
                                     Spawn Sentinel
                                 </button>
-                            </div>
+                            </div>}
 
-                            {/* Key-Value Pair Inputs */}
                             <div className="mb-4">
-                                <h3 className='text-lg text-gray-300 mr-[74%] '>Key-Value :</h3>
-                                {keyValuePairs.map((pair, index) => (
-                                    <div key={index} className="flex items-center gap-8 mb-2">
-                                        <input
-                                            type="text"
-                                            placeholder="Key"
-                                            value={pair.key}
-                                            onChange={(e) => handleKeyValueChange(index, e, 'key')}
-                                            className='w-32 p-2 bg-gray-700 text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-[#9966ff] mr-2'
-                                        />
-                                        <input
-                                            type="text"
-                                            placeholder="Value"
-                                            value={pair.value}
-                                            onChange={(e) => handleKeyValueChange(index, e, 'value')}
-                                            className='w-32 p-2 bg-gray-700 text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-[#9966ff] mr-2'
-                                        />
-                                        <button
-                                            type="button"
-                                            onClick={() => handleRemoveKeyValuePair(index)}
-                                            className='px-2 py-1 bg-red-500 hover:bg-red-600 text-white rounded-md'
+                                <h3 className='text-lg text-gray-300 mr-[74%]'>Tags:</h3>
+                                <div className="flex flex-wrap gap-2 mb-4">
+                                    {tags.map((tag, index) => (
+                                        <div
+                                            key={index}
+                                            className="flex items-center bg-[#9966ff] text-white rounded-full px-4 py-2 space-x-2"
                                         >
-                                            Remove
-                                        </button>
-                                    </div>
-                                ))}
-                                {/* Add Tag Button */}
+                                            <span>{tag}</span>
+                                            <button
+                                                type="button"
+                                                onClick={() => handleRemoveTag(index)}
+                                                className="text-white text-sm font-bold hover:text-gray-300"
+                                            >
+                                                &times;
+                                            </button>
+                                        </div>
+                                    ))}
+                                </div>
+                                <input
+                                    type="text"
+                                    placeholder="New tag"
+                                    value={tags[tags.length - 1] || ''}
+                                    onChange={(e) => handleTagChange(tags.length - 1, e)}
+                                    className='w-full p-2 mb-2 bg-gray-700 text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-[#9966ff]'
+                                />
                                 <button
                                     type="button"
-                                    onClick={handleAddKeyValuePair}
-                                    className='mt-4 px-4 py-2 bg-[#9966ff] hover:[#9966ff] text-white rounded-md'
+                                    onClick={handleAddTag}
+                                    className='px-4 py-2 bg-[#9966ff] hover:bg-[#8a5cd9] text-white rounded-md'
                                 >
                                     Add Tag
                                 </button>
                             </div>
 
-                            {/* Key-Value Pair Representation */}
-                            <div className='mt-6 text-center'>
-                                <h3 className='text-lg text-gray-300 mb-2'>Current Key-Value Pairs:</h3>
-                                <div className='flex flex-wrap justify-center'>
-                                    {keyValuePairs.length > 0 ? (
-                                        keyValuePairs.map((pair, index) => (
-                                            <div key={index} className='flex items-center bg-gray-700 text-gray-300 rounded-md px-4 py-2 mx-2 mb-2'>
-                                                <span>{pair.key}: {pair.value}</span>
-                                            </div>
-                                        ))
-                                    ) : (
-                                        <p className='text-gray-400'>No pairs added yet.</p>
-                                    )}
-                                </div>
-                            </div>
-
-                            {/* Email Confirmation Section */}
                             <div className="mb-4 flex flex-col items-center">
                                 <div className="flex items-center mb-2">
                                     <input
@@ -211,33 +204,27 @@ const SetupPage = () => {
                                     <label htmlFor="email-confirm" className='text-sm text-gray-300'>I want to receive updates via email</label>
                                 </div>
 
-                                {/* Conditional rendering of email input */}
-                                {isEmailConfirmed && (
-                                    <input
-                                        type="email"
-                                        placeholder="Enter your email"
-                                        value={email}
-                                        onChange={(e) => setEmail(e.target.value)}
-                                        className='w-full p-2 bg-gray-700 text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-[#9966ff]'
-                                    />
-                                )}
+                                <input
+                                    type="email"
+                                    placeholder="Enter your email"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    className='w-full p-2 bg-gray-700 text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-[#9966ff]'
+                                />
                             </div>
+
                             <button
-                                    type="button"
-                                    onClick={handleSpawnSentinel}
-                                    className='ml-4 px-6 py-2 bg-[#9966ff] hover:bg-[#8a5cd9] text-white rounded-md mt-7'
-                                >
-                                    Spawn Sentinel
-                                </button>
+                                type="button"
+                                onClick={configureSentinel}
+                                className='w-full py-2 mt-2 bg-[#9966ff] hover:bg-[#8a5cd9] text-white rounded-md'
+                            >
+                                Configure Sentinel
+                            </button>
                         </form>
                     </div>
                 </section>
             </main>
-
-            {/* Footer */}
-            <footer className="bg-gray-900 bg-opacity-75 text-center py-4">
-                <Footer />
-            </footer>
+            <Footer />
         </div>
     );
 };

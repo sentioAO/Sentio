@@ -23,6 +23,10 @@ const Home: React.FC = () => {
   const goTooffchain = () => {
     navigate('/offchain');
   };
+  const navigateToSwitch = () => {
+    // Scroll to the SwitchNet section instead of navigating to a different route
+    switchNetRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
   // Animation variants for different components
   const textVariant = {
     hidden: { opacity: 0, y: 30 },
@@ -87,6 +91,12 @@ const Home: React.FC = () => {
             <DotPattern
               className={cn("[mask-image:radial-gradient(200px_circle_at_center,white,transparent)]")}
             />
+                            <button
+                  className="px-10 py-3 text-white bg-[#9966FF] mt-7 z-10 rounded-xl font-bold text-lg"
+                  onClick={navigateToSwitch}
+                >
+                  Know More
+                </button>
 
             <motion.div
               className="mt-8"
@@ -94,21 +104,7 @@ const Home: React.FC = () => {
               animate="visible"
               variants={buttonVariant}
             >
-              <div className='flex gap-9'>
-                <button
-                  className="px-10 py-3 text-white bg-[#9966FF] mt-7 z-10 rounded-xl font-bold text-lg"
-                  onClick={goToonchain}
-                >
-                  On Chain
-                </button>
 
-                <button
-                  className="px-10 py-3 text-white bg-[#9966FF] mt-7 z-10 rounded-xl font-bold text-lg"
-                  onClick={goTooffchain}
-                >
-                  Off Chain
-                </button>
-              </div>
             </motion.div>
           </motion.div>
 
@@ -127,10 +123,10 @@ const Home: React.FC = () => {
             animate="visible"
             variants={sectionVariant}
           >
-            <div className='flex justify-between flex-col w-full ' >
+            <div className='flex justify-between flex-col w-full mt-[-2%] ' >
               <div className=''>
 
-                <h1 className='text-4xl text-white mb-5 text-center'>WHAT WE OFFER</h1>
+                <h1 className=' text-4xl text-white mb-5 text-center'>WHAT WE OFFER</h1>
 
               </div>
 
@@ -140,26 +136,22 @@ const Home: React.FC = () => {
                 </div>
               </div>
               <div className='flex justify-center'>
-                <ul className="list-none text-white  ">
-                  <li className="flex items-center mb-2 gap-3">
-                    <div className='border items-center w-12' style={{ borderRadius: "100%" }}>
-                      <img src={tick} alt="tick" />
-                    </div>
-                    1. Analyzes the CodeBase Ensuring Pre Deployment Security
-                  </li>
-                  <li className="flex items-center mb-2 gap-3">
-                    <div className='border items-center w-12' style={{ borderRadius: "100%" }}>
-                      <img src={tick} alt="tick" />
-                    </div>
-                    2. Fetches your Inbox Cronically and Monitors the Transactions
-                  </li>
-                  <li className="flex items-center mb-2 gap-3">
-                    <div className='border items-center w-12' style={{ borderRadius: "100%" }}>
-                      <img src={tick} alt="tick" />
-                    </div>
-                    3. In Case of Security Breach, Notifies the User Immediately
-                  </li>
-                </ul>
+              <div className='flex gap-9'>
+                <button
+                  className="px-10 py-3 text-white bg-[#9966FF] mt-7 z-10 rounded-xl font-bold text-lg"
+                  onClick={goToonchain}
+                >
+                  Pre Deployment 
+                </button>
+
+                <button
+                  className="px-10 py-3 text-white bg-[#9966FF] mt-7 z-10 rounded-xl font-bold text-lg"
+                  onClick={goTooffchain}
+                >
+                  Post Deployment
+                </button>
+              </div>
+
               </div>
             </div>
           </motion.div>

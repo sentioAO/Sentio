@@ -9,16 +9,14 @@ interface NavbarProps {
     faqRef?: React.RefObject<HTMLElement>;
     howItWorksRef?: React.RefObject<HTMLElement>;
     switchNetRef?: React.RefObject<HTMLElement>;
-    // This prop will be passed conditionally
 }
 
 const Navbar: React.FC<NavbarProps> = ({ faqRef, howItWorksRef, switchNetRef }) => {
     const navigate = useNavigate();
-    const location = useLocation(); // Get the current location
+    const location = useLocation();
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [activeSection, setActiveSection] = useState<string>("");
 
-    // Sidebar animation variants
     const sidebarVariants = {
         hidden: { x: "100%" },
         visible: {
@@ -27,7 +25,6 @@ const Navbar: React.FC<NavbarProps> = ({ faqRef, howItWorksRef, switchNetRef }) 
         },
     };
 
-    // Scroll to section handlers
     const handleScrollToFaq = () => {
         faqRef?.current?.scrollIntoView({ behavior: "smooth" });
         setIsSidebarOpen(false);
@@ -38,21 +35,29 @@ const Navbar: React.FC<NavbarProps> = ({ faqRef, howItWorksRef, switchNetRef }) 
         setIsSidebarOpen(false);
     };
 
-    const handleScrollToSwitchNet = () => {
+    const handleScrollToSwitchNet  = () => {
         switchNetRef?.current?.scrollIntoView({ behavior: "smooth" });
         setIsSidebarOpen(false);
     };
-    const navigateToAboutUs = () => {
-        navigate('/about'); // Navigates to /aboutus
-    };
-    const navigateToFaucets = () => {
-        navigate('/faucets'); // Navigates to /aboutus
+
+    const navigateToHome = () => {
+        navigate('/');
+        setIsSidebarOpen(false);
     };
 
-    // Update active section based on scroll position
+    const navigateToAboutUs = () => {
+        navigate('/about');
+        setIsSidebarOpen(false);
+    };
+
+    const navigateToFaucets = () => {
+        navigate('/faucets');
+        setIsSidebarOpen(false);
+    };
+
     useEffect(() => {
         const handleScroll = () => {
-            if (location.pathname === "/") { // Only track scroll position if on "/"
+            if (location.pathname === "/") {
                 const sections = [
                     { id: "howItWorks", ref: howItWorksRef },
                     { id: "faq", ref: faqRef },
@@ -79,66 +84,80 @@ const Navbar: React.FC<NavbarProps> = ({ faqRef, howItWorksRef, switchNetRef }) 
     }, [faqRef, howItWorksRef, switchNetRef, location.pathname]);
 
     return (
-        <div className="sticky top-5 z-50 bg-black  text-white flex text-2xl justify-between items-center border border-[#66686e] rounded-xl p-6 w-[90%] lg:w-[85%]">
+        <div className="sticky top-5 z-50 bg-black text-white flex items-center justify-between border border-[#66686e] rounded-xl p-6 w-[90%] lg:w-[85%]">
+            {/* Logo */}
             <div className="flex items-center">
                 <div className="w-12">
                     <img src={logo} alt="Logo" />
                 </div>
-                <p className="hidden lg:block ml-2 cursor-pointer" onClick={() => navigate("/")}>
+                <p className="hidden lg:block ml-2 cursor-pointer" onClick={navigateToHome}>
                     SENTIO
                 </p>
             </div>
 
-            {/* Hamburger for smaller devices */}
-            <div className="lg:hidden">
-                <FaBars onClick={() => setIsSidebarOpen(!isSidebarOpen)} className="cursor-pointer" />
-            </div>
-
-            {/* Full Navbar for larger screens */}
-            <div className="hidden lg:flex gap-4 text-lg">
-                {location.pathname === "/" && (
+            {/* Centered Navigation Options */}
+            <div className=" ml-[5%] hidden lg:flex gap-6 text-lg justify-center items-center space-x-1">
+                {location.pathname === "/" ? (
                     <>
                         <button
-                            className={`text-left `}
                             onClick={handleScrollToHowItWorks}
-                            aria-label="Scroll to How it Works section"
+                            className="hover:text-gray-400 px-3 py-2 rounded transition-colors"
                         >
                             How it works
                         </button>
                         <button
-                            className={`text-left`}
                             onClick={handleScrollToFaq}
-                            aria-label="Scroll to FAQ section"
+                            className="hover:text-gray-400 px-3 py-2 rounded transition-colors"
                         >
                             FAQ
                         </button>
                         <button
-                            className={`text-left`}
                             onClick={navigateToAboutUs}
-                            aria-label="Scroll to FAQ section"
-
+                            className="hover:text-gray-400 px-3 py-2 rounded transition-colors"
                         >
                             About Us
                         </button>
                         <button
-                            className={`text-left `}
                             onClick={handleScrollToSwitchNet}
-                            aria-label="Scroll to Features section"
+                            className="hover:text-gray-400 px-3 py-2 rounded transition-colors"
                         >
                             Features
                         </button>
                         <button
-                            className={`text-left `}
                             onClick={navigateToFaucets}
-                            aria-label="Scroll to Features section"
+                            className="hover:text-gray-400 px-3 py-2 rounded transition-colors"
                         >
-                            Air-Drop
+                            Faucet
+                        </button>
+                    </>
+                ) : (
+                    <>
+                        <button
+                            onClick={navigateToHome}
+                            className="hover:text-gray-400 px-3 py-2 rounded transition-colors"
+                        >
+                            Home
+                        </button>
+                        <button
+                            onClick={navigateToAboutUs}
+                            className="hover:text-gray-400 px-3 py-2 rounded transition-colors"
+                        >
+                            About Us
+                        </button>
+                        <button
+                            onClick={navigateToFaucets}
+                            className="hover:text-gray-400 px-3 py-2 rounded transition-colors"
+                        >
+                            Faucet
                         </button>
                     </>
                 )}
-                <Wallet />
             </div>
 
+            {/* Wallet Button */}
+            <Wallet />
+
+            {/* Sidebar for Mobile */}
             {isSidebarOpen && (
                 <motion.div
                     className="fixed top-0 right-0 h-full w-2/3 bg-[#333] p-6 z-50 flex flex-col gap-4"
@@ -151,7 +170,6 @@ const Navbar: React.FC<NavbarProps> = ({ faqRef, howItWorksRef, switchNetRef }) 
                         <FaTimes
                             className="text-white text-2xl cursor-pointer"
                             onClick={() => setIsSidebarOpen(false)}
-                            aria-label="Close sidebar"
                         />
                     </div>
 
@@ -159,36 +177,19 @@ const Navbar: React.FC<NavbarProps> = ({ faqRef, howItWorksRef, switchNetRef }) 
                         <img src={logo} alt="Logo" className="w-12" />
                     </div>
 
-                    {location.pathname === "/" && (
+                    {location.pathname === "/" ? (
                         <>
-                            <button
-                                className={`text-left ${activeSection === 'howItWorks' ? 'font-bold' : ''}`}
-                                onClick={handleScrollToHowItWorks}
-                                aria-label="Scroll to How it Works section"
-                            >
-                                How it works
-                            </button>
-                            <button
-                                className={`text-left ${activeSection === 'howItWorks' ? 'font-bold' : ''}`}
-                                onClick={navigateToAboutUs}
-                                aria-label="Scroll to How it Works section"
-                            >
-                                About Us
-                            </button>
-                            <button
-                                className={`text-left ${activeSection === 'faq' ? 'font-bold' : ''}`}
-                                onClick={handleScrollToFaq}
-                                aria-label="Scroll to FAQ section"
-                            >
-                                FAQ
-                            </button>
-                            <button
-                                className={`text-left ${activeSection === 'switchNet' ? 'font-bold' : ''}`}
-                                onClick={handleScrollToSwitchNet}
-                                aria-label="Scroll to Features section"
-                            >
-                                Features
-                            </button>
+                            <button onClick={handleScrollToHowItWorks}>How it works</button>
+                            <button onClick={handleScrollToFaq}>FAQ</button>
+                            <button onClick={navigateToAboutUs}>About Us</button>
+                            <button onClick={handleScrollToSwitchNet}>Features</button>
+                            <button onClick={navigateToFaucets}>Faucet</button>
+                        </>
+                    ) : (
+                        <>
+                            <button onClick={navigateToHome}>Home</button>
+                            <button onClick={navigateToAboutUs}>About Us</button>
+                            <button onClick={navigateToFaucets}>Faucet</button>
                         </>
                     )}
 
@@ -200,3 +201,4 @@ const Navbar: React.FC<NavbarProps> = ({ faqRef, howItWorksRef, switchNetRef }) 
 };
 
 export default Navbar;
+

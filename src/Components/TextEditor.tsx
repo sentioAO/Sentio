@@ -13,7 +13,7 @@ const CodeEditor: React.FC<{ value: string, onChange: (value: string) => void, o
 
     return (
         <div
-            className="editor-container rounded-xl shadow-md max-w-4xl w-full"
+            className="editor-container items-center rounded-xl shadow-md max-w-4xl w-full"
             style={{
                 background: 'linear-gradient(145deg, #1F1F1F, #141414)', // Outer gradient background
                 padding: '20px',

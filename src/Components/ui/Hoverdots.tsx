@@ -55,7 +55,7 @@ export const DotPatternHover = ({
         }}
       />
       
-      <div className={cn("relative z-20 text-white", className)}>
+      <div className={cn("relative z-20 w-full text-white", className)}>
         {children}
       </div>
     </div>

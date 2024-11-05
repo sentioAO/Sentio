@@ -26,7 +26,7 @@ const Footer = () => {
                 </div>
 
                 {/* Social Media Icons */}
-                <div className="flex gap-4 text-2xl">
+                <div className="flex gap-4 text-2xl items-center">
                     <a href="https://twitter.com/sentio_AR" target="_blank" rel="noopener noreferrer">
                         <FaTwitter className="hover:text-[#1DA1F2]" />
                     </a>

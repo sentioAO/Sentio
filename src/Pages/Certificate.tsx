@@ -228,6 +228,9 @@ export default function Component() {
                                     <p className="text-gray-700 text-sm sm:text-base">
                                         {item.description}
                                     </p>
+                                    <p>
+                                       The vulnerability is found in Line {item.line} 
+                                    </p>
                                 </div>
                             ))}
                         </div>
@@ -271,13 +274,13 @@ export default function Component() {
                 <div className="flex justify-center mt-8 sm:mt-12 space-x-4">
                     <button
                         onClick={downloadPDF}
-                        className="px-8 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-lg sm:text-xl rounded-lg shadow-lg transition-all duration-300"
+                        className="px-8 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-lg sm:text-xl rounded-xl shadow-lg transition-all duration-300"
                     >
                         Download Report
                     </button>
                     <button
                     onClick={() => alert("Upload to Permaweb is currently disabled.")}
-                    className="px-8 py-3 bg-white text-black font-semibold text-lg sm:text-xl rounded-lg shadow-lg transition-all duration-300 cursor-not-allowed" 
+                    className="px-8 py-3 bg-white text-black font-semibold text-lg sm:text-xl rounded-xl shadow-lg transition-all duration-300 cursor-not-allowed" 
                     disabled>
                         Push to Permaweb 🔜
                     </button>

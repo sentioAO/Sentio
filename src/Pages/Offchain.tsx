@@ -7,10 +7,10 @@ import axios from 'axios';
 import qs from 'qs';
 import { motion } from 'framer-motion';
 import Footer from "../Components/Footer";
-import { HeroHighlightDemo } from "../Components/Hero";
 // import { handleTokenTransfer } from "../lib/tokenServices";
 import TransferGif from "../assets/Transfer.gif";
 import { handleTokenTransfer } from "../lib/tokenServices";
+// import { DotPatternHover } from "../Components/ui/Hoverdots";
 
 interface Repository {
   id: number;
@@ -46,7 +46,7 @@ const Offchain = () => {
     } catch (error) {
       console.error("Analysis canceled due to token transfer failure", error);
       setShowGif(false);
-      return; 
+      return;
     }
 
     setShowProgress(true);
@@ -69,9 +69,9 @@ const Offchain = () => {
     try {
       const response = await axios.post('https://sam-offchain-dbedazdhd2dugrdk.eastus-01.azurewebsites.net/analyze',
         qs.stringify({ code }), {
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-          },
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
       });
       setReport(response.data);
     } catch (error) {
@@ -208,9 +208,9 @@ const Offchain = () => {
   }, []);
 
   return (
-    <div className="app-background min-h-screen flex flex-col items-center">
+    <div className="app-background min-h-screen w-full flex flex-col items-center">
+      {/* <DotPatternHover> */}
       <Navbar />
-      <HeroHighlightDemo />
       <div className="flex flex-col justify-center items-center mt-10 space-y-4 w-full max-w-4xl">
         <div className="flex space-x-4">
           <div className="mt-[-5]">
@@ -324,10 +324,12 @@ const Offchain = () => {
           Import from GitHub
         </button>
       </div>
+      <div className="absolute bottom-0 left-0 right-0">
 
-      <Footer />
+        <Footer />
+      </div>
     </div>
-    
+
 
   );
 }

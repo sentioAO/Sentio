@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/logo.png";
-import { FaTwitter, FaGithub } from "react-icons/fa"; 
+import { FaTwitter, FaGithub, FaEnvelope } from "react-icons/fa"; 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
 
@@ -27,6 +27,9 @@ const Footer = () => {
 
                 {/* Social Media Icons */}
                 <div className="flex gap-4 text-2xl items-center">
+                    <a href="mailto:connectsentio@gmail.com">
+                        <FaEnvelope className="hover:text-[#D9A5B3]" />
+                    </a>
                     <a href="https://twitter.com/sentio_AR" target="_blank" rel="noopener noreferrer">
                         <FaTwitter className="hover:text-[#1DA1F2]" />
                     </a>

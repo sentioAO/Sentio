@@ -98,7 +98,7 @@ const Home: React.FC = () => {
             variants={textVariant}
           >
 
-            <p className="text-white text-2xl md:text-5xl font-extralight mt-2 md:mt-4" style={{ fontFamily: "'Roboto'" }}>
+            <p className="text-white text-2xl md:text-5xl font-extralight mt-2 md:mt-4" style={{ fontFamily: "'Amarant'" }}>
               Enter an End To End Pipeline with <br /> Security, analysis and{" "}
               <motion.span
                 className="inline-block px-2 py-1 font-extrabold text-[#9966ff] rounded-lg"
@@ -110,7 +110,7 @@ const Home: React.FC = () => {
               </motion.span>
             </p>
             <DotPattern
-              className={cn("[mask-image:radial-gradient(200px_circle_at_center,white,transparent)]")}
+              className={cn("[mask-image:radial-gradient(300px_circle_at_center,white,transparent)]")}
             />
 
             <motion.div
@@ -143,7 +143,7 @@ const Home: React.FC = () => {
             animate="visible"
             variants={sectionVariant}
           >
-            <div className='flex justify-between flex-col w-full mt-[2%]' style={{ fontFamily: "Roboto" }}>
+            <div className='flex justify-between flex-col w-full mt-[2%]' style={{ fontFamily: "Amaranth" }}>
               <h1 className='text-4xl text-white mb-5 text-center'>What do we Offer?</h1>
               <div className='w-full flex flex-col items-center'>
                 <AnimatedBeamDemo />

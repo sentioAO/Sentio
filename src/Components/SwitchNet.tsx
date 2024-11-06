@@ -31,7 +31,7 @@ const SwitchNet: React.FC = () => {
     };
 
     return (
-        <div className="w-full max-w-5xl mx-auto p-6  flex flex-col" style={{fontFamily:"'Roboto'"}}>
+        <div className="w-full max-w-5xl mx-auto p-6  flex flex-col" style={{fontFamily:"'Amaranth'"}}>
             {/* Tab Selection at the Top */}
             <div className="flex justify-center mb-4">
                 <motion.button
@@ -61,7 +61,7 @@ const SwitchNet: React.FC = () => {
             </div>
 
             {/* Main Content Below the Tabs */}
-            <div className="flex flex-col md:flex-row" style={{ fontFamily: "'Roboto'" }}>
+            <div className="flex flex-col md:flex-row" style={{ fontFamily: "'Amaranth'" }}>
                 {/* Right Side Content */}
                 <div className="flex-grow flex flex-col" style={{ minHeight: '500px', width: '100%' }}>
                     <div className="p-4 rounded-lg flex-grow" style={{ minHeight: '500px' }}>

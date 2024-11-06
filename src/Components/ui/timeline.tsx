@@ -35,7 +35,7 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
     <div
       className="w-full app-background dark:bg-neutral-950 text-white font-sans md:px-10"
       ref={containerRef}
-      style={{fontFamily:"'Roboto'"}}
+      style={{fontFamily:"'Amaranth'"}}
     >
       <div className="  flex justify-center mt-20 md:px-8 lg:px-10 text-center">
         <h2 className="text-lg md:text-6xl mb-4 text-white dark:text-white max-w-4xl" >

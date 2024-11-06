@@ -84,7 +84,7 @@ const Navbar: React.FC<NavbarProps> = ({ faqRef, howItWorksRef, switchNetRef }) 
     }, [faqRef, howItWorksRef, switchNetRef, location.pathname]);
 
     return (
-        <div className=" top-5 z-50 bg-black text-white flex items-center justify-between border border-[#66686e] rounded-xl p-6 w-[90%] lg:w-[85%]">
+        <div className=" top-5 z-50 bg-black text-white flex items-center justify-between border border-[#66686e] rounded-xl p-6 w-[90%] lg:w-[85%]" style={{fontFamily:"'Amaranth'"}}>
             {/* Logo */}
             <div className="flex items-center">
                 <div className="w-12">

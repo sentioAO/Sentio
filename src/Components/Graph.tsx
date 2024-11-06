@@ -4,7 +4,7 @@ import React, { forwardRef, useRef } from "react";
 
 import { cn } from "../lib/utils";
 import { AnimatedBeam } from "./../Components/ui/animated-beam";
-import logo from "../assets/S E N T I O (1).svg"
+import logo from "../assets/fin.svg"
 import { FaUser } from "react-icons/fa";
 import { GiProcessor } from "react-icons/gi";
 const Circle = forwardRef<
@@ -15,7 +15,7 @@ const Circle = forwardRef<
     <div
       ref={ref}
       className={cn(
-        "z-10 flex size-20 items-center justify-center rounded-lg border-2 bg-white p-3 shadow-[0_0_20px_-12px_rgba(0,0,0,0.8)]",
+        "z-10 flex size-20 items-center justify-center rounded-xl border-2 bg-white p-3 shadow-[0_0_20px_-12px_rgba(0,0,0,0.8)]",
         className,
       )}
     >

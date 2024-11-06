@@ -84,7 +84,7 @@ const Navbar: React.FC<NavbarProps> = ({ faqRef, howItWorksRef, switchNetRef }) 
     }, [faqRef, howItWorksRef, switchNetRef, location.pathname]);
 
     return (
-        <div className="sticky top-5 z-50 bg-black text-white flex items-center justify-between border border-[#66686e] rounded-xl p-6 w-[90%] lg:w-[85%]">
+        <div className=" top-5 z-50 bg-black text-white flex items-center justify-between border border-[#66686e] rounded-xl p-6 w-[90%] lg:w-[85%]">
             {/* Logo */}
             <div className="flex items-center">
                 <div className="w-12">
@@ -103,7 +103,7 @@ const Navbar: React.FC<NavbarProps> = ({ faqRef, howItWorksRef, switchNetRef }) 
                             onClick={handleScrollToHowItWorks}
                             className="hover:text-gray-400 px-3 py-2 rounded transition-colors"
                         >
-                            How it works
+                            Services
                         </button>
                         <button
                             onClick={handleScrollToFaq}

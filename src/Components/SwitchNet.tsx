@@ -31,7 +31,7 @@ const SwitchNet: React.FC = () => {
     };
 
     return (
-        <div className="w-full max-w-5xl mx-auto p-6  flex flex-col">
+        <div className="w-full max-w-5xl mx-auto p-6  flex flex-col" style={{fontFamily:"'Roboto'"}}>
             {/* Tab Selection at the Top */}
             <div className="flex justify-center mb-4">
                 <motion.button

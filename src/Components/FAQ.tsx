@@ -2,9 +2,43 @@ import { forwardRef } from 'react';
 
 const FAQSection = forwardRef<HTMLDivElement>((_, ref) => {
   const faqs = [
-    { question: "What is Permissionless Ecosystem Funding?", answer: "Permissionless: Anyone can without project or legal barriers\nEcosystem: Normal users take part who actually believe in you\nFunding: as it sounds!\nBy incentivizing users to bridge their assets into the AO network, developers are rewarded with AO token yields, creating a long-term revenue stream for their projects. This mechanism removes the need for developers to seek approval from centralized parties. Now they can innovate freely and create impactful applications that thrive on the economic participation of their users!\nUsers, in turn, have the power to decide which applications to support by choosing where to allocate their liquidity.\nThis results in a decentralized funding model that naturally aligns incentives between developers and users, making the AO network a vibrant and dynamic ecosystem for innovation." },
-    { question: "What are $tAoETH and $SAT? What's their value?", answer: "tAoETH and SAT are tokens in the ecosystem with values that vary based on demand and supply in the market." },
-    { question: "When can I start staking on my favorite projects?", answer: "Staking opportunities will be announced soon. Stay tuned for updates on our platform." }
+    {
+      question: "What is Sentio?",
+      answer: "Sentio is an end-to-end security and monitoring platform for blockchain applications. It provides automated code auditing, real-time monitoring through Sentinels, and immediate notifications for any detected vulnerabilities, helping developers secure their smart contracts and projects on AO and Arweave."
+    },
+    {
+      question: "How does Sentio help with post-deployment monitoring?",
+      answer: "Once your project is live, Sentio's Sentinels continuously monitor the smart contract for unusual activities or threats. In case of any suspicious behavior, Sentio sends real-time alerts, allowing developers to respond quickly and mitigate potential risks."
+    },
+    {
+      question: "What makes Sentio different from other security tools?",
+      answer: "Sentio offers both pre-deployment code audits and post-deployment monitoring, creating a dual-layered approach to security. The platform is also integrated into AO, allowing audits to be stored immutably as atomic assets and enabling seamless security processes without centralized intervention."
+    },
+    {
+      question: "Who can use Sentio?",
+      answer: "Sentio is permissionless, meaning anyone can use it without project or legal barriers. It’s designed for developers, project teams, and the broader AO ecosystem looking to ensure top-tier security and monitoring for their blockchain applications."
+    },
+    {
+      question: "Are there specific types of projects Sentio is currently collaborating with?",
+      answer: "Yes, Sentio is actively collaborating with projects like Betteridea, an IDE for AO development, and Veritas, a funding platform for onboarding secure projects. These partnerships help us refine our services and meet the needs of various applications within the ecosystem."
+    },
+    {
+      question: "What is the role of Sentinels?",
+      answer: "Sentinels are monitoring agents deployed by Sentio to scan for vulnerabilities or suspicious activity within smart contracts post-deployment. They act as 'guardians' for on-chain processes, continuously analyzing the contract’s performance and sending alerts if issues arise."
+    },
+    {
+      question: "How does Sentio handle code audits?",
+      answer: "Sentio performs in-depth code audits pre-deployment, identifying vulnerabilities, enforcing coding standards, and ensuring compliance with security best practices. The audit results are then stored immutably on AO as atomic assets, adding a layer of trust and transparency."
+    },
+    {
+      question: "Will there be educational resources on security?",
+      answer: "Yes, Sentio aims to provide educational resources, such as webinars and guides, to raise awareness about blockchain security and best practices. We believe that empowering developers with knowledge is key to a safer ecosystem."
+    },
+    {
+      question: "What are the future goals for Sentio?",
+      answer: "Sentio plans to expand its Sentinels to monitor bridges and automated bots, enhance its code auditing capabilities, and promote security education within the blockchain community, all while growing partnerships across the ecosystem."
+    }
+
   ];
 
   return (

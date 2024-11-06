@@ -15,6 +15,7 @@ import Aboutus from './Pages/Aboutus';
 import Certificate from './Pages/Certificate';
 import Faucetspage from './Pages/Faucetspage';
 import SetupPage from './Pages/Setup';
+import NoteBookPage from './Pages/Notebook';
 
 function App() {
   useEffect(() => {
@@ -37,6 +38,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/wait" element={<Waitlist />} />
           <Route path="/offchain" element={<Offchain />} />
+          <Route path = "/offchain/notebook" element={<NoteBookPage/>} />
           <Route path="/onchain" element={<SentinelProcess />} />
           <Route path="/report-details" element={<ReportDetailsPage />} />
           <Route path="/dashboard" element={<Dashboard />} />
@@ -44,6 +46,7 @@ function App() {
           <Route path="/about" element={<Aboutus />} />
           <Route path="/certificates" element={<Certificate/>} />
           <Route path="/faucets" element={<Faucetspage/>} />
+          
         </Routes>
         <Analytics />
       </BrowserRouter>

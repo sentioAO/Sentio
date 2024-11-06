@@ -1,12 +1,10 @@
 import { createDataItemSigner, message } from "@permaweb/aoconnect";
 import { RECIEPIENT_WALLET, TOKEN_PROCESS } from "./var";
 
+
 // @ts-expect-error - window.arweaveWallet is not defined
 export const handleAirDrop = async (walletAddress: string, wallet) => {
-    // const response = await axios.post('http://localhost:3000/api/process/airdrop', {
-    //     walletid: walletAddress
-    // })
-    // console.log(response.data);
+ 
     await window.arweaveWallet.connect(["SIGN_TRANSACTION"]);
     try {
         const messageid = await message({

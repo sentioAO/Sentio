@@ -1,5 +1,6 @@
 .app-background {
-  background-color: #080708;
+  background: linear-gradient(195deg, #080708 , #1a0842 100%);
+  /* background: #090708; */
   overflow: auto;
 }
 
@@ -8,7 +9,10 @@
 }
 
 .gradient-button {
-  background: linear-gradient(60deg, #9039D7, #6C3AE1);
+  /* background: linear-gradient(60deg, #9039D7, #6C3AE1); */
+  background: linear-gradient(20deg, #080708, #6C3AE1 20%);
+  /* background-color: #090708; */
+
 }
 
 .CodeMirror.cm-s-dracula {
@@ -18,7 +22,7 @@
   /* Add rounded corners */
 }
 
-.gradient-button {
+.purple-gradient-button {
   background: linear-gradient(60deg, #9039D7, #6C3AE1);
 }
 

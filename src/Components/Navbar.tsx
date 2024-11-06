@@ -129,6 +129,10 @@ const Navbar: React.FC<NavbarProps> = ({ faqRef, howItWorksRef, switchNetRef }) 
                         >
                             Faucet
                         </button>
+                        <button
+                            onClick={() => { window.location.href = "https://docs_sentio-app.ar-io.dev"; }}>
+                            Docs
+                        </button>
                     </>
                 ) : (
                     <>

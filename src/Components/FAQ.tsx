@@ -52,7 +52,7 @@ const FAQSection = forwardRef<HTMLDivElement>((_, ref) => {
           {faqs.map((faq, index) => (
             <details
               key={index}
-              className="group rounded-lg border border-[#6C3AE1] p-4 bg-[#1a1a1a] overflow-hidden"
+              className="group rounded-xl  border border-[#6C3AE1] p-4 bg-[#1a1a1a] overflow-hidden"
             >
               <summary className="flex justify-between items-center cursor-pointer font-medium text-lg text-white">
                 <span>{faq.question}</span>

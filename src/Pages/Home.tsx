@@ -118,7 +118,7 @@ const Home: React.FC = () => {
               variants={buttonVariant}
             >
               <button
-                className="px-10 py-3 text-white bg-[#9966FF] mt-7 z-10 rounded-xl font-bold text-lg"
+                className="px-10 py-3 text-white purple-gradient-button mt-7 z-10 rounded-xl font-bold text-lg"
                 onClick={scrollToFeatures}
               >
                 Get Started

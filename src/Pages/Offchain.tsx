@@ -32,6 +32,14 @@ const Offchain = () => {
   const [files, setFiles] = useState<string[]>([]);
   const [selectedFile, setSelectedFile] = useState('');
   const [importError, setImportError] = useState('');
+  const textVariant = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.8, ease: [0.43, 0.13, 0.23, 0.96] },
+    },
+  };
 
   const handleCodeChange = (newValue: string) => {
     setCode(newValue);
@@ -213,7 +221,30 @@ const Offchain = () => {
       {/* <DotPatternHover> */}
       <div className="app-background min-h-screen w-full flex flex-col items-center">
         <Navbar />
+
+
+       
+
         <DotPatternHover>
+        <motion.div
+          className="flex flex-col justify-center items-center text-center mb-16 mt-24"
+          initial="hidden"
+          animate="visible"
+        variants={textVariant}
+        >
+
+          <p className="text-white text-2xl md:text-5xl font-extralight mt-2 md:mt-4" style={{ fontFamily: "'Roboto'" }}>
+            With Code Audits, you need to be sure that your code <br />is secure and free from vulnerabilities
+            <motion.span
+              className="inline-block px-2 py-1 font-extrabold text-[#9966ff] rounded-lg"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 1, ease: [0.43, 0.13, 0.23, 0.96], delay: 0.3 }}
+            >
+              before deployment.
+            </motion.span>
+          </p>
+        </motion.div>
           <div className="flex p-10 w-full justify-center flex-col items-center">
             {showProgress && !report ? (
               <div className="relative w-full">
@@ -261,7 +292,7 @@ const Offchain = () => {
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.3 }}
-                  className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md"
+                  className="bg-white text-black p-6 rounded-lg shadow-lg w-full max-w-md"
                 >
                   <h2 className="text-xl text-[#9966ff] font-semibold mb-4">Select a Repository</h2>
                   <select
@@ -300,7 +331,7 @@ const Offchain = () => {
                   )}
                   <div className="flex justify-end space-x-2 mt-4">
                     <button
-                      className="bg-gray-300 text-gray-800 px-4 py-2 rounded hover:bg-gray-400"
+                      className="gradient-button text-white  px-4 py-2 rounded hover:bg-gray-400"
                       onClick={() => setIsModalOpen(false)}
                     >
                       Cancel
@@ -316,8 +347,8 @@ const Offchain = () => {
               </div>
             )}
 
-            <button
-              className={`gradient-button text-white font-medium px-4 py-2 rounded-md border border-gray-600 shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition duration-150 ${code.trim() !== '' ? 'opacity-50 cursor-not-allowed' : ''}`}
+            {<button
+              className={`gradient-button text-white font-medium px-4 py-2 rounded-xl mt-4 border border-gray-600 shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition duration-150 ${code.trim() !== '' ? 'opacity-50 cursor-not-allowed' : ''}`}
               onClick={handleGitHubImport}
               disabled={code.trim() !== ''}
             >
@@ -325,11 +356,11 @@ const Offchain = () => {
                 <path d="M8 0C3.58 0 0 3.58 0 8a8 8 0 005.47 7.6c.4.08.55-.17.55-.38v-1.34c-2.23.48-2.69-1.07-2.69-1.07-.36-.91-.88-1.15-.88-1.15-.72-.49.05-.48.05-.48.8.06 1.22.82 1.22.82.71 1.22 1.87.87 2.33.66.07-.51.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.97 0-.88.31-1.6.82-2.16-.08-.2-.36-1.02.08-2.12 0 0 .67-.22 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.52-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.28.82 2.16 0 3.09-1.87 3.76-3.65 3.96.29.25.54.74.54 1.5v2.22c0 .21.15.46.55.38A8.01 8.01 0 0016 8c0-4.42-3.58-8-8-8z" />
               </svg>
               Import from GitHub
-            </button>
+            </button>}
           </div>
         </DotPatternHover>
       </div >
-      <div className="app-background">
+      <div className="">
 
         <Footer />
       </div>

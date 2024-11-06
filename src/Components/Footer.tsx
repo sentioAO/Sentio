@@ -8,7 +8,7 @@ const Footer = () => {
     const navigate = useNavigate();
 
     return (
-        <div className=" text-white p-6 w-full">
+        <div className="app-background text-white p-6 w-full">
             <div className="max-w-[90%] lg:max-w-2/3 mx-auto flex justify-between items-center flex-col lg:flex-row gap-6 lg:gap-0">
                 
                 {/* Logo and Name Side by Side */}
@@ -26,7 +26,7 @@ const Footer = () => {
                 </div>
 
                 {/* Social Media Icons */}
-                <div className="flex gap-4 text-2xl">
+                <div className="flex gap-4 text-2xl items-center">
                     <a href="https://twitter.com/sentio_AR" target="_blank" rel="noopener noreferrer">
                         <FaTwitter className="hover:text-[#1DA1F2]" />
                     </a>

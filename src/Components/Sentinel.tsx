@@ -16,7 +16,7 @@ const Sentinel: React.FC<SentinelProps> = ({ processes, onClose, onSpawnSentinel
   const handleSpawn = () => {
     if (selectedProcessId) {
       onSpawnSentinel(selectedProcessId);
-      navigate(`/sentinel/${selectedProcessId}`); // Navigate to the Sentinel page with the selected process ID
+      navigate(`/setup/${selectedProcessId}`); // Navigate to the Sentinel page with the selected process ID
     }
   };
 

@@ -34,30 +34,32 @@ export const DotPatternHover = ({
       onMouseMove={handleMouseMove}
     >
       <div className="absolute inset-0 pointer-events-none opacity-50 app-background dark:bg-dot-thick-neutral-600" />
-      
+
       <motion.div
         className="pointer-events-none bg-dot-thick-indigo-500 dark:bg-dot-thick-indigo-500 absolute inset-0 opacity-0 transition duration-300 group-hover:opacity-100"
         style={{
           WebkitMaskImage: useMotionTemplate`
-            radial-gradient(
-              200px circle at ${mouseX}px ${mouseY}px,
-              black 0%,
-              transparent 100%
-            )
-          `,
+        radial-gradient(
+          200px circle at ${mouseX}px ${mouseY}px,
+          black 0%,
+          transparent 100%
+        )
+      `,
           maskImage: useMotionTemplate`
-            radial-gradient(
-              200px circle at ${mouseX}px ${mouseY}px,
-              black 0%,
-              transparent 100%
-            )
-          `,
+        radial-gradient(
+          200px circle at ${mouseX}px ${mouseY}px,
+          black 0%,
+          transparent 100%
+        )
+      `,
         }}
       />
-      
-      <div className={cn("relative z-20 text-white", className)}>
+
+      {/* Remove h-screen, set min-h-screen or a custom height */}
+      <div className={cn("relative z-50 min-h-screen w-full text-white", className)}>
         {children}
       </div>
     </div>
+
   );
 };

@@ -24,10 +24,10 @@ const Onchain = () => {
     const address = useActiveAddress();
     const [processes, setProcesses] = useState<{ id: string; tags: Tag[] }[]>([]);
     const [loading, setLoading] = useState(true); // Add loading state
-    const navigate=useNavigate()
+    const navigate = useNavigate()
     useEffect(() => {
-        const walletConnected=localStorage.getItem("wallet_kit_strategy_id")
-        if(!walletConnected){
+        const walletConnected = localStorage.getItem("wallet_kit_strategy_id")
+        if (!walletConnected) {
             navigate("/")
         }
         const fetchProcesses = async () => {
@@ -48,36 +48,41 @@ const Onchain = () => {
         if (address) {
             fetchProcesses();
         }
-    }, [address,navigate]);
+    }, [address, navigate]);
     const faqRef = useRef<HTMLDivElement | null>(null);  // Create ref for FAQ section
     const howItWorksRef = useRef<HTMLDivElement | null>(null); // Create ref for "How it works"
 
     return (
-        <div className="app-background flex-grow min-h-screen flex flex-col">
-        <Navbar faqRef={faqRef} howItWorksRef={howItWorksRef} />
+        <>
+            <div className="app-background flex-grow min-h-screen flex flex-col">
+                <Navbar faqRef={faqRef} howItWorksRef={howItWorksRef} />
 
-            <div className="flex justify-center items-center py-3">
-                <h1 className="text-white font-bold text-center text-3xl tracking-widest" style={{ fontFamily: "'Roboto'" }}>
-                    CHECK YOUR PROCESSES
-                </h1>
-            </div>
+                <div className="flex justify-center items-center py-3">
+                    <h1 className="text-white font-bold text-center text-3xl tracking-widest" style={{ fontFamily: "'Roboto'" }}>
+                        CHECK YOUR PROCESSES
+                    </h1>
+                </div>
 
-            <div className="flex flex-col items-center w-full mt-5 space-y-4">
-                {loading ? (
-                    <div className="flex justify-center items-center">
-                        {/* Spinner component or spinner CSS */}
-                        <div className="loader"></div> {/* Example class name for spinner */}
-                    </div>
-                ) : processes.length > 0 ? (
-                    processes.map((process, index) => (
-                        <ProcessCard key={index} process={process} onCopy={() => { /* Add your onCopy logic here */ }} />
-                    ))
-                ) : (
-                    <p className="text-white">No processes available.</p>
-                )}
+                <div className="flex flex-col items-center w-full mt-5 space-y-4">
+                    {loading ? (
+                        <div className="flex justify-center items-center">
+                            {/* Spinner component or spinner CSS */}
+                            <div className="loader"></div> {/* Example class name for spinner */}
+                        </div>
+                    ) : processes.length > 0 ? (
+                        processes.map((process, index) => (
+                            <ProcessCard key={index} process={process} onCopy={() => { /* Add your onCopy logic here */ }} />
+                        ))
+                    ) : (
+                        <p className="text-white">No processes available.</p>
+                    )}
+                </div>
             </div>
-            <Footer/>
-        </div>
+            <div>
+
+                <Footer />
+            </div>
+        </>
     );
 };
 

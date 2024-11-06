@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg version="1.1" viewBox="0 0 2000 2000" width="500" height="500" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    /* Blinking animation */
+    .blink {
+      animation: blink-animation 2s steps(7, start) infinite;
+    }
+
+    @keyframes blink-animation {
+      50% {
+        opacity: 0;
+      }
+    }
+  </style>
+  
+  <!-- Apply the blink class to paths for the effect -->
+  <path class="blink" transform="translate(995,434)" d="m0 0h3l-2 94-1 26-7 8-185 185h-2l1 4 66 66 4-1 3-3h2l2-4 97-97 2-3h3v116l-7 8-45 45 68 68 2 5 1 47v72l-7-6-103-103-7-8-202-202 2-4 8-8 6-5 2-3h2l2-4h2l2-4h2l2-4h2l2-4h2l2-4 4-4h2l2-4h2l2-4h2l2-4 258-258z" fill="#9261FB"/>
+  <path class="blink" transform="translate(1057,1008)" d="m0 0 4 2 47 47 7 8 248 248-3 5-311 311-1-1 1-25v-19l-1-47v-26l7-8 188-188-6-7-62-62-5 3-9 10-95 95h-2l-1-81-1-20v-13l9-10 43-43-1-3-56-56-1-2z" fill="#9261FB"/>
+  <path class="blink" transform="translate(1035,716)" d="m0 0 4 2 106 106 5 6 6 5 7 8 5 4 7 8 5 4 7 8 310 310-1 4-53 53-2 3-4-1-285-285v-2l-4-2v-2l-4-2v-2l-4-2-4-4v-2l-4-2v-2l-4-2-8-8v-2l-4-2-4-5-4-3v-2h-2l-7-8-6-5-7-8-52-52v-101z" fill="#9261FB"/>
+  <path class="blink" transform="translate(604,827)" d="m0 0 4 1 25 25v2h2l6 7 283 283 7 8 71 71 1 2 1 82 1 36-4-2-28-28-5-6-8-7-22-22-6-7-286-286v-2l-4-2v-2l-4-2-8-8v-2l-4-2v-2l-4-2-7-7-6-7-7-6-5-6-6-5-6-7-33-33-5-4v-4l8-7 38-38 7-8z" fill="#9261FB"/>
+  <path class="blink" transform="translate(708,1228)" d="m0 0 4 2 7 7v2l4 2 43 43 4 5 8 7 11 12 206 206 2 101v19l-4-2-7-8-202-202-4-5-8-7v-2l-3-1-5-6-4-3v-2l-4-2-7-8-99-99 2-4 8-7z" fill="#9261FB"/>
+  <path class="blink" transform="translate(1049,433)" d="m0 0 4 2 9 9 2 1v2l4 2 16 16v2h2l7 8 300 300-1 5-10 9-7 8-4 4h-2l-2 4-12 12h-2l-2 4-10 10-6 5-285-285v-104z" fill="#9261FB"/>
+</svg>

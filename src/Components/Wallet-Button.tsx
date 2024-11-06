@@ -7,10 +7,10 @@ const Wallet = () => {
 
 
     return (
-        <div className='border border-[#757373] bg-[#9966ff] rounded-xl p-1'>
+        <div className='border border-[#757373] gradient-button rounded-xl p-1'>
             <ConnectButton
                 accent="rgb(63, 63, 63 ,0)"
-                profileModal={true}
+                profileModal={false}
                 showBalance={false}
             />
         </div>

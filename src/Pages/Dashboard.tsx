@@ -5,8 +5,10 @@ import axios from "axios";
 import Navbar from "../Components/Navbar";
 import ProcessCard from "../Components/ProcessCard";
 import SentinelDemo from "../Components/SentinelDemo";
+
 // import DotPattern from "../Components/ui/dot-pattern";
 // import { cn } from "../lib/utils";
+
 import Sentinel from "../Components/Sentinel"; // Import the Sentinel component
 import { DotPatternHover } from "../Components/ui/Hoverdots";
 import Footer from "../Components/Footer";
@@ -73,18 +75,15 @@ export default function Dashboard() {
   };
 
   const handleProcessSelection = (processId: string) => {
-    if (selectedProcesses.includes(processId)) {
-      setSelectedProcesses(selectedProcesses.filter(id => id !== processId));
-    } else {
-      setSelectedProcesses([...selectedProcesses, processId]);
-    }
+    setSelectedProcesses(prevSelected =>
+      prevSelected.includes(processId)
+        ? prevSelected.filter(id => id !== processId)
+        : [...prevSelected, processId]
+    );
   };
 
-  // const handleActivateSentinel = () => {
-  //   setShowSentinelDemo(true);
-  // };
-
   return (
+
     <div className="app-background text-white min-h-screen" style={{ fontFamily: "'Roboto'" }}>
 
       <div className="flex justify-center">
@@ -178,6 +177,7 @@ export default function Dashboard() {
       </DotPatternHover>
       <Footer/>
     </div>
+
 
   );
 }

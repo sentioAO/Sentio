@@ -13,7 +13,7 @@ const CodeEditor: React.FC<{ value: string, onChange: (value: string) => void, o
 
     return (
         <div
-            className="editor-container rounded-xl shadow-md max-w-4xl w-full"
+            className="items-center justify-center rounded-xl shadow-md max-w-4xl w-full"
             style={{
                 background: 'linear-gradient(145deg, #1F1F1F, #141414)', // Outer gradient background
                 padding: '20px',
@@ -35,7 +35,7 @@ const CodeEditor: React.FC<{ value: string, onChange: (value: string) => void, o
                 <h2 className="text-xl font-bold">SENTIO ANALYSIS</h2>
                 <button
                     onClick={onAnalyze}
-                    className="border border-[#a09e9e] rounded-xl p-1 px-5 text-white font-semibold hover:bg-black"
+                    className="gradient-button rounded-xl p-1 px-5 text-white font-semibold hover:bg-black"
                 >
                     Analyze
                 </button>

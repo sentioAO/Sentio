@@ -5,13 +5,14 @@ import { DotPatternHover } from '../Components/ui/Hoverdots';
 import Wallet from '../Components/Wallet-Button';
 import { useEffect, useState } from 'react';
 import { useActiveAddress } from 'arweave-wallet-kit';
-
 import { handleAirDrop } from '../lib/tokenServices';
+import AirdropGif from "../assets/Airdropping.gif";
 
 const Faucetspage = () => {
   const address = useActiveAddress();
   const [walletAddress, setWalletAddress] = useState<string | null>(null);
   const [testSentiBalance, setTestSentiBalance] = useState<number | null>(null);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (address) {
@@ -22,7 +23,6 @@ const Faucetspage = () => {
   }, [address]);
 
   const getTokenBalance = async () => {
-    // Call the function to get the token balance
     // @ts-expect-error - window.arweaveWallet is not defined
     await window.arweaveWallet.connect(["ACCESS_TOKENS"]);
     // @ts-expect-error - window.arweaveWallet is not defined
@@ -41,12 +41,16 @@ const Faucetspage = () => {
   };
 
   const handleAirDropWithBalanceUpdate = async (walletAddress: string) => {
+    setLoading(true); // Start loading
     await handleAirDrop(walletAddress, window.arweaveWallet);
-    getTokenBalance();
+    setTimeout(() => {
+      getTokenBalance();
+      setLoading(false); // Stop loading after 5 seconds
+    }, 3000);
   };
 
   return (
-    <div className='app-background w-full h-screen flex flex-col items-center
+   <div className='app-background w-full h-screen flex flex-col items-center
      gap-8 space-y-8 '>
 
 
@@ -155,8 +159,8 @@ const Faucetspage = () => {
   //       </motion.div>
   //     </div>
 
-  //   </>
-  // );
+
+
 };
 
 export default Faucetspage;

@@ -150,7 +150,7 @@ const SetupPage: React.FC = () => {
                                 <button
                                     type="button"
                                     onClick={handleSpawnSentinel}
-                                    className='ml-4 px-6 py-2 bg-[#9966ff] hover:bg-[#8a5cd9] text-white rounded-md mt-7'
+                                    className='ml-4 px-6 py-2 gradient-button text-white rounded-md mt-7'
                                     disabled={!!sentinelId}
                                 >
                                     Spawn Sentinel
@@ -186,7 +186,7 @@ const SetupPage: React.FC = () => {
                                 <button
                                     type="button"
                                     onClick={handleAddTag}
-                                    className='px-4 py-2 bg-[#9966ff] hover:bg-[#8a5cd9] text-white rounded-md'
+                                    className='px-4 py-2 gradient-button  text-white rounded-md'
                                 >
                                     Add Tag
                                 </button>
@@ -216,7 +216,7 @@ const SetupPage: React.FC = () => {
                             <button
                                 type="button"
                                 onClick={configureSentinel}
-                                className='w-full py-2 mt-2 bg-[#9966ff] hover:bg-[#8a5cd9] text-white rounded-md'
+                                className='w-full py-2 mt-2 gradient-button text-white rounded-md'
                             >
                                 Configure Sentinel
                             </button>

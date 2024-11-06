@@ -11,6 +11,8 @@ import { AnimatedBeamDemo } from '../Components/Graph';
 import SwitchNet from '../Components/SwitchNet';
 import FAQSection from '../Components/FAQ';
 import { DotPatternHover } from '../Components/ui/Hoverdots';
+// import './App.css';
+
 const Home: React.FC = () => {
   const navigate = useNavigate();
   const faqRef = useRef<HTMLDivElement | null>(null);  // Create ref for FAQ section
@@ -92,7 +94,7 @@ const Home: React.FC = () => {
               className={cn("[mask-image:radial-gradient(200px_circle_at_center,white,transparent)]")}
             />
                             <button
-                  className="px-10 py-3 text-white bg-[#9966FF] mt-7 z-10 rounded-xl font-bold text-lg"
+                  className="px-10 py-3 text-white gradient-button mt-7 z-10 rounded-xl font-bold text-lg"
                   onClick={navigateToSwitch}
                 >
                   Know More
@@ -138,14 +140,14 @@ const Home: React.FC = () => {
               <div className='flex justify-center'>
               <div className='flex gap-9'>
                 <button
-                  className="px-10 py-3 text-white bg-[#9966FF] mt-7 z-10 rounded-xl font-bold text-lg"
+                  className="px-10 py-3 text-white gradient-button mt-7 z-10 rounded-xl font-bold text-lg"
                   onClick={goToonchain}
                 >
                   Pre Deployment 
                 </button>
 
                 <button
-                  className="px-10 py-3 text-white bg-[#9966FF] mt-7 z-10 rounded-xl font-bold text-lg"
+                  className="px-10 py-3 text-white gradient-button mt-7 z-10 rounded-xl font-bold text-lg"
                   onClick={goTooffchain}
                 >
                   Post Deployment

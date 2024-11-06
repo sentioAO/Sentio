@@ -104,7 +104,7 @@ const SwitchNet: React.FC = () => {
                         <div className="mt-6 flex justify-center">
                             <motion.button
                                 onClick={handleNavigate}
-                                className="px-6 py-2 bg-[#6C3AE1] p-1 text-white font-semibold rounded-lg hover:bg-[#6c42e2]"
+                                className="px-6 py-2 gradient-button p-1  text-white font-semibold rounded-xl hover:bg-[#6c42e2]"
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
                             >

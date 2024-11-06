@@ -35,7 +35,7 @@ const CodeEditor: React.FC<{ value: string, onChange: (value: string) => void, o
                 <h2 className="text-xl font-bold">SENTIO ANALYSIS</h2>
                 <button
                     onClick={onAnalyze}
-                    className="border border-[#a09e9e] rounded-xl p-1 px-5 text-white font-semibold hover:bg-black"
+                    className="gradient-button rounded-xl p-1 px-5 text-white font-semibold hover:bg-black"
                 >
                     Analyze
                 </button>

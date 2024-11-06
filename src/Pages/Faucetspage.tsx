@@ -6,14 +6,14 @@ import Wallet from '../Components/Wallet-Button';
 import { useEffect, useState } from 'react';
 import { useActiveAddress } from 'arweave-wallet-kit';
 import { handleAirDrop } from '../lib/tokenServices';
-import AirdropGif from "../assets/Airdropping.gif";
+// import AirdropGif from "../assets/Airdropping.gif";
 
 const Faucetspage = () => {
   const address = useActiveAddress();
   const [walletAddress, setWalletAddress] = useState<string | null>(null);
   const [testSentiBalance, setTestSentiBalance] = useState<number | null>(null);
   const [loading, setLoading] = useState(false);
-
+  console.log(loading)
   useEffect(() => {
     if (address) {
       console.log('Wallet connected ' + address);

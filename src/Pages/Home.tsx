@@ -72,6 +72,8 @@ const Home: React.FC = () => {
 
 
 
+  const [showPostModal, setShowPostModal] = React.useState(false);
+  const [showPreModal, setShowPreModal] = React.useState(false);
 
   // Trigger animation when cards are in view
   React.useEffect(() => {
@@ -147,13 +149,78 @@ const Home: React.FC = () => {
                 <AnimatedBeamDemo />
               </div>
               <div className='flex justify-center gap-9'>
-                <button className="px-10 py-3 text-white gradient-button mt-7 rounded-xl font-bold text-lg" onClick={goToonchain}>
-                  Pre Deployment
-                </button>
-                <button className="px-10 py-3 text-white gradient-button mt-7 rounded-xl font-bold text-lg" onClick={goTooffchain}>
-                  Post Deployment
-                </button>
+                <div className="flex justify-center gap-9">
+                  <button
+                    className="purple-gradient-button mt-4 px-4 py-2 rounded-xl"
+                    onClick={() => setShowPostModal(true)}
+                  >
+                    Post Deployment
+                  </button>
+
+                  <button
+                    className="purple-gradient-button mt-4 px-4 py-2 rounded-xl"
+                    onClick={() => setShowPreModal(true)}
+                  >
+                    Pre Deployment
+                  </button>
+
+                  {/* Modal for Post Deployment */}
+                  {showPostModal && (
+                    <div className="fixed inset-0 bg-opacity-60 flex justify-center items-center z-50">
+                      <div className="modal-gradient p-10 rounded-xl text-white w-96 max-w-lg text-center shadow-lg">
+                        <h2 className="text-3xl font-semibold mb-6">Post Deployment</h2>
+                        <p className="text-lg mb-6 leading-relaxed">
+                          Set up monitoring on processes after deployment. Ensure that your application is secure and performing optimally after launch.
+                        </p>
+                        <div className="flex justify-center gap-6">
+                          <button
+                            className="purple-gradient-button px-6 py-3 rounded-lg text-lg font-medium"
+                            onClick={goToonchain}
+                          >
+                            Proceed
+                          </button>
+                          <button
+                            className="bg-gray-700 hover:bg-gray-600 px-6 py-3 rounded-lg text-lg font-medium"
+                            onClick={() => setShowPostModal(false)}
+                          >
+                            Close
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Modal for Pre Deployment */}
+                  {showPreModal && (
+                    <div className="fixed inset-0  bg-opacity-60 flex justify-center items-center z-50">
+                      <div className="modal-gradient p-10 rounded-xl text-white w-96 max-w-lg text-center shadow-lg">
+                        <h2 className="text-3xl font-semibold mb-6">Pre Deployment</h2>
+                        <p className="text-lg mb-6 leading-relaxed">
+                          If you are a developer, get your code audited before deployment. Ensure your project meets all security standards and is ready for production.
+                        </p>
+                        <div className="flex justify-center gap-6">
+                          <button
+                            className="purple-gradient-button px-6 py-3 rounded-lg text-lg font-medium"
+                            onClick={goTooffchain}
+                          >
+                            Proceed
+                          </button>
+                          <button
+                            className="bg-gray-700 hover:bg-gray-600 px-6 py-3 rounded-lg text-lg font-medium"
+                            onClick={() => setShowPreModal(false)}
+                          >
+                            Close
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+
               </div>
+
+
             </div>
           </motion.div>
 

@@ -16,7 +16,7 @@ const Navbar: React.FC<NavbarProps> = ({ faqRef, howItWorksRef, switchNetRef }) 
     const location = useLocation();
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [activeSection, setActiveSection] = useState<string>("");
-    console.log("activeSection", activeSection);
+    console.log('activeSection', activeSection);
     const sidebarVariants = {
         hidden: { x: "100%" },
         visible: {
@@ -201,4 +201,3 @@ const Navbar: React.FC<NavbarProps> = ({ faqRef, howItWorksRef, switchNetRef }) 
 };
 
 export default Navbar;
-

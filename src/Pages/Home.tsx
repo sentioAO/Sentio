@@ -7,12 +7,10 @@ import Footer from '../Components/Footer';
 import { DotPattern } from "../Components/ui/dot-pattern";
 import { cn } from '../../src/lib/utils';
 import { AnimatedBeamDemo } from '../Components/Graph';
-// import tick from "../assets/icons8-checkmark.svg";
+
 import SwitchNet from '../Components/SwitchNet';
 import FAQSection from '../Components/FAQ';
 import { DotPatternHover } from '../Components/ui/Hoverdots';
-// import './App.css';
-
 const Home: React.FC = () => {
   const navigate = useNavigate();
   const faqRef = useRef<HTMLDivElement | null>(null);  // Create ref for FAQ section
@@ -64,9 +62,9 @@ const Home: React.FC = () => {
 
   return (
     <>
+      
+      <div className="app-background h-screen flex w-full flex-col justify-center items-center overflow-auto">
 
-      <div className="app-background min-h-screen flex w-full flex-col justify-center items-center overflow-hidden">
-        
         <Navbar faqRef={faqRef} howItWorksRef={howItWorksRef} switchNetRef={switchNetRef} />
         <DotPatternHover>
           {/* Pass refs to Navbar */}
@@ -93,12 +91,12 @@ const Home: React.FC = () => {
             <DotPattern
               className={cn("[mask-image:radial-gradient(200px_circle_at_center,white,transparent)]")}
             />
-                            <button
-                  className="px-10 py-3 text-white gradient-button mt-7 z-10 rounded-xl font-bold text-lg"
-                  onClick={navigateToSwitch}
-                >
-                  Know More
-                </button>
+            <button
+              className="px-10 py-3 text-white bg-[#9966FF] mt-7 z-10 rounded-xl font-bold text-lg"
+              onClick={navigateToSwitch}
+            >
+              Know More
+            </button>
 
             <motion.div
               className="mt-8"
@@ -138,21 +136,21 @@ const Home: React.FC = () => {
                 </div>
               </div>
               <div className='flex justify-center'>
-              <div className='flex gap-9'>
-                <button
-                  className="px-10 py-3 text-white gradient-button mt-7 z-10 rounded-xl font-bold text-lg"
-                  onClick={goToonchain}
-                >
-                  Pre Deployment 
-                </button>
+                <div className='flex gap-9'>
+                  <button
+                    className="px-10 py-3 text-white bg-[#9966FF] mt-7 z-10 rounded-xl font-bold text-lg"
+                    onClick={goToonchain}
+                  >
+                    Pre Deployment
+                  </button>
 
-                <button
-                  className="px-10 py-3 text-white gradient-button mt-7 z-10 rounded-xl font-bold text-lg"
-                  onClick={goTooffchain}
-                >
-                  Post Deployment
-                </button>
-              </div>
+                  <button
+                    className="px-10 py-3 text-white bg-[#9966FF] mt-7 z-10 rounded-xl font-bold text-lg"
+                    onClick={goTooffchain}
+                  >
+                    Post Deployment
+                  </button>
+                </div>
 
               </div>
             </div>
@@ -174,8 +172,10 @@ const Home: React.FC = () => {
       </div >
       <div className='app-background'>
 
-        <Footer />
+      <Footer />
       </div>
+
+
 
     </>
   );

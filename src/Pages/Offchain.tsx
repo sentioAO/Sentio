@@ -212,14 +212,9 @@ const Offchain = () => {
     <>
       {/* <DotPatternHover> */}
       <div className="app-background min-h-screen w-full flex flex-col items-center">
+        <Navbar />
         <DotPatternHover>
-          <Navbar />
-          <div className="flex flex-col justify-center items-center mt-10 space-y-4 w-full max-w-4xl">
-            <div className="flex space-x-4">
-              <div className="mt-[-5]">
-              </div>
-            </div>
-
+          <div className="flex p-10 w-full justify-center flex-col items-center">
             {showProgress && !report ? (
               <div className="relative w-full">
                 <div className="absolute top-0 left-0 w-full h-2 bg-gray-800 rounded-lg overflow-hidden">
@@ -233,11 +228,16 @@ const Offchain = () => {
                 <div className="text-center mt-4 text-gray-300 font-mono">{progressText}</div>
               </div>
             ) : !report ? (
+
+
+
+
               <CodeEditor
                 value={code}
                 onChange={handleCodeChange}
                 onAnalyze={handleAnalyze}
               />
+
             ) : (
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -327,11 +327,11 @@ const Offchain = () => {
               Import from GitHub
             </button>
           </div>
-          <div className="absolute bottom-0 left-0 right-0">
-
-            <Footer />
-          </div>
         </DotPatternHover>
+      </div >
+      <div className="app-background">
+
+        <Footer />
       </div>
     </>
 

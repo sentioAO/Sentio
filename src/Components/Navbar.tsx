@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import Wallet from "./Wallet-Button";
 import logo from "../assets/logo.png";
 import { motion } from "framer-motion";
-import { FaBars, FaTimes } from "react-icons/fa";
+import {  FaTimes } from "react-icons/fa";
 
 interface NavbarProps {
     faqRef?: React.RefObject<HTMLElement>;
@@ -16,7 +16,7 @@ const Navbar: React.FC<NavbarProps> = ({ faqRef, howItWorksRef, switchNetRef }) 
     const location = useLocation();
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [activeSection, setActiveSection] = useState<string>("");
-
+    console.log("activeSection", activeSection);
     const sidebarVariants = {
         hidden: { x: "100%" },
         visible: {

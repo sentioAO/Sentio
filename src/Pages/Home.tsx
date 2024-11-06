@@ -7,7 +7,7 @@ import Footer from '../Components/Footer';
 import { DotPattern } from "../Components/ui/dot-pattern";
 import { cn } from '../../src/lib/utils';
 import { AnimatedBeamDemo } from '../Components/Graph';
-import tick from "../assets/icons8-checkmark.svg";
+// import tick from "../assets/icons8-checkmark.svg";
 import SwitchNet from '../Components/SwitchNet';
 import FAQSection from '../Components/FAQ';
 import { DotPatternHover } from '../Components/ui/Hoverdots';

@@ -172,8 +172,12 @@ export default function Dashboard() {
             </div>
           )}
         </DotPatternHover>
-        <Footer />
+        <div className="absolute bottom-0 right-0 left-0">
+
+          <Footer />
+        </div>
       </div>
+
     </>
   );
 }

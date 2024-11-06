@@ -11,6 +11,7 @@ import { AnimatedBeamDemo } from '../Components/Graph';
 import SwitchNet from '../Components/SwitchNet';
 import FAQSection from '../Components/FAQ';
 import { DotPatternHover } from '../Components/ui/Hoverdots';
+import Footer from '../Components/Footer';
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
@@ -133,6 +134,10 @@ const Home: React.FC = () => {
 
 
         </DotPatternHover >
+        <div className="relative bottom-0 right-0 left-0">
+
+          <Footer />
+        </div>
       </div>
     </>
   );
